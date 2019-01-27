@@ -37,7 +37,7 @@
                 tools:srcCompat="@tools:sample/avatars[3]" />
 
             <LinearLayout
-                android:id="@+id/formLayout"
+                android:id="@+id/linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -53,95 +53,102 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textSignup"
+                        android:id="@+id/textSignin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="Sign Up"
+                        android:text="Sign In"
                         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/inputName"
+                        android:id="@+id/loginEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:ems="10"
-                        android:hint="Name"
-                        android:inputType="textPersonName"
-                        android:singleLine="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textSignup" />
-
-                    <EditText
-                        android:id="@+id/inputEmail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:ems="10"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/inputName" />
+                        app:layout_constraintTop_toBottomOf="@+id/textSignin" />
 
                     <EditText
-                        android:id="@+id/inputPassword"
+                        android:id="@+id/loginPassword"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:ems="10"
                         android:hint="Password"
-
                         android:inputType="textPassword"
                         android:singleLine="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+                        app:layout_constraintTop_toBottomOf="@+id/loginEmail" />
 
-                    <EditText
-                        android:id="@+id/inputConfirmPwd"
-                        android:layout_width="0dp"
+                    <CheckBox
+                        android:id="@+id/checkRemember"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Remember Me"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+
+                    <TextView
+                        android:id="@+id/linkForgotPwd"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
-                        android:ems="10"
-                        android:hint="Confirm Password"
-                        android:inputType="textPassword"
-                        android:singleLine="true"
+                        android:text="Forgot Password"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+                        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <Button
-                android:id="@+id/submitSignup"
+                android:id="@+id/submitLogin"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Sign Up"
+                android:text="Sign In"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/linkSignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Sign up now"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formLayout" />
-
+                app:layout_constraintTop_toBottomOf="@+id/submitLogin" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
