@@ -1,4 +1,4 @@
-package com.example.kudaki.equipment;
+package com.example.kudaki.search;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private String[] dataset;
 
-    public EquipmentAdapter(String[] dataset) {
+    public SearchAdapter(String[] dataset) {
         this.dataset = dataset;
     }
 

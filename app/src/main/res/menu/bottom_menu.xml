@@ -12,13 +12,13 @@
         android:title="@string/title_search" />
 
     <item
-        android:id="@+id/navigation_equipment"
-        android:icon="@drawable/equipment"
-        android:title="@string/title_equipment" />
+        android:id="@+id/navigation_booking"
+        android:icon="@drawable/booking"
+        android:title="@string/title_booking" />
 
     <item
-        android:id="@+id/navigation_preparation"
-        android:icon="@drawable/preparation"
-        android:title="@string/title_preparation" />
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/profile"
+        android:title="@string/title_profile" />
 
 </menu>

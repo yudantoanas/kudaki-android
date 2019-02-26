@@ -7,6 +7,7 @@ import com.example.kudaki.model.user.User;
 public interface RegisterContract {
     interface View extends BaseView<Presenter> {
         void showOnRegisterSuccess(String message);
+        void showOnRegisterFailed(String message);
     }
 
     interface Presenter extends BasePresenter {

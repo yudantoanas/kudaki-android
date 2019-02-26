@@ -1,16 +1,22 @@
 package com.example.kudaki.model.user;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
+    @SerializedName("fullname")
     String fullname;
-    String email;
-    String password;
+    @SerializedName("title")
+    String title;
+    @SerializedName("body")
+    String body;
+    @SerializedName("phone")
     String phone;
 
     // constructor for creating user
     public User(String fullname, String email, String password, String phone) {
         this.fullname = fullname;
-        this.email = email;
-        this.password = password;
+        this.title = email;
+        this.body = password;
         this.phone = phone;
     }
 
@@ -22,20 +28,20 @@ public class User {
         this.fullname = fullname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getPassword() {
-        return password;
+    public String getBody() {
+        return body;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getPhone() {

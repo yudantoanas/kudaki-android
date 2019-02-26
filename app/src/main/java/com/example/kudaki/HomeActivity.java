@@ -2,9 +2,9 @@ package com.example.kudaki;
 
 import android.os.Bundle;
 
-import com.example.kudaki.equipment.EquipmentFragment;
-import com.example.kudaki.equipment.EquipmentPresenter;
 import com.example.kudaki.search.SearchFragment;
+import com.example.kudaki.search.SearchPresenter;
+import com.example.kudaki.booking.BookingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,22 +49,22 @@ public class HomeActivity extends AppCompatActivity {
                             .replace(R.id.main_container, searchFragment)
                             .commit();
 
-                    // new SearchPresenter();
+                    new SearchPresenter(searchFragment);
                     break;
-                case R.id.navigation_equipment:
+                case R.id.navigation_booking:
                     toolbar.setTitle("Equipment");
-                    EquipmentFragment equipmentFragment = new EquipmentFragment();
+                    BookingFragment bookingFragment = new BookingFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, equipmentFragment)
+                            .replace(R.id.main_container, bookingFragment)
                             .commit();
 
-                    new EquipmentPresenter(equipmentFragment);
+                    // new SearchPresenter();
                     break;
-                case R.id.navigation_preparation:
+                case R.id.navigation_profile:
                     toolbar.setTitle("Preparation");
-                    PreparationFragment preparationFragment = new PreparationFragment();
+                    ProfileFragment profileFragment = new ProfileFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, preparationFragment)
+                            .replace(R.id.main_container, profileFragment)
                             .commit();
 
                     // new PreparationPresenter();

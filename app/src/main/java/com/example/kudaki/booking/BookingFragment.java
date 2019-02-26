@@ -1,18 +1,20 @@
-package com.example.kudaki;
+package com.example.kudaki.booking;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.kudaki.R;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class PreparationFragment extends Fragment {
+public class BookingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_preparation, container,false);
+        return inflater.inflate(R.layout.fragment_booking, container,false);
     }
 }

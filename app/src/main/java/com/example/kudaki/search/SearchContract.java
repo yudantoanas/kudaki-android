@@ -1,9 +1,9 @@
-package com.example.kudaki.equipment;
+package com.example.kudaki.search;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
 
-public interface EquipmentContract {
+public interface SearchContract {
     interface View extends BaseView<Presenter> {
         void onSearchSuccess();
     }

@@ -1,10 +1,12 @@
 package com.example.kudaki.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kudaki.HomeActivity;
 import com.example.kudaki.R;
 import com.example.kudaki.model.user.User;
 
@@ -31,7 +33,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         // assign presenter to this activity
         registerPresenter = new RegisterPresenter(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         button.setOnClickListener(v -> contractPresenter
                 .doRegister(
                         // passsing user object
@@ -50,6 +56,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     @Override
     public void showOnRegisterSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void showOnRegisterFailed(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,12 +1,10 @@
-package com.example.kudaki.equipment;
+package com.example.kudaki.search;
 
-import android.view.View;
+public class SearchPresenter implements SearchContract.Presenter {
 
-public class EquipmentPresenter implements EquipmentContract.Presenter {
+    SearchContract.View equipmentView;
 
-    EquipmentContract.View equipmentView;
-
-    public EquipmentPresenter(EquipmentContract.View equipmentView) {
+    public SearchPresenter(SearchContract.View equipmentView) {
         this.equipmentView = equipmentView;
         equipmentView.setPresenter(this);
     }
