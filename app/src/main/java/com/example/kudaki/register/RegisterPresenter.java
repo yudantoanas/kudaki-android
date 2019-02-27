@@ -1,7 +1,5 @@
 package com.example.kudaki.register;
 
-import android.util.Log;
-
 import com.example.kudaki.model.user.User;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
@@ -31,8 +29,10 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 404) {
+                if (response.code() == 201 || response.code() == 200) {
                     registerView.showOnRegisterSuccess("Register Success");
+                } else {
+                    registerView.showOnRegisterSuccess("Register Failed");
                 }
             }
 
@@ -41,5 +41,13 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                 registerView.showOnRegisterFailed("Register Failed");
             }
         });
+    }
+
+    @Override
+    public boolean validatePassword(String password, String confirmPassword) {
+        if (password.equals(confirmPassword)){
+            return true;
+        }
+        return false;
     }
 }

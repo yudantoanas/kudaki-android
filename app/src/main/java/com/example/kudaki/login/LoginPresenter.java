@@ -1,7 +1,5 @@
 package com.example.kudaki.login;
 
-import android.util.Log;
-
 import com.example.kudaki.model.user.User;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
@@ -31,14 +29,12 @@ public class LoginPresenter implements LoginContract.Presenter {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("LOGIN", "onResponse: " + response.body());
-                String message = "email : "+ email + " & password : " + password;
-                loginView.showOnLoginSuccess(message);
+                loginView.showOnLoginFailed("Login Success");
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                loginView.showOnLoginFailed("failed login");
+                loginView.showOnLoginFailed("Login Failed");
             }
         });
     }

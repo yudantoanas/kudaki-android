@@ -5,19 +5,33 @@ import com.google.gson.annotations.SerializedName;
 public class User {
     @SerializedName("fullname")
     String fullname;
-    @SerializedName("title")
-    String title;
-    @SerializedName("body")
-    String body;
+    @SerializedName("email")
+    String email;
+    @SerializedName("password")
+    String password;
     @SerializedName("phone")
     String phone;
+    @SerializedName("address")
+    String address;
+    @SerializedName("location")
+    String location;
+    @SerializedName("postalCode")
+    String postalCode;
+
 
     // constructor for creating user
     public User(String fullname, String email, String password, String phone) {
         this.fullname = fullname;
-        this.title = email;
-        this.body = password;
+        this.email = email;
+        this.password = password;
         this.phone = phone;
+    }
+
+    // constructor for completing user profile
+    public User(String address, String location, String postalCode) {
+        this.address = address;
+        this.location = location;
+        this.postalCode = postalCode;
     }
 
     public String getFullname() {
@@ -28,20 +42,20 @@ public class User {
         this.fullname = fullname;
     }
 
-    public String getTitle() {
-        return title;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getBody() {
-        return body;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {

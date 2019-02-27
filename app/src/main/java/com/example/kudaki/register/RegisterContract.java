@@ -12,5 +12,6 @@ public interface RegisterContract {
 
     interface Presenter extends BasePresenter {
         void doRegister(User user);
+        boolean validatePassword(String password, String confirmPassword);
     }
 }

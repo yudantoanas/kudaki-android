@@ -15,6 +15,7 @@ import com.example.kudaki.register.RegisterContract;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,9 +48,20 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 .doLogin(email.getText().toString(), password.getText().toString()));
 
         linkSignup.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), RegisterActivity.class);
-            startActivity(intent);
+            Intent register = new Intent(v.getContext(), RegisterActivity.class);
+            // start register activity that will return a result.
+            startActivityForResult(register, 1);
         });
+    }
+
+    // on activity result
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // if result is OK, finish this activity
+        if (resultCode == RESULT_OK) {
+            this.finish();
+        }
     }
 
     @Override

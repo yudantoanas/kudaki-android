@@ -11,7 +11,7 @@ public interface PostData {
     Call<User> loginUser();
 
     // register user
-    @POST("/posts")
+    @POST("/signup")
     Call<User> registerUser();
 
     // forgot password
