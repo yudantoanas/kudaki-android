@@ -10,11 +10,6 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
     public void loadData() {
 
     }
@@ -25,5 +20,10 @@ public class SearchPresenter implements SearchContract.Presenter {
         // .....
 
         equipmentView.onSearchSuccess();
+    }
+
+    @Override
+    public void onBackClicked() {
+
     }
 }

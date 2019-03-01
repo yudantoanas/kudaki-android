@@ -1,13 +1,5 @@
 package com.example.kudaki.login;
 
-import com.example.kudaki.model.user.User;
-import com.example.kudaki.retrofit.PostData;
-import com.example.kudaki.retrofit.RetrofitClient;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View loginView;
 
@@ -17,25 +9,31 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void start() {
-        // check user if already logged in
-    }
-
-    @Override
     public void doLogin(String email, String password) {
-        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        loginView.showOnLoginSuccess("Success");
+        /*PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         Call<User> call = service.loginUser();
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                loginView.showOnLoginFailed("Login Success");
+                loginView.showOnLoginSuccess("Login Success");
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 loginView.showOnLoginFailed("Login Failed");
             }
-        });
+        });*/
+    }
+
+    @Override
+    public void linkSignupClicked() {
+        loginView.showSignupActivity(1);
+    }
+
+    @Override
+    public void onBackClicked() {
+        // confirm exit dialog / double tap to exit
     }
 }

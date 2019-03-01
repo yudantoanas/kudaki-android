@@ -1,6 +1,9 @@
 package com.example.kudaki;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 
 import com.example.kudaki.search.SearchFragment;
 import com.example.kudaki.search.SearchPresenter;
@@ -12,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.bottomNav) BottomNavigationView bottomNav;
 
@@ -72,5 +75,20 @@ public class HomeActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // destroy loginStatus preference
+        SharedPreferences loginStatus = getSharedPreferences("loginStatus", MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginStatus.edit();
+        editor.remove("isLogin");
+        editor.apply();
     }
 }

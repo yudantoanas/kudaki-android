@@ -7,9 +7,11 @@ public interface LoginContract {
     interface View extends BaseView<Presenter> {
         void showOnLoginSuccess(String message);
         void showOnLoginFailed(String message);
+        void showSignupActivity(int requestCode);
     }
 
     interface Presenter extends BasePresenter {
         void doLogin(String email, String Password);
+        void linkSignupClicked();
     }
 }
