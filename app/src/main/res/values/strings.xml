@@ -6,4 +6,8 @@
     <string name="title_search">Search</string>
     <string name="title_booking">Booking</string>
     <string name="title_profile">Profile</string>
+
+    <!-- FB API Creds -->
+    <string name="facebook_app_id">2637421442940973</string>
+    <string name="fb_login_protocol_scheme">fb2637421442940973</string>
 </resources>

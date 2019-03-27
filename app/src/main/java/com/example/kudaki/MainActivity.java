@@ -2,8 +2,6 @@ package com.example.kudaki;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 
 import com.example.kudaki.search.SearchFragment;
 import com.example.kudaki.search.SearchPresenter;
@@ -15,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BaseActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.bottomNav) BottomNavigationView bottomNav;
 
@@ -37,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
             // swtich to another fragment when clicked
             switch (menuItem.getItemId()){
-                case R.id.navigation_home:
+                case R.id.home:
                     toolbar.setTitle("Kudaki");
                     HomeFragment homeFragment = new HomeFragment();
                     getSupportFragmentManager().beginTransaction()
@@ -45,7 +43,7 @@ public class BaseActivity extends AppCompatActivity {
                             .commit();
                     // new HomePresenter();
                     break;
-                case R.id.navigation_search:
+                case R.id.explore:
                     toolbar.setTitle("Search");
                     SearchFragment searchFragment = new SearchFragment();
                     getSupportFragmentManager().beginTransaction()
@@ -54,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
 
                     new SearchPresenter(searchFragment);
                     break;
-                case R.id.navigation_booking:
+                case R.id.renting:
                     toolbar.setTitle("Equipment");
                     BookingFragment bookingFragment = new BookingFragment();
                     getSupportFragmentManager().beginTransaction()
@@ -63,7 +61,7 @@ public class BaseActivity extends AppCompatActivity {
 
                     // new SearchPresenter();
                     break;
-                case R.id.navigation_profile:
+                case R.id.profile:
                     toolbar.setTitle("Preparation");
                     ProfileFragment profileFragment = new ProfileFragment();
                     getSupportFragmentManager().beginTransaction()

@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.kudaki.BaseActivity;
+import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
 import com.example.kudaki.model.user.User;
 
@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @Override
     public void showOnRegisterSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        Intent home = new Intent(this, BaseActivity.class);
+        Intent home = new Intent(this, MainActivity.class);
         startActivity(home);
         setResult(RESULT_OK);
         finish();
