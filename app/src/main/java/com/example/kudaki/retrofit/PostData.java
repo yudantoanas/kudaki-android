@@ -7,12 +7,12 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface PostData {
-//    // login user
-//    @POST("/login")
+//    // activity_login user
+//    @POST("/activity_login")
 //    Call<User> loginUser();
 //
-//    // register user
-//    @POST("/register")
+//    // activity_register user
+//    @POST("/activity_register")
 //    Call<RetroUser> registerUser();
 //
 //    // forgot password

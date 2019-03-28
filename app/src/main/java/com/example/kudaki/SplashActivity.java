@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*// check if already login
+        /*// check if already activity_login
         SharedPreferences loginStatus = getSharedPreferences("loginStatus", MODE_PRIVATE);
         boolean isLogin = loginStatus.getBoolean("isLogin", false);
         // islogin = true, go to base activity
@@ -23,8 +23,8 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(home);
             finish();
         } else {
-            Intent login = new Intent(this, LoginActivity.class);
-            startActivityForResult(login, 1);
+            Intent activity_login = new Intent(this, LoginActivity.class);
+            startActivityForResult(activity_login, 1);
             finish();
         }*/
 

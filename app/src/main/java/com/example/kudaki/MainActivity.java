@@ -2,7 +2,13 @@ package com.example.kudaki;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.kudaki.event.EventFragment;
+import com.example.kudaki.explore.ExploreFragment;
+import com.example.kudaki.home.HomeFragment;
+import com.example.kudaki.profile.ProfileFragment;
+import com.example.kudaki.renting.RentingFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,13 +32,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mainPresenter = new MainPresenter(this);
 
         toolbar = getSupportActionBar();
 
         // load default fragment
-        toolbar.setTitle("Home");
+        toolbar.setTitle(R.string.home_ID);
+        loadFragment(new HomeFragment());
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -50,22 +59,26 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onResume();
 
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
-            Fragment fragment;
             switch (menuItem.getItemId()) {
                 case R.id.home:
-                    toolbar.setTitle("Home");
+                    toolbar.setTitle(R.string.home_ID);
+                    loadFragment(new HomeFragment());
                     return true;
                 case R.id.event:
-                    toolbar.setTitle("Events");
+                    toolbar.setTitle(R.string.event_ID);
+                    loadFragment(new EventFragment());
                     return true;
                 case R.id.explore:
-                    toolbar.setTitle("Explore");
+                    toolbar.setTitle(R.string.explore_ID);
+                    loadFragment(new ExploreFragment());
                     return true;
                 case R.id.renting:
-                    toolbar.setTitle("Renting");
+                    toolbar.setTitle(R.string.renting_ID);
+                    loadFragment(new RentingFragment());
                     return true;
                 case R.id.profile:
-                    toolbar.setTitle("Profile");
+                    toolbar.setTitle(R.string.profile_ID);
+                    loadFragment(new ProfileFragment());
                     return true;
             }
             return false;
@@ -75,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             mGoogleSignInClient.signOut(); // Signs out google account if any
 
             // logout code...
-            Intent login = new Intent(this, LoginActivity.class);
-            startActivity(login);
+            Intent activity_login = new Intent(this, LoginActivity.class);
+            startActivity(activity_login);
             finish();
         });*/
     }
@@ -86,13 +99,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.mainFrame, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         this.contractPresenter = presenter;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this, "Back Button is Pressed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -103,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // destroy loginStatus preference
-        SharedPreferences loginStatus = getSharedPreferences("loginStatus", MODE_PRIVATE);
-        SharedPreferences.Editor editor = loginStatus.edit();
-        editor.remove("isLogin");
-        editor.apply();
+//        // destroy loginStatus preference
+//        SharedPreferences loginStatus = getSharedPreferences("loginStatus", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = loginStatus.edit();
+//        editor.remove("isLogin");
+//        editor.apply();
     }
 }

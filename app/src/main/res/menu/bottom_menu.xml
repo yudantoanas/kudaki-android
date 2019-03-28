@@ -4,26 +4,26 @@
     <item
         android:id="@+id/home"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/title_home" />
+        android:title="@string/home_ID" />
 
     <item
         android:id="@+id/event"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/title_search" />
+        android:title="@string/event_ID" />
 
     <item
         android:id="@+id/explore"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/title_search" />
+        android:title="@string/explore_ID" />
 
     <item
         android:id="@+id/renting"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/title_booking" />
+        android:title="@string/renting_ID" />
 
     <item
         android:id="@+id/profile"
         android:icon="@mipmap/ic_launcher"
-        android:title="@string/title_profile" />
+        android:title="@string/profile_ID" />
 
 </menu>

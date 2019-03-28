@@ -2,7 +2,6 @@ package com.example.kudaki.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,11 +23,16 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
-    @BindView(R.id.loginEmail) EditText email;
-    @BindView(R.id.loginPassword) EditText password;
-    @BindView(R.id.submitLogin) Button button;
-    @BindView(R.id.linkSignup) TextView linkSignup;
-    @BindView(R.id.buttonLoginGoogle) SignInButton buttonLoginGoogle;
+    @BindView(R.id.loginEmail)
+    EditText email;
+    @BindView(R.id.loginPassword)
+    EditText password;
+    @BindView(R.id.submitLogin)
+    Button button;
+    @BindView(R.id.linkSignup)
+    TextView linkSignup;
+    @BindView(R.id.buttonLoginGoogle)
+    SignInButton buttonLoginGoogle;
 
     LoginPresenter loginPresenter;
     LoginContract.Presenter contractPresenter;
@@ -37,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
         // assign presenter to this activity
@@ -142,11 +146,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
          * Update your UI to display the Google Sign-in button.
          */
         if (account != null) {
-            buttonLoginGoogle.setVisibility(View.GONE);
             showOnLoginSuccess("Berhasil Login dengan Google");
-        } else {
-            // display google signin button
-            buttonLoginGoogle.setVisibility(View.VISIBLE);
         }
     }
 }
