@@ -3,76 +3,96 @@ package com.example.kudaki;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.kudaki.search.SearchFragment;
-import com.example.kudaki.search.SearchPresenter;
-import com.example.kudaki.booking.BookingFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar) Toolbar toolbar;
+public class MainActivity extends AppCompatActivity implements MainContract.View {
     @BindView(R.id.bottomNav) BottomNavigationView bottomNav;
+    ActionBar toolbar;
+
+    MainPresenter mainPresenter;
+    MainContract.Presenter contractPresenter;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
+        setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Kudaki");
-        setSupportActionBar(toolbar);
+        toolbar = getSupportActionBar();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, new HomeFragment())
-                .commit();
+        // load default fragment
+        toolbar.setTitle("Home");
 
-        // bottom nav
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestProfile()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
-            // swtich to another fragment when clicked
-            switch (menuItem.getItemId()){
+            Fragment fragment;
+            switch (menuItem.getItemId()) {
                 case R.id.home:
-                    toolbar.setTitle("Kudaki");
-                    HomeFragment homeFragment = new HomeFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, homeFragment)
-                            .commit();
-                    // new HomePresenter();
-                    break;
+                    toolbar.setTitle("Home");
+                    return true;
+                case R.id.event:
+                    toolbar.setTitle("Events");
+                    return true;
                 case R.id.explore:
-                    toolbar.setTitle("Search");
-                    SearchFragment searchFragment = new SearchFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, searchFragment)
-                            .commit();
-
-                    new SearchPresenter(searchFragment);
-                    break;
+                    toolbar.setTitle("Explore");
+                    return true;
                 case R.id.renting:
-                    toolbar.setTitle("Equipment");
-                    BookingFragment bookingFragment = new BookingFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, bookingFragment)
-                            .commit();
-
-                    // new SearchPresenter();
-                    break;
+                    toolbar.setTitle("Renting");
+                    return true;
                 case R.id.profile:
-                    toolbar.setTitle("Preparation");
-                    ProfileFragment profileFragment = new ProfileFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, profileFragment)
-                            .commit();
-
-                    // new PreparationPresenter();
-                    break;
+                    toolbar.setTitle("Profile");
+                    return true;
             }
-            return true;
+            return false;
         });
+
+        /*btnLogout.setOnClickListener(view -> {
+            mGoogleSignInClient.signOut(); // Signs out google account if any
+
+            // logout code...
+            Intent login = new Intent(this, LoginActivity.class);
+            startActivity(login);
+            finish();
+        });*/
+    }
+
+    @Override
+    public void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainFrame, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        this.contractPresenter = presenter;
     }
 
     @Override

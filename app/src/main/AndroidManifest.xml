@@ -10,9 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestActivity"
-            android:theme="@style/Theme.AppCompat.Light"/>
-        <activity android:name=".ZeroActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".login.LoginActivity"
