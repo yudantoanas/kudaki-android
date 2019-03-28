@@ -57,6 +57,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void linkForgotPwdClicked() {
+        loginView.showForgotPwdActivity();
+    }
+
+    @Override
     public void onBackClicked() {
         // confirm exit dialog / double tap to exit
     }

@@ -11,6 +11,7 @@ public interface LoginContract {
         void showOnLoginSuccess(String message);
         void showOnLoginFailed(String message);
         void showSignupActivity(int requestCode);
+        void showForgotPwdActivity();
         void updateUI(GoogleSignInAccount account);
     }
 
@@ -18,5 +19,6 @@ public interface LoginContract {
         void doLogin(String email, String Password);
         void doGoogleLogin(Intent data);
         void linkSignupClicked();
+        void linkForgotPwdClicked();
     }
 }

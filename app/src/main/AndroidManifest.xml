@@ -10,8 +10,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity android:name=".forgotpwd.ForgotPwdActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="Forgot Password"
+            android:parentActivityName=".login.LoginActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.LoginActivity"/>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".login.LoginActivity"
             android:label="Login" />

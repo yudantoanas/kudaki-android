@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
+import com.example.kudaki.forgotpwd.ForgotPwdActivity;
 import com.example.kudaki.register.RegisterActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,16 +24,12 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
-    @BindView(R.id.loginEmail)
-    EditText email;
-    @BindView(R.id.loginPassword)
-    EditText password;
-    @BindView(R.id.submitLogin)
-    Button button;
-    @BindView(R.id.linkSignup)
-    TextView linkSignup;
-    @BindView(R.id.buttonLoginGoogle)
-    SignInButton buttonLoginGoogle;
+    @BindView(R.id.loginEmail) EditText email;
+    @BindView(R.id.loginPassword) EditText password;
+    @BindView(R.id.submitLogin) Button button;
+    @BindView(R.id.linkSignup) TextView linkSignup;
+    @BindView(R.id.linkForgotPwd) TextView linkForgotPwd;
+    @BindView(R.id.buttonLoginGoogle) SignInButton buttonLoginGoogle;
 
     LoginPresenter loginPresenter;
     LoginContract.Presenter contractPresenter;
@@ -84,6 +81,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         linkSignup.setOnClickListener(v -> {
             contractPresenter.linkSignupClicked();
         });
+
+        linkForgotPwd.setOnClickListener(v -> {
+            contractPresenter.linkForgotPwdClicked();
+        });
     }
 
     // on activity result
@@ -134,6 +135,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
+    public void showForgotPwdActivity() {
+        Intent forgot = new Intent(this, ForgotPwdActivity.class);
+        startActivity(forgot);
+    }
+
+    @Override
     public void updateUI(GoogleSignInAccount account) {
         /**
          * if GoogleSignIn.getLastSignedInAccount returns a GoogleSignInAccount object (not null),
@@ -146,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
          * Update your UI to display the Google Sign-in button.
          */
         if (account != null) {
-            showOnLoginSuccess("Berhasil Login dengan Google");
+//            showOnLoginSuccess("Berhasil Login dengan Google");
         }
     }
 }
