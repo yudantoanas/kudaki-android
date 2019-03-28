@@ -1,12 +1,17 @@
 package com.example.kudaki;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.kudaki.event.EventFragment;
 import com.example.kudaki.explore.ExploreFragment;
 import com.example.kudaki.home.HomeFragment;
+import com.example.kudaki.login.LoginActivity;
 import com.example.kudaki.profile.ProfileFragment;
 import com.example.kudaki.renting.RentingFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -92,6 +97,27 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             startActivity(activity_login);
             finish();
         });*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuLogout :
+                mGoogleSignInClient.signOut(); // Signs out google account if any
+                // logout code...
+
+                Intent activity_login = new Intent(this, LoginActivity.class);
+                startActivity(activity_login);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

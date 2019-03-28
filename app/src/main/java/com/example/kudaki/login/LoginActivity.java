@@ -2,6 +2,7 @@ package com.example.kudaki.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -153,7 +154,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
          * Update your UI to display the Google Sign-in button.
          */
         if (account != null) {
-//            showOnLoginSuccess("Berhasil Login dengan Google");
+            showOnLoginSuccess("Berhasil Login dengan Google");
         }
     }
 }
