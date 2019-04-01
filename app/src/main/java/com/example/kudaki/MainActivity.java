@@ -1,10 +1,10 @@
 package com.example.kudaki;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
@@ -44,8 +45,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         toolbar = getSupportActionBar();
 
-        // load default fragment
+        // set default title
         toolbar.setTitle(R.string.home_ID);
+        // load default fragment
         loadFragment(new HomeFragment());
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -88,20 +90,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             }
             return false;
         });
-
-        /*btnLogout.setOnClickListener(view -> {
-            mGoogleSignInClient.signOut(); // Signs out google account if any
-
-            // logout code...
-            Intent activity_login = new Intent(this, LoginActivity.class);
-            startActivity(activity_login);
-            finish();
-        });*/
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
         return true;
     }
 
