@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     MainContract.Presenter contractPresenter;
     GoogleSignInClient mGoogleSignInClient;
 
+    int backPressCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,13 +98,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-
         return true;
     }
 
@@ -136,8 +131,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Toast.makeText(this, "Back Button is Pressed", Toast.LENGTH_SHORT).show();
+        backPressCount++;
+        if (backPressCount < 2) {
+            Toast.makeText(this, "Press back button two times", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Exiting app", Toast.LENGTH_SHORT).show();
+            super.onBackPressed();
+        }
     }
 
     @Override

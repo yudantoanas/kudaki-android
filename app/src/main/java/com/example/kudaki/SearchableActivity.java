@@ -19,7 +19,7 @@ public class SearchableActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log.d(SearchableActivity.class.getSimpleName(), "onCreate: "+query);
-            // searching method...
+
         }
     }
 }
