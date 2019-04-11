@@ -3,6 +3,13 @@ package com.example.kudaki.model.user;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    @SerializedName("success")
+    Boolean success;
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
     @SerializedName("fullname")
     String fullname;
     @SerializedName("email")
@@ -19,12 +26,17 @@ public class User {
     String postalCode;
 
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     // constructor for creating user
     public User(String fullname, String email, String password, String phone) {
         this.fullname = fullname;
+        this.phone = phone;
         this.email = email;
         this.password = password;
-        this.phone = phone;
     }
 
     // constructor for completing user profile

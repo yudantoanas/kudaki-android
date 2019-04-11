@@ -1,10 +1,12 @@
 package com.example.kudaki.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +32,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @BindView(R.id.submitLogin) Button button;
     @BindView(R.id.linkSignup) TextView linkSignup;
     @BindView(R.id.linkForgotPwd) TextView linkForgotPwd;
-    @BindView(R.id.buttonLoginGoogle) SignInButton buttonLoginGoogle;
+    @BindView(R.id.buttonLoginGoogle) ImageView buttonLoginGoogle;
 
+    ProgressDialog progressDialog;
     LoginPresenter loginPresenter;
     LoginContract.Presenter contractPresenter;
     GoogleSignInClient mGoogleSignInClient;
@@ -41,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        progressDialog = new ProgressDialog(this);
 
         // assign presenter to this activity
         loginPresenter = new LoginPresenter(this);
@@ -120,8 +125,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 //                .apply(); // save preference asynchronously
 
         // start home activity then destroy this activity
-        startActivity(home);
-        finish();
+//        startActivity(home);
+//        finish();
     }
 
     @Override
@@ -156,5 +161,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         if (account != null) {
             showOnLoginSuccess("Berhasil Login dengan Google");
         }
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle("Loading");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+    }
+
+    @Override
+    public void closeProgress() {
+        progressDialog.dismiss();
     }
 }
