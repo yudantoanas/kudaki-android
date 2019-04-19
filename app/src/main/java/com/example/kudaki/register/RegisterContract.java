@@ -10,6 +10,8 @@ public interface RegisterContract {
         void showOnRegisterSuccess(String message);
         void showOnRegisterFailed(String message);
         void showLoginActivity();
+        void showProgress();
+        void closeProgress();
     }
 
     interface Presenter extends BasePresenter {

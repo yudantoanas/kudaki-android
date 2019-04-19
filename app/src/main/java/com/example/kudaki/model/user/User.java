@@ -1,35 +1,15 @@
 package com.example.kudaki.model.user;
 
-import com.google.gson.annotations.SerializedName;
+import com.example.kudaki.model.BaseObject;
 
-public class User {
-    @SerializedName("success")
-    Boolean success;
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    @SerializedName("fullname")
+public class User extends BaseObject {
     String fullname;
-    @SerializedName("email")
     String email;
-    @SerializedName("password")
     String password;
-    @SerializedName("phone")
     String phone;
-    @SerializedName("address")
     String address;
-    @SerializedName("location")
     String location;
-    @SerializedName("postalCode")
     String postalCode;
-
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
     // constructor for creating user
     public User(String fullname, String email, String password, String phone) {

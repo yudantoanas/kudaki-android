@@ -1,5 +1,6 @@
 package com.example.kudaki.register;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -24,8 +25,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @BindView(R.id.registerPassword) EditText password;
     @BindView(R.id.registerConfirm) EditText confirm;
     @BindView(R.id.submitRegister) Button button;
-    @BindView(R.id.backNavigation) ImageView backNav;
+    @BindView(R.id.backNavRegister) ImageView backNav;
 
+    ProgressDialog progressDialog;
     RegisterPresenter registerPresenter;
     RegisterContract.Presenter contractPresenter;
 
@@ -34,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+
+        progressDialog = new ProgressDialog(this);
 
         // assign presenter to this activity
         registerPresenter = new RegisterPresenter(this);
@@ -44,7 +48,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onResume();
 
         button.setOnClickListener(view -> {
-            contractPresenter.doRegister(new User("name", "email", "password", "phone"));
+            contractPresenter.doRegister(new User(
+                    name.getText().toString(),
+                    email.getText().toString(),
+                    password.getText().toString(),
+                    phone.getText().toString()));
         });
 
         // navigate up to parent
@@ -83,5 +91,19 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle("Loading");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+    }
+
+    @Override
+    public void closeProgress() {
+        progressDialog.dismiss();
     }
 }

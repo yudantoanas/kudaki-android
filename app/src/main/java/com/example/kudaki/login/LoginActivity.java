@@ -3,7 +3,6 @@ package com.example.kudaki.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +17,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,8 +123,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 //                .apply(); // save preference asynchronously
 
         // start home activity then destroy this activity
-//        startActivity(home);
-//        finish();
+        startActivity(home);
+        finish();
     }
 
     @Override

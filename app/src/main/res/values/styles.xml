@@ -12,9 +12,17 @@
         <item name="android:windowBackground">@drawable/image_splash</item>
     </style>
 
+    <!-- Auth Title -->
+    <style name="AuthTitle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!-- Form EditText Theme -->
     <style name="FormEditText" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlActivated">@color/kudakiPrimary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ems">10</item>
     </style>
 
     <!-- Primary Button Theme -->

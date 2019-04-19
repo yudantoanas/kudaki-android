@@ -1,6 +1,5 @@
 package com.example.kudaki.login;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 
@@ -12,13 +11,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +42,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             public void onResponse(Call<User> call, Response<User> response) {
                 loginView.closeProgress();
                 if (response.body() != null) {
-                    if (response.body().getSuccess()) {
+                    if (response.body().isSuccess()) {
                         Log.d("LOGIN", "onResponse: berhasil login");
                         loginView.showOnLoginSuccess("Berhasil login");
                     }

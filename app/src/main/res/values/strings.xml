@@ -15,4 +15,6 @@
     <!-- Search -->
     <string name="searchable_hint">Search</string>
     <string name="LoginTitle_ID">Masuk</string>
+    <string name="SignupTitle_ID">Daftar</string>
+    <string name="ForgotTitle_ID">Lupa Password?</string>
 </resources>
