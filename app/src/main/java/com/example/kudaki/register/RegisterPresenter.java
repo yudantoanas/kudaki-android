@@ -12,6 +12,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public void doRegister(User user) {
+        // bypass register
         registerView.showOnRegisterSuccess("Success");
         /*PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         Call<RetroUser> call = service.registerUser(user);

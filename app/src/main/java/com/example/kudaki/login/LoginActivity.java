@@ -125,8 +125,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 //                .apply(); // save preference asynchronously
 
         // start home activity then destroy this activity
-//        startActivity(home);
-//        finish();
+        startActivity(home);
+        finish();
     }
 
     @Override

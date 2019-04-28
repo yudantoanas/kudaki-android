@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".renting.RentingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEquipment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/renting_ID" />
-
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:scrollbars="vertical" />
 </FrameLayout>

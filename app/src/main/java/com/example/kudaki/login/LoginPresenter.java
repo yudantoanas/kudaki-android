@@ -43,26 +43,30 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         loginView.showProgress();
 
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                loginView.closeProgress();
-                if (response.body() != null) {
-                    if (response.body().getSuccess()) {
-                        Log.d("LOGIN", "onResponse: berhasil login");
-                        loginView.showOnLoginSuccess("Berhasil login");
-                    }
-                } else {
-                    Log.d("LOGIN", "onResponse: gagal login");
-                    loginView.showOnLoginFailed("Gagal login");
-                }
-            }
+        // bypass login
+        loginView.showOnLoginSuccess("Berhasil login");
+        loginView.closeProgress();
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                loginView.closeProgress();
+//                if (response.body() != null) {
+//                    if (response.body().getSuccess()) {
+//                        Log.d("LOGIN", "onResponse: berhasil login");
+//                        loginView.showOnLoginSuccess("Berhasil login");
+//                    }
+//                } else {
+//                    Log.d("LOGIN", "onResponse: gagal login");
+//                    loginView.showOnLoginFailed("Gagal login");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override
