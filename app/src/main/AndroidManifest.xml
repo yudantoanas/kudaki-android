@@ -10,7 +10,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchableActivity"
+        <activity android:name=".renting.EquipmentDetailActivity"></activity>
+        <activity android:name=".cart.CartActivity" />
+        <activity
+            android:name=".SearchableActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
@@ -31,11 +34,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".login.LoginActivity" />
         </activity>
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchableActivity"/>
+                android:value=".SearchableActivity" />
         </activity>
         <activity
             android:name=".login.LoginActivity"
@@ -51,8 +53,8 @@
         <activity
             android:name=".register.RegisterActivity"
             android:label="Register"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:parentActivityName=".login.LoginActivity">
+            android:parentActivityName=".login.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -61,9 +63,7 @@
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
-
-        </activity>
+            android:theme="@style/SplashTheme" />
     </application>
 
 </manifest>

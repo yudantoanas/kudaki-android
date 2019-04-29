@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".renting.EquipmentDetailActivity">
+
+    <ImageView
+        android:id="@+id/eqDetailImage"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_dummy" />
+
+    <TextView
+        android:id="@+id/eqDetailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Equipment Title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/eqDetailImage"
+        app:layout_constraintTop_toBottomOf="@+id/eqDetailImage" />
+
+    <TextView
+        android:id="@+id/eqDetailPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp 20000/hari"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/eqDetailTitle"
+        app:layout_constraintTop_toBottomOf="@+id/eqDetailTitle" />
+
+    <ImageView
+        android:id="@+id/eqDetailRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/eqDetailPrice"
+        app:layout_constraintTop_toBottomOf="@+id/eqDetailPrice"
+        app:srcCompat="@drawable/ic_star" />
+
+    <ImageButton
+        android:id="@+id/eqDetailAdd"
+        style="@style/PrimaryButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="1dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/eqDetailRating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eqDetailTitle"
+        app:srcCompat="@drawable/ic_cart" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Description"
+        android:textColor="@color/kudakiPrimary"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/eqDetailRating"
+        app:layout_constraintTop_toBottomOf="@+id/eqDetailRating" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is description about equipment..."
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

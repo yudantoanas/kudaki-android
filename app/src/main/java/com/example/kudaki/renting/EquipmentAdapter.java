@@ -1,6 +1,7 @@
 package com.example.kudaki.renting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.example.kudaki.model.Equipment;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,13 +40,20 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.equipmentTitle.setText(equipmentList.get(position).getEquipmentTitle());
-        holder.equipmentPrice.setText(equipmentList.get(position).getEquipmentPrice());
+        holder.equipmentPrice.setText("Rp " + equipmentList.get(position).getEquipmentPrice() + "/hari");
         holder.rentalName.setText(equipmentList.get(position).getUserName());
 
         // Glide
         Glide.with(context)
                 .load(equipmentList.get(position).getImagePath())
                 .into(holder.equipmentImage);
+
+        holder.equipmentCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, EquipmentDetailActivity.class));
+            }
+        });
     }
 
     @Override
@@ -53,6 +62,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.equipmentCard) CardView equipmentCard;
         @BindView(R.id.equipmentTitle) TextView equipmentTitle;
         @BindView(R.id.equipmentPrice) TextView equipmentPrice;
         @BindView(R.id.rentalName) TextView rentalName;

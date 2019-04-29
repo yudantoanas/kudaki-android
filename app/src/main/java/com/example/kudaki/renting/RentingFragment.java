@@ -1,26 +1,28 @@
 package com.example.kudaki.renting;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kudaki.R;
-import com.example.kudaki.explore.MountainAdapter;
+import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.model.Equipment;
-import com.example.kudaki.model.mountain.Mountain;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +55,22 @@ public class RentingFragment extends Fragment {
         ));
 
         equipmentAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.renting_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.shopping_cart:
+                startActivity(new Intent(getActivity(), CartActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
