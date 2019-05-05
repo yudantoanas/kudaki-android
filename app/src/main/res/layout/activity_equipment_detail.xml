@@ -1,84 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".renting.EquipmentDetailActivity">
 
-    <ImageView
-        android:id="@+id/eqDetailImage"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_dummy" />
-
-    <TextView
-        android:id="@+id/eqDetailTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Equipment Title"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/eqDetailImage"
-        app:layout_constraintTop_toBottomOf="@+id/eqDetailImage" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/eqDetailPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rp 20000/hari"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/eqDetailTitle"
-        app:layout_constraintTop_toBottomOf="@+id/eqDetailTitle" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Reviews"
+            android:textColor="@color/kudakiPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/divider4"
+            app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
-    <ImageView
-        android:id="@+id/eqDetailRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/eqDetailPrice"
-        app:layout_constraintTop_toBottomOf="@+id/eqDetailPrice"
-        app:srcCompat="@drawable/ic_star" />
+        <TextView
+            android:id="@+id/eqDetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Equipment Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailImage"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailImage" />
 
-    <ImageButton
-        android:id="@+id/eqDetailAdd"
-        style="@style/PrimaryButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:elevation="1dp"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/eqDetailRating"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/eqDetailTitle"
-        app:srcCompat="@drawable/ic_cart" />
+        <ImageButton
+            android:id="@+id/eqDetailAdd"
+            style="@style/PrimaryButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="1dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="@+id/eqDetailRating"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/eqDetailTitle"
+            app:srcCompat="@drawable/ic_cart" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Description"
-        android:textColor="@color/kudakiPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/eqDetailRating"
-        app:layout_constraintTop_toBottomOf="@+id/eqDetailRating" />
+        <TextView
+            android:id="@+id/eqDetailPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 20000/hari"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailTitle"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailTitle" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is description about equipment..."
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Description"
+            android:textColor="@color/kudakiPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailRating"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailRating" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/eqDetailRentLoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bandung, Jawa Barat"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailRentName"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailRentName" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/eqDetailRentRating"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailRentRating"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailRentRating" />
+
+        <TextView
+            android:id="@+id/eqDetailRentProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="10"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/eqDetailRentRating"
+            app:layout_constraintTop_toTopOf="@+id/eqDetailRentName" />
+
+        <ImageView
+            android:id="@+id/eqDetailRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailPrice"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailPrice"
+            app:srcCompat="@drawable/ic_star" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Products"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/eqDetailRentProduct"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailRentProduct"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailRentProduct" />
+
+        <TextView
+            android:id="@+id/eqDetailRentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Rental ABC"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/eqDetailRentImg"
+            app:layout_constraintTop_toTopOf="@+id/eqDetailRentImg" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="@+id/eqDetailDesc"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailDesc"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailDesc" />
+
+        <TextView
+            android:id="@+id/eqDetailRentRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="5.0"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/divider3"
+            app:layout_constraintTop_toTopOf="@+id/eqDetailRentName" />
+
+        <ImageView
+            android:id="@+id/eqDetailImage"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image_dummy" />
+
+        <ImageView
+            android:id="@+id/eqDetailRentImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="@+id/divider3"
+            app:layout_constraintTop_toBottomOf="@+id/divider3"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/eqDetailDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="@+id/divider3"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailRentImg"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailRentImg" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eqDetailYourReview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/ownReviewImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/ic_launcher_round" />
+
+                <TextView
+                    android:id="@+id/ownReviewName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="John Doe"
+                    app:layout_constraintStart_toEndOf="@+id/ownReviewImage"
+                    app:layout_constraintTop_toTopOf="@+id/ownReviewImage" />
+
+                <TextView
+                    android:id="@+id/ownReviewText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                    app:layout_constraintStart_toStartOf="@+id/ownReviewName"
+                    app:layout_constraintTop_toBottomOf="@+id/ownReviewName" />
+
+                <TextView
+                    android:id="@+id/ownReviewScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.5"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ownReviewName" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ownReviewScore"
+                    app:layout_constraintEnd_toStartOf="@+id/ownReviewScore"
+                    app:layout_constraintTop_toTopOf="@+id/ownReviewScore"
+                    app:srcCompat="@drawable/ic_star" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detailReviewList"
+            android:layout_width="0dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/eqDetailYourReview"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailYourReview"
+            app:layout_constraintTop_toBottomOf="@+id/eqDetailYourReview" />
+
+        <TextView
+            android:id="@+id/detailProductScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="4.2 / 5.0"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/eqDetailRating"
+            app:layout_constraintStart_toEndOf="@+id/eqDetailRating"
+            app:layout_constraintTop_toTopOf="@+id/eqDetailRating" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

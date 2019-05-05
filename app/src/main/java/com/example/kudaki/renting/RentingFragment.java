@@ -80,6 +80,13 @@ public class RentingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_renting, container, false);
         ButterKnife.bind(this, view);
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         equipmentList = new ArrayList<>();
         equipmentAdapter = new EquipmentAdapter(getActivity(), equipmentList);
 
@@ -88,7 +95,5 @@ public class RentingFragment extends Fragment {
         loadEquipment();
 
         setHasOptionsMenu(true);
-        return view;
     }
-
 }

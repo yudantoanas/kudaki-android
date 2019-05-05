@@ -48,12 +48,9 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
                 .load(equipmentList.get(position).getImagePath())
                 .into(holder.equipmentImage);
 
-        holder.equipmentCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.startActivity(new Intent(context, EquipmentDetailActivity.class));
-            }
-        });
+        holder.equipmentCard.setOnClickListener(view -> context.startActivity(
+                new Intent(context, EquipmentDetailActivity.class))
+        );
     }
 
     @Override

@@ -10,7 +10,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".renting.EquipmentDetailActivity"></activity>
+        <activity android:name=".profile.EditPasswordActivity"
+            android:label="Ubah Kata Sandi"
+            android:parentActivityName=".setting.SettingActivity"/>
+        <activity
+            android:name=".profile.EditProfileActivity"
+            android:label="Pengaturan Profil"
+            android:parentActivityName=".setting.SettingActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".setting.SettingActivity" />
+        </activity>
+        <activity
+            android:name=".setting.SettingActivity"
+            android:label="Pengaturan"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".renting.EquipmentDetailActivity" />
         <activity android:name=".cart.CartActivity" />
         <activity
             android:name=".SearchableActivity"
