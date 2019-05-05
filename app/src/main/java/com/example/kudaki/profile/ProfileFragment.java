@@ -53,7 +53,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
-
         setHasOptionsMenu(true);
         return view;
     }
