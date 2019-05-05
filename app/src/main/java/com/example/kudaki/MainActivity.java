@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         });
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void loadFragment(Fragment fragment) {
