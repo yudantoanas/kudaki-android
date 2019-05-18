@@ -3,6 +3,7 @@ package com.example.kudaki.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.kudaki.model.user.User;
 import com.example.kudaki.retrofit.PostData;
@@ -33,19 +34,17 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String email, String password) {
-        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("email", email)
-                .addFormDataPart("password", password)
-                .build();
-        Call<User> call = service.loginUser(requestBody);
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
 
-        loginView.showProgress();
+        String data = user.validateUser();
+        Log.d("pesan", "doLogin: "+ data);
+//        loginView.showProgress();
 
-        // bypass login
-        loginView.showOnLoginSuccess("Berhasil login");
-        loginView.closeProgress();
+//        // bypass login
+//        loginView.showOnLoginSuccess("Berhasil login");
+//        loginView.closeProgress();
 
 //        call.enqueue(new Callback<User>() {
 //            @Override
