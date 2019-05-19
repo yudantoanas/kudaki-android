@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kudaki.R;
+import com.example.kudaki.adapter.MountainAdapter;
 import com.example.kudaki.model.mountain.Mountain;
 
 import java.util.ArrayList;

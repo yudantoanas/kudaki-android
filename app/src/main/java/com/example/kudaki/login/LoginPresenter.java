@@ -34,17 +34,17 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String email, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
+//        User user = new User();
+//        user.setEmail(email);
+//        user.setPassword(password);
+//
+//        String data = user.validateUser();
+//        Log.d("pesan", "doLogin: "+ data);
+        loginView.showProgress();
 
-        String data = user.validateUser();
-        Log.d("pesan", "doLogin: "+ data);
-//        loginView.showProgress();
-
-//        // bypass login
-//        loginView.showOnLoginSuccess("Berhasil login");
-//        loginView.closeProgress();
+        // bypass login
+        loginView.showOnLoginSuccess("Berhasil login");
+        loginView.closeProgress();
 
 //        call.enqueue(new Callback<User>() {
 //            @Override

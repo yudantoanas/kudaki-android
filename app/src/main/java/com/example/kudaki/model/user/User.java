@@ -78,6 +78,7 @@ public class User {
                     LoginResponse resp = response.body();
 
                     Data data = resp.getData();
+                    responseMsg = data.getToken();
                     Log.d("LOGIN", "token: " + data.getToken());
                 }
 

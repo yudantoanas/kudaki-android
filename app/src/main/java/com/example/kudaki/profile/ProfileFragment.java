@@ -9,6 +9,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.view.LayoutInflater;
@@ -19,14 +22,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kudaki.R;
+import com.example.kudaki.adapter.TabAdapter;
 import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.setting.SettingActivity;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
+    @BindView(R.id.profileTab) TabLayout profileTab;
+    @BindView(R.id.profileViewPager) ViewPager profileViewPAger;
 
+    TabAdapter adapter;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -53,6 +61,15 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
+
+        adapter = new TabAdapter(getChildFragmentManager());
+        adapter.addFragment(new PenggunaFragment(), "Pengguna");
+        adapter.addFragment(new PemilikFragment(), "Pemilik");
+        adapter.addFragment(new RekomendasiFragment(), "Rekomendasi");
+
+        profileViewPAger.setAdapter(adapter);
+        profileTab.setupWithViewPager(profileViewPAger);
+
         setHasOptionsMenu(true);
         return view;
     }
