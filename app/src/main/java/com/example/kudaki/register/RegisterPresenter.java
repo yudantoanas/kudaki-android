@@ -1,6 +1,17 @@
 package com.example.kudaki.register;
 
+import com.example.kudaki.model.response.Data;
+import com.example.kudaki.model.response.ErrorResponse;
+import com.example.kudaki.model.response.LoginResponse;
 import com.example.kudaki.model.user.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterPresenter implements RegisterContract.Presenter {
     private RegisterContract.View registerView;
@@ -12,22 +23,34 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public void doRegister(User user) {
-        // bypass register
-        registerView.showOnRegisterSuccess("Success");
-        /*PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-        Call<RetroUser> call = service.registerUser(user);
+        //.. showing progress
 
-        call.enqueue(new Callback<RetroUser>() {
+        user.validateUser().enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<RetroUser> call, Response<RetroUser> response) {
-                Log.d("REGISTER", "onResponse: "+response.code());
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.body() != null) {
+                    LoginResponse resp = response.body();
+
+                    Data data = resp.getData(); // simpan data.getToken di cache
+                    loginView.showOnLoginSuccess("Login Success");
+                } else {
+                    Gson gson = new GsonBuilder().create();
+                    ErrorResponse errors;
+                    try {
+                        errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
+                        loginView.showOnLoginFailed("Login Failed! "+ errors.getErrors().get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                loginView.closeProgress();
             }
 
             @Override
-            public void onFailure(Call<RetroUser> call, Throwable t) {
-                registerView.showOnRegisterFailed("Register Failed");
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+
             }
-        });*/
+        });
     }
 
     @Override

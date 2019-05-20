@@ -1,13 +1,10 @@
 package com.example.kudaki.profile;
 
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -22,8 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kudaki.R;
-import com.example.kudaki.adapter.TabAdapter;
-import com.example.kudaki.cart.CartActivity;
+import com.example.kudaki.adapter.ProfileTabAdapter;
 import com.example.kudaki.setting.SettingActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,9 +28,9 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class ProfileFragment extends Fragment {
     @BindView(R.id.profileTab) TabLayout profileTab;
-    @BindView(R.id.profileViewPager) ViewPager profileViewPAger;
+    @BindView(R.id.profileViewPager) ViewPager profileViewPager;
 
-    TabAdapter adapter;
+    ProfileTabAdapter adapter;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -62,13 +58,13 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
 
-        adapter = new TabAdapter(getChildFragmentManager());
+        adapter = new ProfileTabAdapter(getChildFragmentManager());
         adapter.addFragment(new PenggunaFragment(), "Pengguna");
         adapter.addFragment(new PemilikFragment(), "Pemilik");
         adapter.addFragment(new RekomendasiFragment(), "Rekomendasi");
 
-        profileViewPAger.setAdapter(adapter);
-        profileTab.setupWithViewPager(profileViewPAger);
+        profileViewPager.setAdapter(adapter);
+        profileTab.setupWithViewPager(profileViewPager);
 
         setHasOptionsMenu(true);
         return view;

@@ -44,7 +44,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onResume();
 
         button.setOnClickListener(view -> {
-            contractPresenter.doRegister(new User("name", "email", "password", "phone"));
+            contractPresenter.doRegister(new User(
+                    name.getText().toString(),
+                    email.getText().toString(),
+                    password.getText().toString(),
+                    phone.getText().toString()));
         });
 
         // navigate up to parent

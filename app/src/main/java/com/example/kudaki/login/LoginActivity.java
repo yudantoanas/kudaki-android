@@ -116,17 +116,17 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void showOnLoginSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        Intent home = new Intent(this, MainActivity.class);
-
-//        // set shared preference isLogin = true
-//        SharedPreferences sharedPreferences = this.getSharedPreferences("loginStatus",MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putBoolean("isLogin", true)
-//                .apply(); // save preference asynchronously
-
-        // start home activity then destroy this activity
-        startActivity(home);
-        finish();
+//        Intent home = new Intent(this, MainActivity.class);
+//
+////        // set shared preference isLogin = true
+////        SharedPreferences sharedPreferences = this.getSharedPreferences("loginStatus",MODE_PRIVATE);
+////        SharedPreferences.Editor editor = sharedPreferences.edit();
+////        editor.putBoolean("isLogin", true)
+////                .apply(); // save preference asynchronously
+//
+//        // start home activity then destroy this activity
+//        startActivity(home);
+//        finish();
     }
 
     @Override

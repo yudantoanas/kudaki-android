@@ -9,11 +9,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabAdapter extends FragmentStatePagerAdapter {
+public class ProfileTabAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    public TabAdapter(@NonNull FragmentManager fm) {
+    public ProfileTabAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
