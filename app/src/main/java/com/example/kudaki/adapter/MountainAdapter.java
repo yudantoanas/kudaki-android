@@ -51,8 +51,10 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.mountainName) TextView mountainName;
-        @BindView(R.id.mountainImage) ImageView mountainImage;
+        @BindView(R.id.mountainName)
+        TextView mountainName;
+        @BindView(R.id.mountainImage)
+        ImageView mountainImage;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

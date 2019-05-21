@@ -1,10 +1,10 @@
 package com.example.kudaki.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.example.kudaki.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class EditProfileActivity extends AppCompatActivity {
 

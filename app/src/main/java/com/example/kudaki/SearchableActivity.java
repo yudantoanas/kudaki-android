@@ -1,11 +1,11 @@
 package com.example.kudaki;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SearchableActivity extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class SearchableActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.d(SearchableActivity.class.getSimpleName(), "onCreate: "+query);
+            Log.d(SearchableActivity.class.getSimpleName(), "onCreate: " + query);
 
         }
     }

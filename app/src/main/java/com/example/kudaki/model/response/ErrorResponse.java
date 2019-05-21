@@ -12,13 +12,11 @@ public class ErrorResponse {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public ErrorResponse() {
     }
 
     /**
-     *
      * @param errors
      */
     public ErrorResponse(List<String> errors) {

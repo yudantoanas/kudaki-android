@@ -1,10 +1,10 @@
 package com.example.kudaki.cart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.example.kudaki.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CartActivity extends AppCompatActivity {
 

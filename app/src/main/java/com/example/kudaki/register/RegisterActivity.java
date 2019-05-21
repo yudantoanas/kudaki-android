@@ -18,13 +18,20 @@ import butterknife.ButterKnife;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterContract.View {
 
-    @BindView(R.id.registerName) EditText name;
-    @BindView(R.id.registerEmail) EditText email;
-    @BindView(R.id.registerPhone) EditText phone;
-    @BindView(R.id.registerPassword) EditText password;
-    @BindView(R.id.registerConfirm) EditText confirm;
-    @BindView(R.id.submitRegister) Button button;
-    @BindView(R.id.backNavigation) ImageView backNav;
+    @BindView(R.id.registerName)
+    EditText name;
+    @BindView(R.id.registerEmail)
+    EditText email;
+    @BindView(R.id.registerPhone)
+    EditText phone;
+    @BindView(R.id.registerPassword)
+    EditText password;
+    @BindView(R.id.registerConfirm)
+    EditText confirm;
+    @BindView(R.id.submitRegister)
+    Button button;
+    @BindView(R.id.backNavigation)
+    ImageView backNav;
 
     RegisterPresenter registerPresenter;
     RegisterContract.Presenter contractPresenter;

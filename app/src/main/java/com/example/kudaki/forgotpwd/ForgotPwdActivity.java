@@ -1,23 +1,24 @@
 package com.example.kudaki.forgotpwd;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kudaki.R;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdContract.View {
-    @BindView(R.id.btnSendEmail) Button btnSendEmail;
-    @BindView(R.id.inForgotEmail) EditText inForgotEmail;
+    @BindView(R.id.btnSendEmail)
+    Button btnSendEmail;
+    @BindView(R.id.inForgotEmail)
+    EditText inForgotEmail;
     ActionBar toolbar;
 
     ForgetPwdPresenter forgetPwdPresenter;

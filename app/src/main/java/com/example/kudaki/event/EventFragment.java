@@ -3,15 +3,6 @@ package com.example.kudaki.event;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,12 +15,21 @@ import com.example.kudaki.model.event.Event;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EventFragment extends Fragment {
 
-    @BindView(R.id.rvEvents) RecyclerView rvEvents;
+    @BindView(R.id.rvEvents)
+    RecyclerView rvEvents;
 
     private List<Event> eventList;
     private EventAdapter eventAdapter;

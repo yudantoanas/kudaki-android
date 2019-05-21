@@ -59,11 +59,16 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.equipmentCard) CardView equipmentCard;
-        @BindView(R.id.equipmentTitle) TextView equipmentTitle;
-        @BindView(R.id.equipmentPrice) TextView equipmentPrice;
-        @BindView(R.id.rentalName) TextView rentalName;
-        @BindView(R.id.equipmentImage) ImageView equipmentImage;
+        @BindView(R.id.equipmentCard)
+        CardView equipmentCard;
+        @BindView(R.id.equipmentTitle)
+        TextView equipmentTitle;
+        @BindView(R.id.equipmentPrice)
+        TextView equipmentPrice;
+        @BindView(R.id.rentalName)
+        TextView rentalName;
+        @BindView(R.id.equipmentImage)
+        ImageView equipmentImage;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

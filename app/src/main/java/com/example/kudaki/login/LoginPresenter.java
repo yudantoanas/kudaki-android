@@ -48,7 +48,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     ErrorResponse errors;
                     try {
                         errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                        loginView.showOnLoginFailed("Login Failed! "+ errors.getErrors().get(0));
+                        loginView.showOnLoginFailed("Login Failed! " + errors.getErrors().get(0));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -1,17 +1,11 @@
 package com.example.kudaki;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.kudaki.event.EventFragment;
 import com.example.kudaki.explore.ExploreFragment;
 import com.example.kudaki.home.HomeFragment;
-import com.example.kudaki.login.LoginActivity;
 import com.example.kudaki.profile.ProfileFragment;
 import com.example.kudaki.renting.RentingFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -21,14 +15,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
-    @BindView(R.id.bottomNav) BottomNavigationView bottomNav;
+    @BindView(R.id.bottomNav)
+    BottomNavigationView bottomNav;
     ActionBar toolbar;
 
     MainPresenter mainPresenter;

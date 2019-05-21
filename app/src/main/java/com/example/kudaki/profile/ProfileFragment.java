@@ -3,14 +3,6 @@ package com.example.kudaki.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,12 +15,20 @@ import com.example.kudaki.adapter.ProfileTabAdapter;
 import com.example.kudaki.setting.SettingActivity;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
-    @BindView(R.id.profileTab) TabLayout profileTab;
-    @BindView(R.id.profileViewPager) ViewPager profileViewPager;
+    @BindView(R.id.profileTab)
+    TabLayout profileTab;
+    @BindView(R.id.profileViewPager)
+    ViewPager profileViewPager;
 
     ProfileTabAdapter adapter;
 

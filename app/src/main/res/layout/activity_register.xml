@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -53,7 +51,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="Sign Up"
+                        android:text="Daftar Akun"
                         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -61,12 +59,12 @@
 
                     <EditText
                         android:id="@+id/registerName"
+                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:ems="10"
                         android:hint="Name"
                         android:inputType="textPersonName"
                         android:singleLine="true"
@@ -76,12 +74,12 @@
 
                     <EditText
                         android:id="@+id/registerEmail"
+                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:ems="10"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
@@ -92,12 +90,12 @@
 
                     <EditText
                         android:id="@+id/registerPhone"
+                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:ems="10"
                         android:hint="Phone"
                         android:inputType="phone"
                         android:singleLine="true"
@@ -108,13 +106,12 @@
 
                     <EditText
                         android:id="@+id/registerPassword"
+                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-
-                        android:ems="10"
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:singleLine="true"
@@ -125,12 +122,12 @@
 
                     <EditText
                         android:id="@+id/registerConfirm"
+                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:ems="10"
                         android:hint="Confirm Password"
                         android:inputType="textPassword"
                         android:singleLine="true"

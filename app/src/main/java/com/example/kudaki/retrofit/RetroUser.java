@@ -1,7 +1,5 @@
 package com.example.kudaki.retrofit;
 
-import com.google.gson.annotations.SerializedName;
-
 public class RetroUser {
     String email;
     String password;

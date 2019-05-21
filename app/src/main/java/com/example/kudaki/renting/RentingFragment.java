@@ -28,7 +28,8 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class RentingFragment extends Fragment {
-    @BindView(R.id.rvEquipment) RecyclerView rvEquipment;
+    @BindView(R.id.rvEquipment)
+    RecyclerView rvEquipment;
     private List<Equipment> equipmentList;
     private EquipmentAdapter equipmentAdapter;
 
@@ -90,7 +91,7 @@ public class RentingFragment extends Fragment {
         equipmentList = new ArrayList<>();
         equipmentAdapter = new EquipmentAdapter(getActivity(), equipmentList);
 
-        rvEquipment.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        rvEquipment.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvEquipment.setAdapter(equipmentAdapter);
         loadEquipment();
 
