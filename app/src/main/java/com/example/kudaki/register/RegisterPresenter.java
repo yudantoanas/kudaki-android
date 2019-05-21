@@ -2,7 +2,7 @@ package com.example.kudaki.register;
 
 import com.example.kudaki.model.response.Data;
 import com.example.kudaki.model.response.ErrorResponse;
-import com.example.kudaki.model.response.LoginResponse;
+import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,29 +25,28 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     public void doRegister(User user) {
         //.. showing progress
 
-        user.validateUser().enqueue(new Callback<LoginResponse>() {
+        user.createUser().enqueue(new Callback<SuccessResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 if (response.body() != null) {
-                    LoginResponse resp = response.body();
+                    SuccessResponse resp = response.body();
 
                     Data data = resp.getData(); // simpan data.getToken di cache
-                    loginView.showOnLoginSuccess("Login Success");
+                    registerView.showOnRegisterSuccess("Register Success");
                 } else {
                     Gson gson = new GsonBuilder().create();
                     ErrorResponse errors;
                     try {
                         errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                        loginView.showOnLoginFailed("Login Failed! "+ errors.getErrors().get(0));
+                        registerView.showOnRegisterFailed("Register Failed! " + errors.getErrors().get(0));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                loginView.closeProgress();
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
 
             }
         });

@@ -1,6 +1,6 @@
 package com.example.kudaki.model.user;
 
-import com.example.kudaki.model.response.LoginResponse;
+import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
@@ -39,20 +39,31 @@ public class User {
         this.loginMessage = loginMessage;
     }
 
-    public Call<LoginResponse> validateUser() {
+    public Call<SuccessResponse> validateUser() {
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("email", email)
                 .addFormDataPart("password", password)
                 .build();
-        Call<LoginResponse> call = service.loginUser(requestBody);
+        Call<SuccessResponse> call = service.loginUser(requestBody);
 
         return call;
     }
 
-    public  createUser() {
+    public Call<SuccessResponse> createUser() {
+        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("full_name", fullname)
+                .addFormDataPart("phone_number", phone)
+                .addFormDataPart("email", email)
+                .addFormDataPart("password", password)
+                .addFormDataPart("role", role)
+                .build();
+        Call<SuccessResponse> call = service.registerUser(requestBody);
 
+        return call;
     }
 
     public String getFullname() {

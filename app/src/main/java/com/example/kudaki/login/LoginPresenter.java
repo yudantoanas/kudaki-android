@@ -1,11 +1,10 @@
 package com.example.kudaki.login;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.kudaki.model.response.Data;
 import com.example.kudaki.model.response.ErrorResponse;
-import com.example.kudaki.model.response.LoginResponse;
+import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -36,11 +35,11 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         loginView.showProgress();
 
-        user.validateUser().enqueue(new Callback<LoginResponse>() {
+        user.validateUser().enqueue(new Callback<SuccessResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 if (response.body() != null) {
-                    LoginResponse resp = response.body();
+                    SuccessResponse resp = response.body();
 
                     Data data = resp.getData(); // simpan data.getToken di cache
                     loginView.showOnLoginSuccess("Login Success");
@@ -58,7 +57,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
 
             }
         });
