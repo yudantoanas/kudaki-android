@@ -21,6 +21,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = "USER";
+        this.photoPath = "imgur.com/betul";
     }
 
     public String getLoginToken() {
@@ -51,6 +52,20 @@ public class User {
         return call;
     }
 
+    public boolean validatePasswordLength() {
+        if (password.length() >= 8) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validatePasswordStrength() {
+        if (password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
+            return true;
+        }
+        return false;
+    }
+
     public Call<SuccessResponse> createUser() {
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -60,8 +75,20 @@ public class User {
                 .addFormDataPart("email", email)
                 .addFormDataPart("password", password)
                 .addFormDataPart("role", role)
+                .addFormDataPart("photo", photoPath)
                 .build();
         Call<SuccessResponse> call = service.registerUser(requestBody);
+
+        return call;
+    }
+
+    public Call<SuccessResponse> sendEmail() {
+        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("email", email)
+                .build();
+        Call<SuccessResponse> call = service.sendForgotPwdEmail(requestBody);
 
         return call;
     }

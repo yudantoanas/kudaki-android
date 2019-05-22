@@ -2,6 +2,7 @@ package com.example.kudaki.register;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.example.kudaki.model.user.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -51,11 +53,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onResume();
 
         button.setOnClickListener(view -> {
-            contractPresenter.doRegister(new User(
-                    name.getText().toString(),
-                    email.getText().toString(),
-                    password.getText().toString(),
-                    phone.getText().toString()));
+            if (!password.getText().toString().equals(confirm.getText().toString())) {
+                Toast.makeText(this, "Daftar gagal! Password Anda tidak sesuai!", Toast.LENGTH_SHORT).show();
+            } else {
+                contractPresenter.doRegister(new User(
+                        name.getText().toString(),
+                        email.getText().toString(),
+                        password.getText().toString(),
+                        phone.getText().toString()));
+            }
         });
 
         // navigate up to parent
@@ -70,10 +76,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @Override
     public void showOnRegisterSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        Intent home = new Intent(this, MainActivity.class);
-        startActivity(home);
-        setResult(RESULT_OK);
-        finish();
+//        Intent home = new Intent(this, MainActivity.class);
+//        startActivity(home);
+//        setResult(RESULT_OK);
+//        finish();
     }
 
     @Override

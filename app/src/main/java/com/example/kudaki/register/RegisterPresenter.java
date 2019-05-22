@@ -25,31 +25,39 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     public void doRegister(User user) {
         //.. showing progress
 
-        user.createUser().enqueue(new Callback<SuccessResponse>() {
-            @Override
-            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
-                if (response.body() != null) {
-                    SuccessResponse resp = response.body();
+        // validate password
+        if (!user.validatePasswordLength()) {
+            registerView.showOnRegisterFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
+        } else if (!user.validatePasswordStrength()) {
+            registerView.showOnRegisterFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
+        } else {
+            // if pass, then create user
+            user.createUser().enqueue(new Callback<SuccessResponse>() {
+                @Override
+                public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                    if (response.body() != null) {
+                        SuccessResponse resp = response.body();
 
-                    Data data = resp.getData(); // simpan data.getToken di cache
-                    registerView.showOnRegisterSuccess("Register Success");
-                } else {
-                    Gson gson = new GsonBuilder().create();
-                    ErrorResponse errors;
-                    try {
-                        errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                        registerView.showOnRegisterFailed("Register Failed! " + errors.getErrors().get(0));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        Data data = resp.getData(); // simpan data.getToken di cache
+                        registerView.showOnRegisterSuccess("Gagal daftar! Silahkan cek email untuk verifikasi.");
+                    } else {
+                        Gson gson = new GsonBuilder().create();
+                        ErrorResponse errors;
+                        try {
+                            errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
+                            registerView.showOnRegisterFailed("Gagal daftar! " + errors.getErrors().get(0));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                @Override
+                public void onFailure(Call<SuccessResponse> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

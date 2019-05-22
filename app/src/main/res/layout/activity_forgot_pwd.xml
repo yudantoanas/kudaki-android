@@ -21,11 +21,22 @@
 
     <Button
         android:id="@+id/btnSendEmail"
+        style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Send Email"
+        android:text="Kirim"
         app:layout_constraintEnd_toEndOf="@+id/inForgotEmail"
         app:layout_constraintStart_toStartOf="@+id/inForgotEmail"
         app:layout_constraintTop_toBottomOf="@+id/inForgotEmail" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Kami akan mengirimkan email yang berisikan petunjuk untuk mengganti kata sandi Anda"
+        app:layout_constraintBottom_toTopOf="@+id/inForgotEmail"
+        app:layout_constraintEnd_toEndOf="@+id/inForgotEmail"
+        app:layout_constraintStart_toStartOf="@+id/inForgotEmail" />
 </androidx.constraintlayout.widget.ConstraintLayout>

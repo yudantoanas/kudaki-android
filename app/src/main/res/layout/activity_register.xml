@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -59,22 +60,22 @@
 
                     <EditText
                         android:id="@+id/registerName"
-                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:hint="Name"
+                        android:hint="Nama Lengkap"
                         android:inputType="textPersonName"
                         android:singleLine="true"
+                        android:theme="@style/FormEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textSignup" />
 
                     <EditText
                         android:id="@+id/registerEmail"
-                        style="@style/FormEditText"
+                        android:theme="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="8dp"
@@ -90,15 +91,15 @@
 
                     <EditText
                         android:id="@+id/registerPhone"
-                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:hint="Phone"
+                        android:hint="No. Telepon"
                         android:inputType="phone"
                         android:singleLine="true"
+                        android:theme="@style/FormEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -106,15 +107,15 @@
 
                     <EditText
                         android:id="@+id/registerPassword"
-                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:hint="Password"
+                        android:hint="Kata Sandi"
                         android:inputType="textPassword"
                         android:singleLine="true"
+                        android:theme="@style/FormEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -122,15 +123,15 @@
 
                     <EditText
                         android:id="@+id/registerConfirm"
-                        style="@style/FormEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:hint="Confirm Password"
+                        android:hint="Konfirmasi Kata Sandi"
                         android:inputType="textPassword"
                         android:singleLine="true"
+                        android:theme="@style/FormEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -141,12 +142,16 @@
 
             <Button
                 android:id="@+id/submitRegister"
-                android:layout_width="200dp"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:text="Sign Up"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/formLayout"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/formLayout"
                 app:layout_constraintTop_toBottomOf="@+id/formLayout" />
 
             <ImageView

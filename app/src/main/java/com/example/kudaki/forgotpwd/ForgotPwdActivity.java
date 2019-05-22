@@ -18,10 +18,10 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
     @BindView(R.id.btnSendEmail)
     Button btnSendEmail;
     @BindView(R.id.inForgotEmail)
-    EditText inForgotEmail;
+    EditText forgotEmail;
     ActionBar toolbar;
 
-    ForgetPwdPresenter forgetPwdPresenter;
+    ForgotPwdPresenter forgotPwdPresenter;
     ForgotPwdContract.Presenter contractPresenter;
 
     @Override
@@ -30,7 +30,7 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
         setContentView(R.layout.activity_forgot_pwd);
         ButterKnife.bind(this);
 
-        forgetPwdPresenter = new ForgetPwdPresenter(this);
+        forgotPwdPresenter = new ForgotPwdPresenter(this);
 
         toolbar = getSupportActionBar();
         toolbar.setDisplayHomeAsUpEnabled(true);
@@ -42,8 +42,8 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
         super.onResume();
 
         btnSendEmail.setOnClickListener(view -> {
-            String email = inForgotEmail.getText().toString();
-            // send email code...
+            String email = forgotEmail.getText().toString();
+            forgotPwdPresenter.doSendEmail(email);
 
             Toast.makeText(ForgotPwdActivity.this, "Send Email", Toast.LENGTH_SHORT)
                     .show();
