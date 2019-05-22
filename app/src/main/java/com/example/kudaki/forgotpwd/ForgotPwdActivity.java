@@ -11,6 +11,7 @@ import com.example.kudaki.R;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -62,8 +63,13 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
 
     @Override
     public void showSendSuccess(String message) {
-        Toast.makeText(this, "Send Email Success", Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        NavUtils.navigateUpFromSameTask(this);
+    }
+
+    @Override
+    public void showSendFailed(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

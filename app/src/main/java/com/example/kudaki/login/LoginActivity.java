@@ -13,6 +13,8 @@ import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
 import com.example.kudaki.forgotpwd.ForgotPwdActivity;
 import com.example.kudaki.register.RegisterActivity;
+import com.facebook.CallbackManager;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,11 +40,16 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     TextView linkForgotPwd;
     @BindView(R.id.buttonLoginGoogle)
     ImageView buttonLoginGoogle;
+    @BindView(R.id.buttonLoginFacebook)
+    ImageView buttonLoginFacebook;
+    @BindView(R.id.facebookOfficialLogin)
+    LoginButton loginButton;
 
     ProgressDialog progressDialog;
     LoginPresenter loginPresenter;
     LoginContract.Presenter contractPresenter;
     GoogleSignInClient mGoogleSignInClient;
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +96,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             startActivityForResult(googleLogin, 1);
         });
 
+        buttonLoginFacebook.setOnClickListener(v -> {
+            loginButton.performClick();
+            callbackManager = contractPresenter.doFacebookLogin(callbackManager, loginButton);
+        });
+
         linkSignup.setOnClickListener(v -> {
             contractPresenter.linkSignupClicked();
         });
@@ -101,6 +114,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // if result code from Register Activity is OK
         if (resultCode == RESULT_OK) {

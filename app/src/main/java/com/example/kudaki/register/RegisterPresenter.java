@@ -39,7 +39,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                         SuccessResponse resp = response.body();
 
                         Data data = resp.getData(); // simpan data.getToken di cache
-                        registerView.showOnRegisterSuccess("Gagal daftar! Silahkan cek email untuk verifikasi.");
+                        registerView.showOnRegisterSuccess("Berhasil daftar! Silahkan cek email untuk verifikasi.");
                     } else {
                         Gson gson = new GsonBuilder().create();
                         ErrorResponse errors;

@@ -6,6 +6,7 @@ import com.example.kudaki.BaseView;
 public interface ForgotPwdContract {
     interface View extends BaseView<Presenter> {
         void showSendSuccess(String message);
+        void showSendFailed(String message);
     }
 
     interface Presenter extends BasePresenter {

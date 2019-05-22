@@ -1,7 +1,13 @@
 package com.example.kudaki.forgotpwd;
 
+import com.example.kudaki.model.response.Data;
+import com.example.kudaki.model.response.ErrorResponse;
 import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +34,21 @@ public class ForgotPwdPresenter implements ForgotPwdContract.Presenter {
         user.sendEmail().enqueue(new Callback<SuccessResponse>() {
             @Override
             public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+                if (response.body() != null) {
+                    SuccessResponse resp = response.body();
 
+                    Data data = resp.getData();
+                    forgotPwdView.showSendSuccess("Berhasil terkirim! Silahkan cek email Anda.");
+                } else {
+                    Gson gson = new GsonBuilder().create();
+                    ErrorResponse errors;
+                    try {
+                        errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
+                        forgotPwdView.showSendFailed("Gagal mengirim email! " + errors.getErrors().get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override

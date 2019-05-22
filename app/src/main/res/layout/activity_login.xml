@@ -180,22 +180,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:src="@drawable/google_logo"
                 app:layout_constraintEnd_toEndOf="@+id/textView"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                android:src="@drawable/google_logo" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebookOfficialLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/buttonLoginFacebook"
+                app:layout_constraintTop_toBottomOf="@id/buttonLoginFacebook" />
 
             <ImageView
                 android:id="@+id/buttonLoginFacebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:src="@drawable/fb_logo"
                 app:layout_constraintEnd_toEndOf="@+id/textView"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                android:src="@drawable/fb_logo" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textView2"
