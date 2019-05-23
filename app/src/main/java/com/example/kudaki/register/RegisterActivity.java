@@ -101,4 +101,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this);
+    }
 }

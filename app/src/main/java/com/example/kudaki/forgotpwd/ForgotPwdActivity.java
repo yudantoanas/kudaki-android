@@ -45,9 +45,6 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
         btnSendEmail.setOnClickListener(view -> {
             String email = forgotEmail.getText().toString();
             forgotPwdPresenter.doSendEmail(email);
-
-            Toast.makeText(ForgotPwdActivity.this, "Send Email", Toast.LENGTH_SHORT)
-                    .show();
         });
     }
 
