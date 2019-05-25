@@ -88,35 +88,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public CallbackManager doFacebookLogin(CallbackManager callbackManager, LoginButton loginButton) {
-        callbackManager = CallbackManager.Factory.create();
-
-        loginButton.registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-                        loginView.showOnLoginSuccess("Berhasil Masuk");
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        // App code
-                        loginView.showOnLoginFailed("Gagal Masuk");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                        loginView.showOnLoginFailed("Gagal Masuk");
-                        Log.d("FACEBOOK", "onError: " + exception.toString());
-                    }
-                });
-
-        return callbackManager;
-    }
-
-    @Override
     public void linkSignupClicked() {
         loginView.showSignupActivity(1);
     }

@@ -30,8 +30,6 @@ public interface LoginContract {
 
         void doGoogleLogin(Intent data);
 
-        CallbackManager doFacebookLogin(CallbackManager callbackManager, LoginButton loginButton);
-
         void linkSignupClicked();
 
         void linkForgotPwdClicked();

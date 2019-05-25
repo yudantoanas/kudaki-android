@@ -3,6 +3,7 @@ package com.example.kudaki.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,7 +14,12 @@ import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
 import com.example.kudaki.forgotpwd.ForgotPwdActivity;
 import com.example.kudaki.register.RegisterActivity;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,7 +28,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,8 +46,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @BindView(R.id.buttonLoginGoogle)
     ImageView buttonLoginGoogle;
     @BindView(R.id.buttonLoginFacebook)
-    ImageView buttonLoginFacebook;
-    @BindView(R.id.facebookOfficialLogin)
     LoginButton loginButton;
 
     ProgressDialog progressDialog;
@@ -83,6 +86,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onStart() {
         super.onStart();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        Profile user = Profile.getCurrentProfile();
+        boolean isFBLoggedIn = accessToken != null && !accessToken.isExpired();
+        if (isFBLoggedIn) {
+            showOnLoginSuccess("Berhasil Masuk");
+        }
     }
 
     @Override
@@ -96,9 +105,29 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             startActivityForResult(googleLogin, 1);
         });
 
-        buttonLoginFacebook.setOnClickListener(v -> {
-            loginButton.performClick();
-            callbackManager = contractPresenter.doFacebookLogin(callbackManager, loginButton);
+        loginButton.setOnClickListener(v -> {
+            callbackManager = CallbackManager.Factory.create();
+
+            // Callback registration
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // App code
+                    showOnLoginSuccess("Berhasil Masuk");
+                }
+
+                @Override
+                public void onCancel() {
+                    // App code
+
+                }
+
+                @Override
+                public void onError(FacebookException exception) {
+                    // App code
+                    Log.d("FACEBOOK", "onError: " + exception.toString());
+                }
+            });
         });
 
         linkSignup.setOnClickListener(v -> {
@@ -114,8 +143,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if  (callbackManager != null) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
 
         // if result code from Register Activity is OK
         if (resultCode == RESULT_OK) {
@@ -178,7 +208,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
          * Update your UI to display the Google Sign-in button.
          */
         if (account != null) {
-            showOnLoginSuccess("Berhasil Login dengan Google");
+            showOnLoginSuccess("Berhasil Masuk dengan Google");
         }
     }
 
