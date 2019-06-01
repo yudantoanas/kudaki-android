@@ -3,31 +3,27 @@ package com.example.kudaki;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.kudaki.event.EventFragment;
 import com.example.kudaki.explore.ExploreFragment;
 import com.example.kudaki.home.HomeFragment;
 import com.example.kudaki.profile.ProfileFragment;
 import com.example.kudaki.renting.RentingFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
     @BindView(R.id.bottomNav)
     BottomNavigationView bottomNav;
-    ActionBar toolbar;
 
     MainPresenter mainPresenter;
     MainContract.Presenter contractPresenter;
-    GoogleSignInClient mGoogleSignInClient;
+//    GoogleSignInClient mGoogleSignInClient;
 
     int backPressCount = 0;
 
@@ -39,22 +35,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         mainPresenter = new MainPresenter(this);
 
-        toolbar = getSupportActionBar();
-
-        // set default title
-        toolbar.setTitle(R.string.home_ID);
         // load default fragment
         loadFragment(new HomeFragment());
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestProfile()
-                .build();
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .requestProfile()
+//                .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     @Override
@@ -64,51 +56,29 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.home:
-                    toolbar.setTitle(R.string.home_ID);
+//                    toolbar.setTitle(R.string.home_ID);
                     loadFragment(new HomeFragment());
                     return true;
                 case R.id.event:
-                    toolbar.setTitle(R.string.event_ID);
+//                    toolbar.setTitle(R.string.event_ID);
                     loadFragment(new EventFragment());
                     return true;
                 case R.id.explore:
-                    toolbar.setTitle(R.string.explore_ID);
+//                    toolbar.setTitle(R.string.explore_ID);
                     loadFragment(new ExploreFragment());
                     return true;
                 case R.id.renting:
-                    toolbar.setTitle(R.string.renting_ID);
+//                    toolbar.setTitle(R.string.renting_ID);
                     loadFragment(new RentingFragment());
                     return true;
                 case R.id.profile:
-                    toolbar.setTitle(R.string.profile_ID);
+//                    toolbar.setTitle(R.string.profile_ID);
                     loadFragment(new ProfileFragment());
                     return true;
             }
             return false;
         });
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuLogout :
-                mGoogleSignInClient.signOut(); // Signs out google account if any
-                // logout code...
-
-                Intent activity_login = new Intent(this, LoginActivity.class);
-                startActivity(activity_login);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public void loadFragment(Fragment fragment) {

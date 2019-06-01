@@ -9,17 +9,20 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.kudaki.R;
 import com.example.kudaki.model.event.Event;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,9 +30,11 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class EventFragment extends Fragment {
-
     @BindView(R.id.rvEvents)
     RecyclerView rvEvents;
+
+    @BindView(R.id.eventToolbar)
+    Toolbar toolbar;
 
     private List<Event> eventList;
     private EventAdapter eventAdapter;
@@ -63,7 +68,7 @@ public class EventFragment extends Fragment {
         inflater.inflate(R.menu.event_menu, menu);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.searchEvent).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.optSearchEvent).getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
@@ -76,6 +81,8 @@ public class EventFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event, container, false);
         ButterKnife.bind(this, view);
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         eventList = new ArrayList<>();
         eventAdapter = new EventAdapter(getActivity(), eventList);

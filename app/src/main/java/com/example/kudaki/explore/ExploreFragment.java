@@ -10,6 +10,14 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.kudaki.R;
 import com.example.kudaki.adapter.MountainAdapter;
 import com.example.kudaki.model.mountain.Mountain;
@@ -17,11 +25,6 @@ import com.example.kudaki.model.mountain.Mountain;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -31,6 +34,9 @@ import butterknife.ButterKnife;
 public class ExploreFragment extends Fragment {
     @BindView(R.id.rvMountain)
     RecyclerView rvMountain;
+
+    @BindView(R.id.exploreToolbar)
+    Toolbar toolbar;
 
     private List<Mountain> mountainList;
     private MountainAdapter mountainAdapter;
@@ -60,7 +66,7 @@ public class ExploreFragment extends Fragment {
         inflater.inflate(R.menu.explore_menu, menu);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.searchMountain).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.optSearchMountain).getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
@@ -73,6 +79,8 @@ public class ExploreFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         ButterKnife.bind(this, view);
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         mountainList = new ArrayList<>();
         mountainAdapter = new MountainAdapter(getActivity(), mountainList);
