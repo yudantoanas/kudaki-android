@@ -67,10 +67,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public boolean validatePassword(String password, String confirmPassword) {
-        if (password.equals(confirmPassword)) {
-            return true;
-        }
-        return false;
+        return password.equals(confirmPassword);
     }
 
     @Override

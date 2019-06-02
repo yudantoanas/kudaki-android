@@ -3,9 +3,9 @@ package com.example.kudaki;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.kudaki.login.LoginActivity;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.kudaki.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

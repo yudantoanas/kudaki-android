@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
+import com.example.kudaki.explore.MountainActivity;
 import com.example.kudaki.model.event.Event;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.eventCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent eventDetail = new Intent(context, EventDetailActivity.class);
+                Intent eventDetail = new Intent(context, MountainActivity.class);
                 context.startActivity(eventDetail);
             }
         });

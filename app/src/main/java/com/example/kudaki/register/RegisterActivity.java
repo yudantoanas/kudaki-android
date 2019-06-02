@@ -1,19 +1,16 @@
 package com.example.kudaki.register;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.kudaki.MainActivity;
-import com.example.kudaki.R;
-import com.example.kudaki.model.user.User;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+
+import com.example.kudaki.R;
+import com.example.kudaki.model.user.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

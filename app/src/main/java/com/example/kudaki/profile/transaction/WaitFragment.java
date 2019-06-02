@@ -1,4 +1,4 @@
-package com.example.kudaki.profile.pengguna;
+package com.example.kudaki.profile.transaction;
 
 
 import android.os.Bundle;
@@ -6,17 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.kudaki.R;
-
 import androidx.fragment.app.Fragment;
+
+import com.example.kudaki.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserFragment extends Fragment {
+public class WaitFragment extends Fragment {
 
 
-    public UserFragment() {
+    public WaitFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        return inflater.inflate(R.layout.fragment_wait, container, false);
     }
 
 }

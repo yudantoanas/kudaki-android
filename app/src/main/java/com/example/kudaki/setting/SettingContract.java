@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
-import com.example.kudaki.login.LoginContract;
 
 public interface SettingContract {
     interface View extends BaseView<SettingContract.Presenter> {

@@ -53,17 +53,11 @@ public class User {
     }
 
     public boolean validatePasswordLength() {
-        if (password.length() >= 8) {
-            return true;
-        }
-        return false;
+        return password.length() >= 8;
     }
 
     public boolean validatePasswordStrength() {
-        if (password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
-            return true;
-        }
-        return false;
+        return password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$");
     }
 
     public Call<SuccessResponse> createUser() {

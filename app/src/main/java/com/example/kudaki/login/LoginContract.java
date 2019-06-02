@@ -4,8 +4,6 @@ import android.content.Intent;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
-import com.facebook.CallbackManager;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public interface LoginContract {

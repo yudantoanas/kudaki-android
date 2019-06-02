@@ -1,4 +1,4 @@
-package com.example.kudaki.model;
+package com.example.kudaki.model.equipment;
 
 public class Equipment {
     String imagePath;

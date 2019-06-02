@@ -9,8 +9,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class SettingPresenter implements SettingContract.Presenter {
 
-    private SettingContract.View settingView;
     GoogleSignInClient googleSignInClient;
+    private SettingContract.View settingView;
 
     public SettingPresenter(SettingContract.View settingView) {
         this.settingView = settingView;

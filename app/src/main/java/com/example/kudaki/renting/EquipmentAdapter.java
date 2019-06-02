@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.kudaki.R;
-import com.example.kudaki.model.Equipment;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.example.kudaki.R;
+import com.example.kudaki.model.equipment.Equipment;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -49,7 +50,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
                 .into(holder.equipmentImage);
 
         holder.equipmentCard.setOnClickListener(view -> context.startActivity(
-                new Intent(context, EquipmentDetailActivity.class))
+                new Intent(context, EquipmentActivity.class))
         );
     }
 

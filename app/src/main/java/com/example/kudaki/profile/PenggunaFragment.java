@@ -1,25 +1,22 @@
 package com.example.kudaki.profile;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.R;
+import com.example.kudaki.adapter.ProfileMenuAdapter;
+import com.example.kudaki.model.MenuProfile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -31,7 +28,7 @@ public class PenggunaFragment extends Fragment {
     RecyclerView rvPengguna;
 
     private List<MenuProfile> menuList;
-    private MenuAdapter menuAdapter;
+    private ProfileMenuAdapter profileMenuAdapter;
 
     public PenggunaFragment() {
         // Required empty public constructor
@@ -45,10 +42,10 @@ public class PenggunaFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         menuList = new ArrayList<>();
-        menuAdapter = new MenuAdapter(getActivity(), menuList);
+        profileMenuAdapter = new ProfileMenuAdapter(getActivity(), menuList);
 
         rvPengguna.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        rvPengguna.setAdapter(menuAdapter);
+        rvPengguna.setAdapter(profileMenuAdapter);
         loadMenu();
 
         return view;
@@ -62,70 +59,6 @@ public class PenggunaFragment extends Fragment {
         menuList.add(new MenuProfile(R.drawable.ic_done_black, "Selesai"));
         menuList.add(new MenuProfile(R.drawable.ic_cancel_black, "Dibatalkan"));
 
-        menuAdapter.notifyDataSetChanged();
-    }
-
-    class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
-        private Context context;
-        private List<MenuProfile> menuProfileList;
-
-        public MenuAdapter(Context context, List<MenuProfile> menuProfileList) {
-            this.context = context;
-            this.menuProfileList = menuProfileList;
-        }
-
-        @NonNull
-        @Override
-        public MenuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.menu_profile_item, parent, false);
-            return new MenuAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MenuAdapter.ViewHolder holder, int position) {
-            holder.title.setText(menuProfileList.get(position).getMenuName());
-            holder.icon.setImageResource(menuProfileList.get(position).getIcon());
-            holder.menu.setOnClickListener(v -> {
-                Toast.makeText(context, menuProfileList.get(position).getMenuName(), Toast.LENGTH_SHORT).show();
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return menuProfileList.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            @BindView(R.id.mProfile)
-            LinearLayout menu;
-            @BindView(R.id.mProfileIcon)
-            ImageView icon;
-            @BindView(R.id.mProfileTitle)
-            TextView title;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
-            }
-        }
-    }
-
-    class MenuProfile {
-        int icon;
-        String menuName;
-
-        public MenuProfile(int icon, String menuName) {
-            this.icon = icon;
-            this.menuName = menuName;
-        }
-
-        public int getIcon() {
-            return icon;
-        }
-
-        public String getMenuName() {
-            return menuName;
-        }
+        profileMenuAdapter.notifyDataSetChanged();
     }
 }

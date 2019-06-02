@@ -1,18 +1,11 @@
 package com.example.kudaki.login;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.kudaki.model.response.Data;
 import com.example.kudaki.model.response.ErrorResponse;
 import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;

@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.example.kudaki.R;
 import com.example.kudaki.login.LoginActivity;
-import com.example.kudaki.login.LoginContract;
-import com.example.kudaki.login.LoginPresenter;
 import com.example.kudaki.profile.EditPasswordActivity;
 import com.example.kudaki.profile.EditProfileActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

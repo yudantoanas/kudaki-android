@@ -6,11 +6,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.kudaki.R;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+
+import com.example.kudaki.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
