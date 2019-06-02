@@ -23,14 +23,14 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PenggunaFragment extends Fragment {
+public class UserFragment extends Fragment {
     @BindView(R.id.rvPengguna)
     RecyclerView rvPengguna;
 
     private List<MenuProfile> menuList;
     private ProfileMenuAdapter profileMenuAdapter;
 
-    public PenggunaFragment() {
+    public UserFragment() {
         // Required empty public constructor
     }
 

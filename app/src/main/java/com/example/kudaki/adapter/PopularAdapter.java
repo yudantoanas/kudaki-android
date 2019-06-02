@@ -1,17 +1,22 @@
 package com.example.kudaki.adapter;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.TaskStackBuilder;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
+import com.example.kudaki.explore.MountainActivity;
 import com.example.kudaki.model.mountain.Mountain;
 
 import java.util.List;
@@ -44,6 +49,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         Glide.with(context)
                 .load(mountainList.get(position).getPhotoPath())
                 .into(holder.image);
+
+        holder.btnDetail.setOnClickListener(v -> {
+            Intent mountain = new Intent(context, MountainActivity.class);
+            mountain.putExtra("id", 1);
+            context.startActivity(mountain);
+        });
     }
 
     @Override
@@ -52,6 +63,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.popularDetail)
+        Button btnDetail;
         @BindView(R.id.popularImage)
         ImageView image;
         @BindView(R.id.popularName)

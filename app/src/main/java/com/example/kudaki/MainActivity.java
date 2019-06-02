@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import com.example.kudaki.profile.ProfileActivity;
 import com.example.kudaki.renting.RentalActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +30,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.homeNav)
     BottomNavigationView bottomNav;
     @BindView(R.id.rvPopular)
-    RecyclerView rvPopular;
+    RecyclerView recyclerView;
     @BindView(R.id.homeToolbar)
     Toolbar toolbar;
     @BindView(R.id.carousel)
     CarouselView carouselView;
+
     MainPresenter mainPresenter;
     MainContract.Presenter contractPresenter;
     int backPressCount = 0;
-    private List<Mountain> mountainList;
-    private PopularAdapter popularAdapter;
+    private List<Mountain> list;
+    private PopularAdapter adapter;
     //    GoogleSignInClient mGoogleSignInClient;
+
     int[] sampleImages = {R.drawable.image_dummy, R.drawable.image_dummy, R.drawable.image_dummy};
 
     @Override
@@ -52,17 +52,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+
         mainPresenter = new MainPresenter(this);
 
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener((position, imageView) -> imageView.setImageResource(sampleImages[position]));
 
-        mountainList = new ArrayList<>();
-        popularAdapter = new PopularAdapter(this, mountainList);
+        list = new ArrayList<>();
+        adapter = new PopularAdapter(this, list);
 
-        rvPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvPopular.setAdapter(popularAdapter);
-        loadPopular();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter);
+
+        contractPresenter.loadMountain(list, adapter);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -75,36 +78,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 //        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-    private void loadPopular() {
-        mountainList.clear();
-        mountainList.add(new Mountain(
-                1,
-                "Gunung Rinjani",
-                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
-                "Mount Rinjani, Indonesia",
-                3.726,
-                -8.411295,
-                116.4485726
-        ));
-
-        mountainList.add(new Mountain(
-                2,
-                "Gunung Merbabu",
-                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
-                "Mount Merbabu, Indonesia",
-                3.726,
-                -8.411295,
-                116.4485726
-        ));
-
-        popularAdapter.notifyDataSetChanged();
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         // e.g. check if user logged in or not
-
     }
 
     @Override
@@ -122,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     return true;
                 case R.id.navExplore:
                     startActivity(new Intent(this, ExploreActivity.class));
-
                     finish();
                     return true;
                 case R.id.navRental:

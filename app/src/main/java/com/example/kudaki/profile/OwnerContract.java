@@ -3,8 +3,8 @@ package com.example.kudaki.profile;
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
 
-public interface PemilikContract {
-    interface View extends BaseView<PemilikContract.Presenter> {
+public interface OwnerContract {
+    interface View extends BaseView<OwnerContract.Presenter> {
         void showDialog();
     }
 

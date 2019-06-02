@@ -1,4 +1,4 @@
-package com.example.kudaki.renting;
+package com.example.kudaki.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
 import com.example.kudaki.model.equipment.Equipment;
+import com.example.kudaki.renting.EquipmentActivity;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
                 .load(equipmentList.get(position).getImagePath())
                 .into(holder.equipmentImage);
 
-        holder.equipmentCard.setOnClickListener(view -> context.startActivity(
+        holder.cardView.setOnClickListener(view -> context.startActivity(
                 new Intent(context, EquipmentActivity.class))
         );
     }
@@ -61,7 +62,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.equipmentCard)
-        CardView equipmentCard;
+        CardView cardView;
         @BindView(R.id.equipmentTitle)
         TextView equipmentTitle;
         @BindView(R.id.equipmentPrice)

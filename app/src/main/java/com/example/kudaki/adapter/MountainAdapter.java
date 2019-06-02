@@ -59,9 +59,9 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.cardMountain)
         CardView cardMountain;
-        @BindView(R.id.mountainName)
+        @BindView(R.id.itemMountName)
         TextView mountainName;
-        @BindView(R.id.mountainImage)
+        @BindView(R.id.itemMountImage)
         ImageView mountainImage;
 
         ViewHolder(@NonNull View itemView) {

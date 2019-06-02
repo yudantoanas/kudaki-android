@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PemilikFragment extends Fragment implements PemilikContract.View {
+public class OwnerFragment extends Fragment implements OwnerContract.View {
     @BindView(R.id.rvPemilik)
     RecyclerView rvPemilik;
     @BindView(R.id.pemilikBtnAdd)
@@ -38,7 +38,7 @@ public class PemilikFragment extends Fragment implements PemilikContract.View {
     private ProfileMenuAdapter profileMenuAdapter;
 
 
-    public PemilikFragment() {
+    public OwnerFragment() {
         // Required empty public constructor
     }
 
@@ -108,7 +108,7 @@ public class PemilikFragment extends Fragment implements PemilikContract.View {
     }
 
     @Override
-    public void setPresenter(PemilikContract.Presenter presenter) {
+    public void setPresenter(OwnerContract.Presenter presenter) {
 
     }
 }

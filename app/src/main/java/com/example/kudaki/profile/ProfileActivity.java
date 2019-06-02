@@ -40,9 +40,9 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new PenggunaFragment(), "Pengguna");
-        adapter.addFragment(new PemilikFragment(), "Pemilik");
-        adapter.addFragment(new RekomendasiFragment(), "Rekomendasi");
+        adapter.addFragment(new UserFragment(), "Pengguna");
+        adapter.addFragment(new OwnerFragment(), "Pemilik");
+        adapter.addFragment(new RecommendFragment(), "Rekomendasi");
 
         profileViewPager.setAdapter(adapter);
         profileTab.setupWithViewPager(profileViewPager);

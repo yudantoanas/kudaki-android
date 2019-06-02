@@ -99,6 +99,56 @@ public class ExploreActivity extends AppCompatActivity {
                 116.4485726
         ));
 
+        mountainList.add(new Mountain(
+                1,
+                "Gunung Rinjani",
+                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "Mount Rinjani, Indonesia",
+                3.726,
+                -8.411295,
+                116.4485726
+        ));
+
+        mountainList.add(new Mountain(
+                1,
+                "Gunung Rinjani",
+                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "Mount Rinjani, Indonesia",
+                3.726,
+                -8.411295,
+                116.4485726
+        ));
+
+        mountainList.add(new Mountain(
+                1,
+                "Gunung Rinjani",
+                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "Mount Rinjani, Indonesia",
+                3.726,
+                -8.411295,
+                116.4485726
+        ));
+
+        mountainList.add(new Mountain(
+                1,
+                "Gunung Rinjani",
+                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "Mount Rinjani, Indonesia",
+                3.726,
+                -8.411295,
+                116.4485726
+        ));
+
+        mountainList.add(new Mountain(
+                1,
+                "Gunung Rinjani",
+                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "Mount Rinjani, Indonesia",
+                3.726,
+                -8.411295,
+                116.4485726
+        ));
+
         mountainAdapter.notifyDataSetChanged();
     }
 

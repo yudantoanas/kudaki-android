@@ -8,7 +8,7 @@
     tools:context=".renting.EquipmentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -19,7 +19,7 @@
             android:text="Reviews"
             android:textColor="@color/kudakiPrimary"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/divider4"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailRentImg"
             app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
         <TextView
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/eqDetailImage" />
 
         <ImageButton
-            android:id="@+id/eqDetailAdd"
+            android:id="@+id/detailEquipmentAdd"
             style="@style/PrimaryButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -75,8 +75,8 @@
             android:layout_height="wrap_content"
             android:text="Bandung, Jawa Barat"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/eqDetailRentName"
-            app:layout_constraintTop_toBottomOf="@+id/eqDetailRentName" />
+            app:layout_constraintStart_toStartOf="@+id/detailEquipmentRental"
+            app:layout_constraintTop_toBottomOf="@+id/detailEquipmentRental" />
 
         <TextView
             android:id="@+id/textView7"
@@ -95,8 +95,9 @@
             android:layout_marginEnd="32dp"
             android:text="10"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/eqDetailRentRating"
-            app:layout_constraintTop_toTopOf="@+id/eqDetailRentName" />
+            app:layout_constraintTop_toTopOf="@+id/detailEquipmentRental" />
 
         <ImageView
             android:id="@+id/eqDetailRating"
@@ -118,14 +119,17 @@
             app:layout_constraintTop_toBottomOf="@+id/eqDetailRentProduct" />
 
         <TextView
-            android:id="@+id/eqDetailRentName"
+            android:id="@+id/detailEquipmentRental"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Rental ABC"
             android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/eqDetailRentImg"
             app:layout_constraintStart_toEndOf="@+id/eqDetailRentImg"
-            app:layout_constraintTop_toTopOf="@+id/eqDetailRentImg" />
+            app:layout_constraintTop_toTopOf="@+id/eqDetailRentImg"
+            app:layout_constraintVertical_bias="0.25" />
 
         <View
             android:id="@+id/divider3"
@@ -144,8 +148,9 @@
             android:layout_marginEnd="8dp"
             android:text="5.0"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/divider3"
-            app:layout_constraintTop_toTopOf="@+id/eqDetailRentName" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/eqDetailDesc"
+            app:layout_constraintTop_toTopOf="@+id/detailEquipmentRental" />
 
         <ImageView
             android:id="@+id/eqDetailImage"
@@ -163,7 +168,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@+id/divider3"
+            app:layout_constraintStart_toStartOf="@+id/eqDetailDesc"
             app:layout_constraintTop_toBottomOf="@+id/divider3"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -189,7 +194,7 @@
             app:layout_constraintTop_toBottomOf="@+id/eqDetailRentImg" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/eqDetailYourReview"
+            android:id="@+id/detailEquipmentMyReview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -261,9 +266,9 @@
             android:layout_width="0dp"
             android:layout_height="59dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/eqDetailYourReview"
-            app:layout_constraintStart_toStartOf="@+id/eqDetailYourReview"
-            app:layout_constraintTop_toBottomOf="@+id/eqDetailYourReview" />
+            app:layout_constraintEnd_toEndOf="@+id/detailEquipmentMyReview"
+            app:layout_constraintStart_toStartOf="@+id/detailEquipmentMyReview"
+            app:layout_constraintTop_toBottomOf="@+id/detailEquipmentMyReview" />
 
         <TextView
             android:id="@+id/detailProductScore"

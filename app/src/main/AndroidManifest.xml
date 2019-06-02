@@ -8,12 +8,32 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".renting.RentalActivity" />
-        <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".explore.ExploreActivity" />
-        <activity android:name=".event.EventActivity" />
+        <activity
+            android:name=".profile.UserActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".renting.EquipmentActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".renting.EquipmentActivity" />
+        </activity>
+        <activity
+            android:name=".renting.RentalActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".explore.ExploreActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".event.EventActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".profile.TransactionActivity"
             android:parentActivityName=".MainActivity"
@@ -26,12 +46,12 @@
         </activity>
         <activity
             android:name=".explore.MountainActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".explore.ExploreActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".explore.ExploreActivity" />
         </activity>
         <activity
             android:name=".reset.ResetActivity"
@@ -75,7 +95,7 @@
         </activity>
         <activity
             android:name=".setting.SettingActivity"
-            android:label="Pengaturan"
+            android:launchMode="singleTop"
             android:parentActivityName=".profile.ProfileActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -85,14 +105,23 @@
         </activity>
         <activity
             android:name=".renting.EquipmentActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".renting.RentalActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".renting.RentalActivity" />
         </activity>
-        <activity android:name=".cart.CartActivity" />
+        <activity
+            android:name=".cart.CartActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".renting.RentalActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".renting.RentalActivity" />
+        </activity>
         <activity
             android:name=".SearchableActivity"
             android:label="@string/app_name"
@@ -118,6 +147,7 @@
         <activity android:name=".MainActivity">
             <meta-data
                 android:name="android.app.default_searchable"
+                android:launchMode="singleTop"
                 android:value=".SearchableActivity" />
 
             <intent-filter>

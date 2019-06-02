@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
+import com.example.kudaki.adapter.EquipmentAdapter;
 import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
@@ -29,28 +30,28 @@ public class RentalActivity extends AppCompatActivity {
     @BindView(R.id.rentalNav)
     BottomNavigationView bottomNav;
     @BindView(R.id.rvEquipment)
-    RecyclerView rvEquipment;
-    private List<Equipment> equipmentList;
-    private EquipmentAdapter equipmentAdapter;
+    RecyclerView recyclerView;
+    private List<Equipment> list;
+    private EquipmentAdapter adapter;
 
     // dummy mountain loader
     private void loadEquipment() {
-        equipmentList.clear();
-        equipmentList.add(new Equipment(
+        list.clear();
+        list.add(new Equipment(
                 "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
                 "Tas Carrier Eqier",
                 "20000",
                 "Ardi"
         ));
 
-        equipmentList.add(new Equipment(
+        list.add(new Equipment(
                 "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
                 "Tas Carrier Endover",
                 "90000",
                 "Ardi"
         ));
 
-        equipmentAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -76,11 +77,11 @@ public class RentalActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         ButterKnife.bind(this);
 
-        equipmentList = new ArrayList<>();
-        equipmentAdapter = new EquipmentAdapter(this, equipmentList);
+        list = new ArrayList<>();
+        adapter = new EquipmentAdapter(this, list);
 
-        rvEquipment.setLayoutManager(new LinearLayoutManager(this));
-        rvEquipment.setAdapter(equipmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         loadEquipment();
     }
 

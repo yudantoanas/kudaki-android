@@ -1,5 +1,9 @@
 package com.example.kudaki.model.equipment;
 
+import com.example.kudaki.model.response.SuccessResponse;
+
+import retrofit2.Call;
+
 public class Equipment {
     String imagePath;
     String equipmentTitle;
@@ -11,6 +15,11 @@ public class Equipment {
         this.equipmentTitle = equipmentTitle;
         this.equipmentPrice = equipmentPrice;
         this.userName = userName;
+    }
+
+    public Call<SuccessResponse> getEquipment() {
+
+        return null;
     }
 
     public String getImagePath() {
