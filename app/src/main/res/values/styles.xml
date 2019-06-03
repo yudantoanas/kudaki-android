@@ -44,7 +44,7 @@
     <!-- Social Media Login Theme -->
 
     <!-- Dialog Theme -->
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorPrimary">@color/kudakiPrimaryDark</item>
     </style>
 

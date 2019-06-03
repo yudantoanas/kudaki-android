@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.example.kudaki.R;
@@ -20,7 +21,8 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
     Button btnSendEmail;
     @BindView(R.id.inForgotEmail)
     EditText forgotEmail;
-    ActionBar toolbar;
+    @BindView(R.id.forgotToolbar)
+    Toolbar toolbar;
 
     ForgotPwdPresenter forgotPwdPresenter;
     ForgotPwdContract.Presenter contractPresenter;
@@ -31,11 +33,10 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
         setContentView(R.layout.activity_forgot_pwd);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         forgotPwdPresenter = new ForgotPwdPresenter(this);
-
-        toolbar = getSupportActionBar();
-        toolbar.setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override

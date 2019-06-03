@@ -35,4 +35,9 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

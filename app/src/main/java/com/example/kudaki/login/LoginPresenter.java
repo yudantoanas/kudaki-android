@@ -42,16 +42,23 @@ public class LoginPresenter implements LoginContract.Presenter {
                     SuccessResponse resp = response.body();
 
                     Data data = resp.getData(); // simpan data.getToken di cache
-                    loginView.showOnLoginSuccess("Login Success");
+                    loginView.showOnLoginSuccess("Login Success", data.getToken());
                 } else {
                     Gson gson = new GsonBuilder().create();
                     ErrorResponse errors;
                     try {
                         errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                        loginView.showOnLoginFailed("Login Failed! " + errors.getErrors().get(0));
+                        // if email belum terdaftar
+                        if (false) {
+                            loginView.showEmailNotExist(user.getEmail());
+                        } else {
+                            loginView.showOnLoginFailed("Gagal Masuk! " + errors.getErrors().get(0));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
+                        loginView.showOnLoginFailed("Terjadi Kesalahan!");
                     }
+
                 }
                 loginView.closeProgress();
             }

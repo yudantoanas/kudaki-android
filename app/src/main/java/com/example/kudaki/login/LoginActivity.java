@@ -1,6 +1,8 @@
 package com.example.kudaki.login;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 //        Profile user = Profile.getCurrentProfile();
         boolean isFBLoggedIn = accessToken != null && !accessToken.isExpired();
         if (isFBLoggedIn) {
-            showOnLoginSuccess("Berhasil Masuk");
+            showOnLoginSuccess("Berhasil Masuk!", "Token");
         }
     }
 
@@ -113,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 @Override
                 public void onSuccess(LoginResult loginResult) {
                     // App code
-                    showOnLoginSuccess("Berhasil Masuk");
+                    showOnLoginSuccess("Berhasil Masuk", "token");
                 }
 
                 @Override
@@ -163,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void showOnLoginSuccess(String message) {
+    public void showOnLoginSuccess(String message, String token) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Intent home = new Intent(this, MainActivity.class);
 
@@ -176,6 +178,21 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         // start home activity then destroy this activity
         startActivity(home);
         finish();
+    }
+
+    @Override
+    public void showEmailNotExist(String email) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Email Belum Terdaftar");
+        builder.setMessage("Lanjut daftar dengan email ini?");
+        builder.setPositiveButton("Ya, Daftar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Tidak", (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 
     @Override
@@ -208,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
          * Update your UI to display the Google Sign-in button.
          */
         if (account != null) {
-            showOnLoginSuccess("Berhasil Masuk dengan Google");
+            showOnLoginSuccess("Login Success", "Berhasil Masuk dengan Google");
         }
     }
 

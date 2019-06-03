@@ -8,7 +8,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public interface LoginContract {
     interface View extends BaseView<Presenter> {
-        void showOnLoginSuccess(String message);
+        void showOnLoginSuccess(String message, String token);
+
+        void showEmailNotExist(String email);
 
         void showOnLoginFailed(String message);
 

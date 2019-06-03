@@ -9,16 +9,18 @@
     <EditText
         android:id="@+id/inForgotEmail"
         style="@style/FormEditText"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:theme="@style/FormEditText"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <Button
         android:id="@+id/btnSendEmail"
@@ -35,9 +37,20 @@
         android:id="@+id/textView16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:text="Kami akan mengirimkan email yang berisikan petunjuk untuk mengganti kata sandi Anda"
-        app:layout_constraintBottom_toTopOf="@+id/inForgotEmail"
         app:layout_constraintEnd_toEndOf="@+id/inForgotEmail"
-        app:layout_constraintStart_toStartOf="@+id/inForgotEmail" />
+        app:layout_constraintStart_toStartOf="@+id/inForgotEmail"
+        app:layout_constraintTop_toBottomOf="@+id/forgotToolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/forgotToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Lupa Kata Sandi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

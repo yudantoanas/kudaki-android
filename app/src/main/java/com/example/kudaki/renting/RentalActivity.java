@@ -64,7 +64,9 @@ public class RentalActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.shopping_cart:
-                startActivity(new Intent(this, CartActivity.class));
+                Intent cart = new Intent(this, CartActivity.class);
+                startActivity(cart);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

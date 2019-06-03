@@ -22,6 +22,7 @@
         <activity
             android:name=".renting.RentalActivity"
             android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".profile.ProfileActivity"
@@ -56,7 +57,7 @@
         <activity
             android:name=".reset.ResetActivity"
             android:parentActivityName=".login.LoginActivity">
-            <intent-filter android:label="Kudaki">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -136,7 +137,6 @@
         </activity>
         <activity
             android:name=".forgotpwd.ForgotPwdActivity"
-            android:label="Forgot Password"
             android:parentActivityName=".login.LoginActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -149,21 +149,12 @@
                 android:name="android.app.default_searchable"
                 android:launchMode="singleTop"
                 android:value=".SearchableActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity
-            android:name=".login.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".login.LoginActivity" />
+
         <activity
             android:name=".register.RegisterActivity"
-            android:parentActivityName=".login.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:parentActivityName=".login.LoginActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -172,7 +163,14 @@
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

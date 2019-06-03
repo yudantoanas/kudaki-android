@@ -1,12 +1,13 @@
 package com.example.kudaki.register;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.example.kudaki.R;
@@ -29,8 +30,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     EditText confirm;
     @BindView(R.id.submitRegister)
     Button button;
-    @BindView(R.id.backNavigation)
-    ImageView backNav;
+    @BindView(R.id.registerToolbar)
+    Toolbar toolbar;
 
     RegisterPresenter registerPresenter;
     RegisterContract.Presenter contractPresenter;
@@ -41,8 +42,21 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // assign presenter to this activity
         registerPresenter = new RegisterPresenter(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -60,9 +74,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                         phone.getText().toString()));
             }
         });
-
-        // navigate up to parent
-        backNav.setOnClickListener(view -> contractPresenter.backToLogin());
     }
 
     @Override

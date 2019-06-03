@@ -80,7 +80,7 @@ public class OwnerFragment extends Fragment implements OwnerContract.View {
     @Override
     public void showDialog() {
         View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.add_equipment_dialog, null);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(), R.style.DialogTheme);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity(), R.style.CustomDialogTheme);
 
         ImageView image = dialogView.findViewById(R.id.dialogImage);
         EditText name = dialogView.findViewById(R.id.dialogName);

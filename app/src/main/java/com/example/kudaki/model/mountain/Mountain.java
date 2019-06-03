@@ -2,8 +2,6 @@ package com.example.kudaki.model.mountain;
 
 import com.example.kudaki.model.response.SuccessResponse;
 
-import java.util.List;
-
 import retrofit2.Call;
 
 public class Mountain {

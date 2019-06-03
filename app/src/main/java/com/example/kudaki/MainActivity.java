@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -135,16 +134,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        backPressCount++;
-        if (backPressCount < 2) {
-            Toast.makeText(this, "Press back button two times", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Exiting app", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        backPressCount++;
+//        if (backPressCount < 2) {
+//            Toast.makeText(this, "Press back button two times", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(this, "Exiting app", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     @Override
     protected void onStop() {

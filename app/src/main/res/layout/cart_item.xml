@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
         <Button
-            android:id="@+id/cartSendRequest"
+            android:id="@+id/cartCheckout"
             style="@style/PrimaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -1,6 +1,5 @@
 package com.example.kudaki.adapter;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.TaskStackBuilder;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
