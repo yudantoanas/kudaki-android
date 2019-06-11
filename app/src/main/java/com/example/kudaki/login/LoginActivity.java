@@ -1,41 +1,60 @@
 package com.example.kudaki.login;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
 import com.example.kudaki.forgotpwd.ForgotPwdActivity;
 import com.example.kudaki.register.RegisterActivity;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
-    @BindView(R.id.loginEmail) EditText email;
-    @BindView(R.id.loginPassword) EditText password;
-    @BindView(R.id.submitLogin) Button button;
-    @BindView(R.id.linkSignup) TextView linkSignup;
-    @BindView(R.id.linkForgotPwd) TextView linkForgotPwd;
-    @BindView(R.id.buttonLoginGoogle) ImageView buttonLoginGoogle;
+    @BindView(R.id.loginEmail)
+    EditText email;
+    @BindView(R.id.loginPassword)
+    EditText password;
+    @BindView(R.id.submitLogin)
+    Button button;
+    @BindView(R.id.linkSignup)
+    TextView linkSignup;
+    @BindView(R.id.linkForgotPwd)
+    TextView linkForgotPwd;
+    @BindView(R.id.buttonLoginGoogle)
+    ImageView buttonLoginGoogle;
+    @BindView(R.id.buttonLoginFacebook)
+    LoginButton loginButton;
 
     ProgressDialog progressDialog;
     LoginPresenter loginPresenter;
     LoginContract.Presenter contractPresenter;
     GoogleSignInClient mGoogleSignInClient;
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +88,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onStart() {
         super.onStart();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        Profile user = Profile.getCurrentProfile();
+        boolean isFBLoggedIn = accessToken != null && !accessToken.isExpired();
+        if (isFBLoggedIn) {
+            showOnLoginSuccess("Berhasil Masuk!", "Token");
+        }
     }
 
     @Override
@@ -80,6 +105,31 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         buttonLoginGoogle.setOnClickListener(view -> {
             Intent googleLogin = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(googleLogin, 1);
+        });
+
+        loginButton.setOnClickListener(v -> {
+            callbackManager = CallbackManager.Factory.create();
+
+            // Callback registration
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // App code
+                    showOnLoginSuccess("Berhasil Masuk", "token");
+                }
+
+                @Override
+                public void onCancel() {
+                    // App code
+
+                }
+
+                @Override
+                public void onError(FacebookException exception) {
+                    // App code
+                    Log.d("FACEBOOK", "onError: " + exception.toString());
+                }
+            });
         });
 
         linkSignup.setOnClickListener(v -> {
@@ -95,6 +145,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (callbackManager != null) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
 
         // if result code from Register Activity is OK
         if (resultCode == RESULT_OK) {
@@ -112,11 +165,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void showOnLoginSuccess(String message) {
+    public void showOnLoginSuccess(String message, String token) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Intent home = new Intent(this, MainActivity.class);
 
-//        // set shared preference isLogin = true
+        // set shared preference isLogin = true
 //        SharedPreferences sharedPreferences = this.getSharedPreferences("loginStatus",MODE_PRIVATE);
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
 //        editor.putBoolean("isLogin", true)
@@ -125,6 +178,21 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         // start home activity then destroy this activity
         startActivity(home);
         finish();
+    }
+
+    @Override
+    public void showEmailNotExist(String email) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Email Belum Terdaftar");
+        builder.setMessage("Lanjut daftar dengan email ini?");
+        builder.setPositiveButton("Ya, Daftar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Tidak", (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 
     @Override
@@ -157,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
          * Update your UI to display the Google Sign-in button.
          */
         if (account != null) {
-            showOnLoginSuccess("Berhasil Login dengan Google");
+            showOnLoginSuccess("Login Success", "Berhasil Masuk dengan Google");
         }
     }
 

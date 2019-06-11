@@ -1,18 +1,20 @@
 package com.example.kudaki.login;
 
 import android.content.Intent;
-import android.util.Log;
 
+import com.example.kudaki.model.response.Data;
+import com.example.kudaki.model.response.ErrorResponse;
+import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
-import com.example.kudaki.retrofit.PostData;
-import com.example.kudaki.retrofit.RetrofitClient;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,33 +29,42 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String email, String password) {
-        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("email", email)
-                .addFormDataPart("password", password)
-                .build();
-        Call<User> call = service.loginUser(requestBody);
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
 
         loginView.showProgress();
 
-        call.enqueue(new Callback<User>() {
+        user.validateUser().enqueue(new Callback<SuccessResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                loginView.closeProgress();
+            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 if (response.body() != null) {
-                    if (response.body().isSuccess()) {
-                        Log.d("LOGIN", "onResponse: berhasil login");
-                        loginView.showOnLoginSuccess("Berhasil login");
-                    }
+                    SuccessResponse resp = response.body();
+
+                    Data data = resp.getData(); // simpan data.getToken di cache
+                    loginView.showOnLoginSuccess("Login Success", data.getToken());
                 } else {
-                    Log.d("LOGIN", "onResponse: gagal login");
-                    loginView.showOnLoginFailed("Gagal login");
+                    Gson gson = new GsonBuilder().create();
+                    ErrorResponse errors;
+                    try {
+                        errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
+                        // if email belum terdaftar
+                        if (false) {
+                            loginView.showEmailNotExist(user.getEmail());
+                        } else {
+                            loginView.showOnLoginFailed("Gagal Masuk! " + errors.getErrors().get(0));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        loginView.showOnLoginFailed("Terjadi Kesalahan!");
+                    }
+
                 }
+                loginView.closeProgress();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<SuccessResponse> call, Throwable t) {
 
             }
         });

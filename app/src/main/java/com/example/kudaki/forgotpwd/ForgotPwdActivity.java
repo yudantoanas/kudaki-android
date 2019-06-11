@@ -1,26 +1,30 @@
 package com.example.kudaki.forgotpwd;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+
 import com.example.kudaki.R;
 
-public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdContract.View {
-    @BindView(R.id.btnSendEmail) Button btnSendEmail;
-    @BindView(R.id.inForgotEmail) EditText inForgotEmail;
-    ActionBar toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    ForgetPwdPresenter forgetPwdPresenter;
+public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdContract.View {
+    @BindView(R.id.btnSendEmail)
+    Button btnSendEmail;
+    @BindView(R.id.inForgotEmail)
+    EditText forgotEmail;
+    @BindView(R.id.forgotToolbar)
+    Toolbar toolbar;
+
+    ForgotPwdPresenter forgotPwdPresenter;
     ForgotPwdContract.Presenter contractPresenter;
 
     @Override
@@ -29,11 +33,10 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
         setContentView(R.layout.activity_forgot_pwd);
         ButterKnife.bind(this);
 
-        forgetPwdPresenter = new ForgetPwdPresenter(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar = getSupportActionBar();
-        toolbar.setDisplayHomeAsUpEnabled(true);
-
+        forgotPwdPresenter = new ForgotPwdPresenter(this);
     }
 
     @Override
@@ -41,11 +44,8 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
         super.onResume();
 
         btnSendEmail.setOnClickListener(view -> {
-            String email = inForgotEmail.getText().toString();
-            // send email code...
-
-            Toast.makeText(ForgotPwdActivity.this, "Send Email", Toast.LENGTH_SHORT)
-                    .show();
+            String email = forgotEmail.getText().toString();
+            forgotPwdPresenter.doSendEmail(email);
         });
     }
 
@@ -61,8 +61,13 @@ public class ForgotPwdActivity extends AppCompatActivity implements ForgotPwdCon
 
     @Override
     public void showSendSuccess(String message) {
-        Toast.makeText(this, "Send Email Success", Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        NavUtils.navigateUpFromSameTask(this);
+    }
+
+    @Override
+    public void showSendFailed(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

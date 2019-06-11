@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -32,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.20999998">
+                app:layout_constraintVertical_bias="0.19999999">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -40,11 +39,14 @@
 
                     <TextView
                         android:id="@+id/textSignin"
-                        style="@style/AuthTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/LoginTitle_ID"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -53,9 +55,13 @@
                         android:id="@+id/loginEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:ems="10"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
+                        android:singleLine="true"
                         android:theme="@style/FormEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +71,13 @@
                         android:id="@+id/loginPassword"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
-                        android:hint="Password"
+                        android:layout_marginEnd="8dp"
+                        android:ems="10"
+                        android:hint="Kata Sandi"
                         android:inputType="textPassword"
+                        android:singleLine="true"
                         android:theme="@style/FormEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -78,9 +88,11 @@
                         android:id="@+id/checkRemember"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         android:button="@drawable/checkbox"
-                        android:text="Remember Me"
+                        android:text="Ingat Saya"
                         android:textColor="@color/kudakiPrimary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -91,14 +103,15 @@
                         android:id="@+id/linkForgotPwd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Lupa Password"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Lupa Kata Sandi?"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="@color/kudakiPrimary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+                        app:layout_constraintTop_toTopOf="@+id/checkRemember" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,34 +178,33 @@
                 android:id="@+id/buttonLoginGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                android:src="@drawable/google_logo" />
+                android:layout_marginTop="8dp"
+                android:src="@drawable/google_logo"
+                app:layout_constraintEnd_toEndOf="@+id/buttonLoginFacebook"
+                app:layout_constraintStart_toStartOf="@+id/buttonLoginFacebook"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLoginFacebook" />
 
-            <ImageView
+            <com.facebook.login.widget.LoginButton
                 android:id="@+id/buttonLoginFacebook"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                android:src="@drawable/fb_logo" />
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/divider2"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:text="Belum punya akun?"
                 app:layout_constraintEnd_toEndOf="@+id/divider2"
                 app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/buttonLoginFacebook" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonLoginGoogle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

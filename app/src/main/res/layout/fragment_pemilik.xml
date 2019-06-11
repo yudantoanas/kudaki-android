@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".profile.OwnerFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Penyewaan"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Lihat Riwayat"
+            android:textColor="@color/kudakiPrimary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Peralatan"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@id/rvPemilik" />
+
+        <Button
+            android:id="@+id/pemilikBtnAdd"
+            style="@style/PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="+ Tambah Peralatan"
+            app:layout_constraintEnd_toEndOf="@+id/textView12"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/pemilikBtnAdd"
+            app:layout_constraintStart_toStartOf="@+id/pemilikBtnAdd"
+            app:layout_constraintTop_toBottomOf="@+id/pemilikBtnAdd">
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peralatan Anda"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lihat dan atur peralatan Anda"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_next_black"
+                app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView14" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPemilik"
+            android:layout_width="wrap_content"
+            android:layout_height="108dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

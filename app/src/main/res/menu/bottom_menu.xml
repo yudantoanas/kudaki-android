@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/navHome"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/home_ID" />
 
     <item
-        android:id="@+id/event"
+        android:id="@+id/navEvent"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/event_ID" />
 
     <item
-        android:id="@+id/explore"
+        android:id="@+id/navExplore"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/explore_ID" />
 
     <item
-        android:id="@+id/renting"
+        android:id="@+id/navRental"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/renting_ID" />
 
     <item
-        android:id="@+id/profile"
+        android:id="@+id/navProfile"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/profile_ID" />
 

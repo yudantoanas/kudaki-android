@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.EditProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/editProfilePhoto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnBrowseProfile"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Browse File"
+            app:layout_constraintEnd_toEndOf="@+id/editProfilePhoto"
+            app:layout_constraintStart_toStartOf="@+id/editProfilePhoto"
+            app:layout_constraintTop_toBottomOf="@+id/editProfilePhoto" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBrowseProfile">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textWebEmailAddress"
+                android:text="johndoe@mail.com"
+                android:theme="@style/FormEditText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nama"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:text="John Doe"
+                android:theme="@style/FormEditText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No. Telepon"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="No. Telepon"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:text="081223132314"
+                android:theme="@style/FormEditText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Alamat"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="Jl. Telekomunikasi No. 1"
+                android:theme="@style/FormEditText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kota/Kabupaten"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Kota/Kabupaten"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="Kab. Bandung"
+                android:theme="@style/FormEditText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kode Pos"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editPostalCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Kode Pos"
+                android:inputType="number"
+                android:singleLine="true"
+                android:text="40257"
+                android:theme="@style/FormEditText" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSaveProfile"
+            style="@style/PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Simpan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

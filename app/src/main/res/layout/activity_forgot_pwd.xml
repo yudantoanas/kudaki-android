@@ -6,30 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".forgotpwd.ForgotPwdActivity">
 
-    <ImageView
-        android:id="@+id/backNavForgot"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_arrow" />
-
     <EditText
         android:id="@+id/inForgotEmail"
         style="@style/FormEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:theme="@style/FormEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20999998" />
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <Button
         android:id="@+id/btnSendEmail"
@@ -43,14 +34,23 @@
         app:layout_constraintTop_toBottomOf="@+id/inForgotEmail" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView16"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/ForgotTitle_ID"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/backNavForgot"
-        app:layout_constraintStart_toEndOf="@+id/backNavForgot"
-        app:layout_constraintTop_toTopOf="@+id/backNavForgot" />
+        android:layout_marginTop="16dp"
+        android:text="Kami akan mengirimkan email yang berisikan petunjuk untuk mengganti kata sandi Anda"
+        app:layout_constraintEnd_toEndOf="@+id/inForgotEmail"
+        app:layout_constraintStart_toStartOf="@+id/inForgotEmail"
+        app:layout_constraintTop_toBottomOf="@+id/forgotToolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/forgotToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Lupa Kata Sandi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
