@@ -5,7 +5,8 @@ import android.content.Intent;
 import com.example.kudaki.model.response.Data;
 import com.example.kudaki.model.response.ErrorResponse;
 import com.example.kudaki.model.response.SuccessResponse;
-import com.example.kudaki.model.user.User;
+import com.example.kudaki.retrofit.PostData;
+import com.example.kudaki.retrofit.RetrofitClient;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -15,6 +16,8 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,31 +32,30 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void doLogin(String email, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-
         loginView.showProgress();
 
-        user.validateUser().enqueue(new Callback<SuccessResponse>() {
+        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("email", email)
+                .addFormDataPart("password", password)
+                .build();
+        Call<SuccessResponse> call = service.loginUser(requestBody);
+
+        call.enqueue(new Callback<SuccessResponse>() {
             @Override
             public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                 if (response.body() != null) {
                     SuccessResponse resp = response.body();
 
                     Data data = resp.getData(); // simpan data.getToken di cache
-                    loginView.showOnLoginSuccess("Login Success", data.getToken());
+                    loginView.showOnLoginSuccess("Berhasil Login!", data.getToken());
                 } else {
                     Gson gson = new GsonBuilder().create();
                     ErrorResponse errors;
                     try {
                         errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                        // if email belum terdaftar
-                        if (false) {
-                            loginView.showEmailNotExist(user.getEmail());
-                        } else {
-                            loginView.showOnLoginFailed("Gagal Masuk! " + errors.getErrors().get(0));
-                        }
+                        loginView.showOnLoginFailed("Gagal Login! " + errors.getErrors().get(0));
                     } catch (IOException e) {
                         e.printStackTrace();
                         loginView.showOnLoginFailed("Terjadi Kesalahan!");
@@ -98,7 +100,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void onBackClicked() {
-        // confirm exit dialog / double tap to exit
+    public void start() {
+
     }
 }

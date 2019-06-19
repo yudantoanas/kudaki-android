@@ -21,19 +21,19 @@
         </activity>
         <activity
             android:name=".renting.RentalActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:label="Cari Alat"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".profile.ProfileActivity"
+            android:label="Profil"
             android:launchMode="singleTop" />
         <activity
             android:name=".explore.ExploreActivity"
-            android:launchMode="singleTop"
+            android:label="Jelajah"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".event.EventActivity"
-            android:launchMode="singleTop"
+            android:label="Acara"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".profile.TransactionActivity"
@@ -65,7 +65,7 @@
 
                 <data
                     android:host="gateway.kudaki.id"
-                    android:pathPrefix="/user/reset-password"
+                    android:pathPrefix="/user/password/reset"
                     android:scheme="https" />
             </intent-filter>
 

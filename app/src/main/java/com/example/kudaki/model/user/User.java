@@ -40,26 +40,6 @@ public class User {
         this.loginMessage = loginMessage;
     }
 
-    public Call<SuccessResponse> validateUser() {
-        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("email", email)
-                .addFormDataPart("password", password)
-                .build();
-        Call<SuccessResponse> call = service.loginUser(requestBody);
-
-        return call;
-    }
-
-    public boolean validatePasswordLength() {
-        return password.length() >= 8;
-    }
-
-    public boolean validatePasswordStrength() {
-        return password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$");
-    }
-
     public Call<SuccessResponse> createUser() {
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -72,17 +52,6 @@ public class User {
                 .addFormDataPart("photo", photoPath)
                 .build();
         Call<SuccessResponse> call = service.registerUser(requestBody);
-
-        return call;
-    }
-
-    public Call<SuccessResponse> sendEmail() {
-        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("email", email)
-                .build();
-        Call<SuccessResponse> call = service.sendForgotPwdEmail(requestBody);
 
         return call;
     }

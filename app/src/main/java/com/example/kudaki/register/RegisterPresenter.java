@@ -4,11 +4,15 @@ import com.example.kudaki.model.response.Data;
 import com.example.kudaki.model.response.ErrorResponse;
 import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
+import com.example.kudaki.retrofit.PostData;
+import com.example.kudaki.retrofit.RetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,16 +27,28 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public void doRegister(User user) {
-        //.. showing progress
+        registerView.showProgress();
+
+        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("full_name", user.getFullname())
+                .addFormDataPart("phone_number", user.getPhone())
+                .addFormDataPart("email", user.getEmail())
+                .addFormDataPart("password", user.getPassword())
+                .addFormDataPart("role", "User")
+                .addFormDataPart("photo", "")
+                .build();
+        Call<SuccessResponse> call = service.registerUser(requestBody);
 
         // validate password
-        if (!user.validatePasswordLength()) {
+        if (user.getPassword().length() < 8) {
             registerView.showOnRegisterFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
-        } else if (!user.validatePasswordStrength()) {
+        } else if (!user.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
             registerView.showOnRegisterFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
         } else {
             // if pass, then create user
-            user.createUser().enqueue(new Callback<SuccessResponse>() {
+            call.enqueue(new Callback<SuccessResponse>() {
                 @Override
                 public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
                     if (response.body() != null) {
@@ -71,7 +87,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     @Override
-    public void onBackClicked() {
+    public void start() {
 
     }
 }

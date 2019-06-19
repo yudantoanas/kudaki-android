@@ -19,7 +19,7 @@ public class MainPresenter implements MainContract.Presenter {
         mountainList.add(new Mountain(
                 1,
                 "Gunung Rinjani",
-                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "https://cdn2.tstatic.net/kaltim/foto/bank/images/gunung-rinjani_20180908_102029.jpg",
                 "Mount Rinjani, Indonesia",
                 3.726,
                 -8.411295,
@@ -28,7 +28,7 @@ public class MainPresenter implements MainContract.Presenter {
         mountainList.add(new Mountain(
                 2,
                 "Gunung Merbabu",
-                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
+                "http://cdn2.tstatic.net/bangka/foto/bank/images/gunung-merbabu.jpg",
                 "Mount Merbabu, Indonesia",
                 3.726,
                 -8.411295,
@@ -41,7 +41,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void onBackClicked() {
+    public void start() {
 
     }
 }

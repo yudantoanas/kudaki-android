@@ -101,6 +101,16 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void closeProgress() {
+
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
     }

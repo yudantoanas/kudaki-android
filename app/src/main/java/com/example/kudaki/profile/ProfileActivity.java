@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.kudaki.MainActivity;
@@ -23,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProfileActivity extends AppCompatActivity {
+    @BindView(R.id.profileToolbar)
+    Toolbar toolbar;
     @BindView(R.id.profileNav)
     BottomNavigationView bottomNav;
     @BindView(R.id.profileTab)
@@ -38,6 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
 
         adapter = new TabAdapter(getSupportFragmentManager());
         adapter.addFragment(new UserFragment(), "Pengguna");

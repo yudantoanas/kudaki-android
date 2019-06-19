@@ -18,6 +18,6 @@ package com.example.kudaki;
 
 public interface BasePresenter {
 
-    void onBackClicked();
+    void start();
 
 }

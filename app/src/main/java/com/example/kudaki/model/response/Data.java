@@ -7,12 +7,14 @@ public class Data {
     @SerializedName("token")
     @Expose
     private String token;
+    @SerializedName("Total")
+    @Expose
+    private Integer total;
+//    @SerializedName("items")
+//    @Expose
+//    private List<> items = null;
 
     public String getToken() {
         return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

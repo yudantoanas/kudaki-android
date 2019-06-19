@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.MainActivity;
@@ -17,6 +19,7 @@ import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
 import com.example.kudaki.model.equipment.Equipment;
+import com.example.kudaki.model.response.RentalResponse;
 import com.example.kudaki.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,32 +29,22 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RentalActivity extends AppCompatActivity {
+public class RentalActivity extends AppCompatActivity implements RentalContract.View {
+    @BindView(R.id.rentalToolbar)
+    Toolbar toolbar;
     @BindView(R.id.rentalNav)
     BottomNavigationView bottomNav;
     @BindView(R.id.rvEquipment)
     RecyclerView recyclerView;
+
     private List<Equipment> list;
     private EquipmentAdapter adapter;
 
-    // dummy mountain loader
+    RentalContract.Presenter contractPresenter;
+    RentalPresenter presenter;
+
     private void loadEquipment() {
-        list.clear();
-        list.add(new Equipment(
-                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
-                "Tas Carrier Eqier",
-                "20000",
-                "Ardi"
-        ));
 
-        list.add(new Equipment(
-                "https://images.unsplash.com/photo-1506255677943-8d8cb3619c10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80",
-                "Tas Carrier Endover",
-                "90000",
-                "Ardi"
-        ));
-
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -79,17 +72,23 @@ public class RentalActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         ButterKnife.bind(this);
 
+        presenter = new RentalPresenter(this, this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         list = new ArrayList<>();
         adapter = new EquipmentAdapter(this, list);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
-        loadEquipment();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        contractPresenter.loadItems();
 
         bottomNav.getMenu().getItem(3).setChecked(true);
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
@@ -115,5 +114,32 @@ public class RentalActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    @Override
+    public void setPresenter(RentalContract.Presenter presenter) {
+        this.contractPresenter = presenter;
+    }
+
+    @Override
+    public void displayItems(RentalResponse.RentalData data) {
+        if (data.getTotal() == 0) {
+            Toast.makeText(this, "List Alat Kosong", Toast.LENGTH_SHORT).show();
+        } else {
+            list.clear();
+            for (int x = 0; x < data.getItems().size(); x++) {
+                list.add(new Equipment(
+                        data.getItems().get(x).getProperties().getItemUuid(),
+                        data.getItems().get(x).getProperties().getStorefrontUuid(),
+                        data.getItems().get(x).getProperties().getItemName(),
+                        data.getItems().get(x).getProperties().getItemDescription(),
+                        data.getItems().get(x).getProperties().getItemPhoto(),
+                        data.getItems().get(x).getProperties().getItemPrice(),
+                        data.getItems().get(x).getProperties().getItemRating()
+                ));
+            }
+
+            adapter.notifyDataSetChanged();
+        }
     }
 }

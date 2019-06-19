@@ -13,7 +13,7 @@
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/kudakiAccentWhite</item>
         <item name="android:colorAccent">@color/kudakiAccentWhite</item>
-        <item name="android:elevation">99dp</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

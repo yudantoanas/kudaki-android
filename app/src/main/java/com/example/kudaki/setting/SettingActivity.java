@@ -2,10 +2,13 @@ package com.example.kudaki.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NavUtils;
 
 import com.example.kudaki.R;
 import com.example.kudaki.login.LoginActivity;
@@ -16,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SettingActivity extends AppCompatActivity implements SettingContract.View {
+    @BindView(R.id.settingToolbar)
+    Toolbar toolbar;
     @BindView(R.id.cardEditProfile)
     CardView editProfile;
     @BindView(R.id.cardEditPassword)
@@ -31,6 +36,9 @@ public class SettingActivity extends AppCompatActivity implements SettingContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // assign presenter to this activity
         settingPresenter = new SettingPresenter(this);
@@ -60,5 +68,16 @@ public class SettingActivity extends AppCompatActivity implements SettingContrac
     public void showLogoutSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

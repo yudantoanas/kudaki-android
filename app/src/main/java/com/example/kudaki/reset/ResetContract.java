@@ -1,13 +1,13 @@
-package com.example.kudaki.forgotpwd;
+package com.example.kudaki.reset;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
 
-public interface ForgotPwdContract {
+public class ResetContract {
     interface View extends BaseView<Presenter> {
-        void showSendSuccess(String message);
+        void showResetSuccess(String message);
 
-        void showSendFailed(String message);
+        void showResetFailed(String message);
 
         void showProgress();
 
@@ -15,6 +15,6 @@ public interface ForgotPwdContract {
     }
 
     interface Presenter extends BasePresenter {
-        void doSendEmail(String email);
+        void doReset(String token, String newPwd);
     }
 }

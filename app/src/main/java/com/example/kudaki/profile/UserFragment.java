@@ -53,11 +53,10 @@ public class UserFragment extends Fragment {
 
     private void loadMenu() {
         menuList.clear();
-        menuList.add(new MenuProfile(R.drawable.ic_wait_black, "Menunggu Konfirmasi"));
-        menuList.add(new MenuProfile(R.drawable.ic_process_black, "Sedang Diproses"));
-        menuList.add(new MenuProfile(R.drawable.ic_rent_black, "Sedang Menyewa"));
-        menuList.add(new MenuProfile(R.drawable.ic_done_black, "Selesai"));
-        menuList.add(new MenuProfile(R.drawable.ic_cancel_black, "Dibatalkan"));
+        menuList.add(new MenuProfile(R.drawable.wait_icon, "Menunggu Konfirmasi"));
+        menuList.add(new MenuProfile(R.drawable.process_icon, "Sedang Diproses"));
+        menuList.add(new MenuProfile(R.drawable.rent_icon, "Sedang Menyewa"));
+        menuList.add(new MenuProfile(R.drawable.done_icon, "Selesai"));
 
         profileMenuAdapter.notifyDataSetChanged();
     }

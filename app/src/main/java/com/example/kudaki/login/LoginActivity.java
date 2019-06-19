@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -88,6 +89,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onStart() {
         super.onStart();
+
+        // check if token still exist
+
+
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
 //        Profile user = Profile.getCurrentProfile();
         boolean isFBLoggedIn = accessToken != null && !accessToken.isExpired();
@@ -166,14 +171,15 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void showOnLoginSuccess(String message, String token) {
+        closeProgress();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Intent home = new Intent(this, MainActivity.class);
 
         // set shared preference isLogin = true
-//        SharedPreferences sharedPreferences = this.getSharedPreferences("loginStatus",MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putBoolean("isLogin", true)
-//                .apply(); // save preference asynchronously
+        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token)
+                .apply(); // save preference asynchronously
 
         // start home activity then destroy this activity
         startActivity(home);

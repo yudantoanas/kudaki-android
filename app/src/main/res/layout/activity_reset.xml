@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/resetPassword"
-            style="@style/FormEditText"
+            android:theme="@style/FormEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -33,7 +33,7 @@
 
         <EditText
             android:id="@+id/resetConfirm"
-            style="@style/FormEditText"
+            android:theme="@style/FormEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -62,8 +62,8 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="Buat Ulang Kata Sandi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Buat Ulang Kata Sandi" />
 </androidx.constraintlayout.widget.ConstraintLayout>

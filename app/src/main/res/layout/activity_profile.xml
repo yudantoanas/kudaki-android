@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".profile.ProfileActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profileToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -13,7 +24,7 @@
         android:background="@color/kudakiPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/profileToolbar">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profilePhoto"
@@ -23,7 +34,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/profile_dummy"
             app:civ_border="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="John Doe"
+            android:text="Yudanto Anas"
             android:textColor="@color/kudakiAccentWhite"
             android:textSize="24sp"
             android:textStyle="bold"

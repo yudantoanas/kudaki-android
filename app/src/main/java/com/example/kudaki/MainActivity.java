@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private PopularAdapter adapter;
     //    GoogleSignInClient mGoogleSignInClient;
 
-    int[] sampleImages = {R.drawable.image_dummy, R.drawable.image_dummy, R.drawable.image_dummy};
+    int[] sampleImages = {R.drawable.event_dummy_1, R.drawable.event_dummy_2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

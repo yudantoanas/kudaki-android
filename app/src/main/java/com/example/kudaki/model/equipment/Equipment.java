@@ -1,56 +1,77 @@
 package com.example.kudaki.model.equipment;
 
-import com.example.kudaki.model.response.SuccessResponse;
-
-import retrofit2.Call;
-
 public class Equipment {
-    String imagePath;
-    String equipmentTitle;
-    String equipmentPrice;
-    String userName;
+    String uuid;
+    String storeUuid;
+    String name;
+    String desc;
+    String photo;
+    String price;
+    String rating;
 
-    public Equipment(String imagePath, String equipmentTitle, String equipmentPrice, String userName) {
-        this.imagePath = imagePath;
-        this.equipmentTitle = equipmentTitle;
-        this.equipmentPrice = equipmentPrice;
-        this.userName = userName;
+    public Equipment(String uuid, String storeUuid, String name, String desc, String photo, String price, String rating) {
+        this.uuid = uuid;
+        this.storeUuid = storeUuid;
+        this.name = name;
+        this.desc = desc;
+        this.photo = photo;
+        this.price = price;
+        this.rating = rating;
     }
 
-    public Call<SuccessResponse> getEquipment() {
-
-        return null;
+    public String getUuid() {
+        return uuid;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public String getStoreUuid() {
+        return storeUuid;
     }
 
-    public String getEquipmentTitle() {
-        return equipmentTitle;
+    public void setStoreUuid(String storeUuid) {
+        this.storeUuid = storeUuid;
     }
 
-    public void setEquipmentTitle(String equipmentTitle) {
-        this.equipmentTitle = equipmentTitle;
+    public String getName() {
+        return name;
     }
 
-    public String getEquipmentPrice() {
-        return equipmentPrice;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setEquipmentPrice(String equipmentPrice) {
-        this.equipmentPrice = equipmentPrice;
+    public String getDesc() {
+        return desc;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }

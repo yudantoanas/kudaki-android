@@ -6,7 +6,7 @@ import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-public interface LoginContract {
+public class LoginContract {
     interface View extends BaseView<Presenter> {
         void showOnLoginSuccess(String message, String token);
 
