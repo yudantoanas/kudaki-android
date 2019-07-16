@@ -3,7 +3,7 @@ package com.example.kudaki.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class Order {
+public class Order {
     @SerializedName("order_num")
     @Expose
     private String orderNum;
@@ -19,6 +19,14 @@ class Order {
     @SerializedName("tenant")
     @Expose
     private Tenant tenant;
+
+    public Order(String orderNum, String status, Integer createdAt, Integer totalItem, Tenant tenant) {
+        this.orderNum = orderNum;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.totalItem = totalItem;
+        this.tenant = tenant;
+    }
 
     public String getOrderNum() {
         return orderNum;

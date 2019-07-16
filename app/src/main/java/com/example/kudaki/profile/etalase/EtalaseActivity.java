@@ -61,9 +61,9 @@ public class EtalaseActivity extends AppCompatActivity implements EtalaseContrac
 
         presenter = new EtalasePresenter(this, getIntent().getExtras().getString("token"));
 
-        progressDialog = new ProgressDialog(this);
-
         list = new ArrayList<>();
+
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -160,9 +160,9 @@ public class EtalaseActivity extends AppCompatActivity implements EtalaseContrac
             }
             adapter = new EtalaseAdapter(this, list);
             adapter.setToken(getIntent().getExtras().getString("token"));
+            adapter.notifyDataSetChanged();
             rvEtalase.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
             rvEtalase.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
         }
     }
 

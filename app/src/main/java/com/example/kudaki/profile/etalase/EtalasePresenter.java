@@ -32,13 +32,13 @@ public class EtalasePresenter implements EtalaseContract.Presenter {
         call.enqueue(new Callback<StoreResponse>() {
             @Override
             public void onResponse(Call<StoreResponse> call, Response<StoreResponse> response) {
-                if (response.body() != null) {
+                if (response.code() == 200) {
                     StoreResponse resp = response.body();
 
                     StoreData data = resp.getData(); // simpan data.getToken di cache
                     view.showEtalaseItem(data);
-                    view.closeProgress();
                 }
+                view.closeProgress();
             }
 
             @Override

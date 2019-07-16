@@ -1,19 +1,15 @@
 package com.example.kudaki.profile;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -27,6 +23,7 @@ import com.example.kudaki.model.response.ProfileData;
 import com.example.kudaki.profile.etalase.EtalaseActivity;
 import com.example.kudaki.renting.RentalActivity;
 import com.example.kudaki.setting.SettingActivity;
+import com.example.kudaki.transaction.TransactionActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -43,8 +40,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     TextView name;
     @BindView(R.id.profilePhone)
     TextView phone;
-    @BindView(R.id.profileBegin)
-    TextView profileBegin;
+    @BindView(R.id.profileTransaction)
+    ConstraintLayout profileTransaction;
     @BindView(R.id.profileEtalase)
     ConstraintLayout profileEtalase;
 
@@ -89,9 +86,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
             name.setText(user.getString("name", ""));
             phone.setText(user.getString("phone", ""));
         }
-
-        // load address
-        contractPresenter.loadAddress();
     }
 
     @Override
@@ -130,41 +124,21 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
             startActivity(edit);
         });
 
-        profileBegin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                // Get the layout inflater
-                LayoutInflater inflater = getLayoutInflater();
-
-                View view = inflater.inflate(R.layout.dialog_address, null);
-                EditText addr = view.findViewById(R.id.profileInputAddress);
-
-                // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
-                builder.setView(view)
-                        // Add action buttons
-                        .setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                contractPresenter.saveAddress(addr.getText().toString());
-                            }
-                        })
-                        .setNegativeButton("Tutup", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-                            }
-                        });
-                builder.show();
-            }
-        });
-
         profileEtalase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent etalase = new Intent(v.getContext(), EtalaseActivity.class);
                 etalase.putExtra("token", token);
                 startActivity(etalase);
+            }
+        });
+
+        profileTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent transaction = new Intent(v.getContext(), TransactionActivity.class);
+                transaction.putExtra("token", token);
+                startActivity(transaction);
             }
         });
     }
@@ -211,19 +185,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
     @Override
     public void checkAddress(AddressData data) {
-        if (data.getAddresses() == null) {
-            profileBegin.setVisibility(View.VISIBLE);
-            profileEtalase.setVisibility(View.INVISIBLE);
-        } else {
-            profileBegin.setVisibility(View.INVISIBLE);
-            profileEtalase.setVisibility(View.VISIBLE);
-        }
-    }
 
-    @Override
-    public void showBeginSuccess() {
-        profileBegin.setVisibility(View.INVISIBLE);
-        profileEtalase.setVisibility(View.VISIBLE);
     }
 
     @Override

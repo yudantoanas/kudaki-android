@@ -35,7 +35,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                 .addFormDataPart("phone_number", user.getPhone())
                 .addFormDataPart("email", user.getEmail())
                 .addFormDataPart("password", user.getPassword())
-                .addFormDataPart("role", "User")
+                .addFormDataPart("role", "USER")
                 //.addFormDataPart("photo", "")
                 .build();
         Call<DefaultResponse> call = service.registerUser(requestBody);
@@ -64,6 +64,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                             } else if (errors.getErrors().contains("verification email")) {
                                 view.showOnRegisterFailed("Gagal mengirim email verifikasi");
                             } else {
+
                                 view.showOnRegisterFailed("Gagal daftar!");
                             }
                         } catch (IOException e) {

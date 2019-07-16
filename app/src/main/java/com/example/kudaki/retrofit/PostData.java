@@ -24,7 +24,7 @@ public interface PostData {
     @POST("/signup")
     Call<DefaultResponse> registerUser(@Body RequestBody user);
 
-    @POST("/user-info/addresses")
+    @POST("/user-info/address")
     Call<DefaultResponse> addAddress(@Header ("Kudaki-Token") String token,
                                      @Body RequestBody user);
 

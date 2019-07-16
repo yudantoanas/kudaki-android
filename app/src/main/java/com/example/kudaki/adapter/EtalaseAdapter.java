@@ -2,6 +2,7 @@ package com.example.kudaki.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,8 @@ public class EtalaseAdapter extends RecyclerView.Adapter<EtalaseAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("ADAPTER", "onBindViewHolder: " + list.size());
+        Log.d("ADAPTER", "onBindViewHolder: " + list.get(position).getName());
         holder.name.setText(list.get(position).getName());
         holder.priceDuration.setText("Rp " + String.valueOf(list.get(position).getPrice()) + "/" + list.get(position).getPriceDuration());
 

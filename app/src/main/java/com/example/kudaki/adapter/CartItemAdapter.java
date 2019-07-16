@@ -3,6 +3,7 @@ package com.example.kudaki.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         this.list = list;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,7 +50,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setImageResource(R.drawable.image_dummy);
         holder.name.setText(list.get(position).getItem().getName());
-        holder.price.setText(list.get(position).getItem().getPrice());
+        holder.price.setText(String.valueOf(list.get(position).getItem().getPrice()));
         holder.duration.setText(list.get(position).getItem().getPriceDuration());
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -63,14 +65,17 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
                 PostData service = RetrofitClient.getRetrofit().create(PostData.class);
                 SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString("token", "");
+                Log.d("DELETE", "onClick: " + token);
                 Call<DefaultResponse> call = service.deleteCartItem(token, "");
 
                 call.enqueue(new Callback<DefaultResponse>() {
                     @Override
                     public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                        Toast.makeText(context, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                        progressDialog.dismiss();
+                        if (response.code() == 200) {
+                            Toast.makeText(context, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
+                            progressDialog.dismiss();
+                        }
                     }
 
                     @Override
@@ -84,6 +89,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+        Log.d("COUNT", "getItemCount: " + list.size());
         return list.size();
     }
 

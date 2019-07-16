@@ -4,18 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.TransactionActivity">
+    tools:context=".transaction.TransactionActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/transactionToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/transactionTab"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabBackground="@color/kudakiPrimary"
-        app:tabIndicatorColor="@color/kudakiAccentWhite"
-        app:tabMode="scrollable"
+        android:background="@color/kudakiPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/transactionToolbar"
+        app:layout_constraintStart_toStartOf="@+id/transactionToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/transactionToolbar"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
         app:tabTextColor="@color/kudakiAccentWhite" />
 
     <androidx.viewpager.widget.ViewPager
@@ -26,5 +37,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transactionTab" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

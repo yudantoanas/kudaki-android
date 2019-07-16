@@ -3,6 +3,7 @@ package com.example.kudaki.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,8 +86,11 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
             call.enqueue(new Callback<DefaultResponse>() {
                 @Override
                 public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                    Toast.makeText(context, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                    Log.d("RENTAL", "onResponse: " + response.code());
+                    if (response.code() == 200) {
+                        Toast.makeText(context, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
                 }
 
                 @Override

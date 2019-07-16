@@ -76,7 +76,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     @Override
     public void showCartItems(CartData data) {
-        totalPrice.setText(data.getCart().getTotalItems());
+        cartUuid = String.valueOf(data.getCart().getUuid());
+        totalPrice.setText(String.valueOf(data.getCart().getTotalPrice()));
 
         if (data.getStorefronts() == null) {
             Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show();

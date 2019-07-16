@@ -10,6 +10,9 @@ public class StoreItem {
     @SerializedName("storefront_uuid")
     @Expose
     private String storefrontUuid;
+    @SerializedName("storefront_name")
+    @Expose
+    private String storefrontName;
     @SerializedName("name")
     @Expose
     private String name;
@@ -62,6 +65,14 @@ public class StoreItem {
         this.description = description;
         this.photo = photo;
         this.rating = rating;
+    }
+
+    public String getStorefrontName() {
+        return storefrontName;
+    }
+
+    public void setStorefrontName(String storefrontName) {
+        this.storefrontName = storefrontName;
     }
 
     public String getUuid() {

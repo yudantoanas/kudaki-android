@@ -1,12 +1,14 @@
 package com.example.kudaki.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.R;
@@ -42,8 +44,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(list.get(position).getOwnerName());
 
+
+        Log.d("CART", "a: " + list.get(position).getCartItems().get(position).getItem().getName());
         adapter = new CartItemAdapter(context, list.get(position).getCartItems());
         holder.recyclerView.setAdapter(adapter);
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
     }
 
     @Override

@@ -39,7 +39,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".setting.SettingActivity" />
         </activity>
-        <activity android:name=".transaction.TransactionActivity" />
+        <activity android:name=".transaction.TransactionActivity"
+            android:label="Lihat Transaksi"/>
         <activity
             android:name=".profile.EditProfileActivity"
             android:label="Ubah Profil"

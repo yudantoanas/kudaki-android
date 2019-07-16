@@ -9,14 +9,11 @@ public interface ProfileContract {
     interface View extends BaseView<Presenter> {
         void display(ProfileData data);
         void checkAddress(AddressData data);
-        void showBeginSuccess();
         void showProgress();
         void closeProgress();
     }
 
     interface Presenter extends BasePresenter{
         void loadProfile();
-        void loadAddress();
-        void saveAddress(String address);
     }
 }
