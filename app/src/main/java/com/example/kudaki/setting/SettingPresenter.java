@@ -14,18 +14,15 @@ public class SettingPresenter implements SettingContract.Presenter {
 
     @Override
     public void doLogout(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        SharedPreferences spLoginToken = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edLoginToken = spLoginToken.edit();
+        edLoginToken.clear();
+        edLoginToken.apply();
 
-//        if (AccessToken.getCurrentAccessToken() != null) {
-//            LoginManager.getInstance().logOut();
-//        }
-//
-//        if (GoogleSignIn.getLastSignedInAccount(context) != null) {
-//            googleSignInClient.signOut();
-//        }
+        SharedPreferences spUser = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edUser = spUser.edit();
+        edUser.clear();
+        edUser.apply();
 
         settingView.showLogoutSuccess("Berhasil Keluar");
     }

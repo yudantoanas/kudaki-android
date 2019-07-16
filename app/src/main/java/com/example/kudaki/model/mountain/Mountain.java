@@ -1,9 +1,5 @@
 package com.example.kudaki.model.mountain;
 
-import com.example.kudaki.model.response.SuccessResponse;
-
-import retrofit2.Call;
-
 public class Mountain {
     private int id;
     private String name;
@@ -21,20 +17,6 @@ public class Mountain {
         this.height = height;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public Mountain() {
-
-    }
-
-    public Call<SuccessResponse> getPopular() {
-
-        return null;
-    }
-
-    public Call<SuccessResponse> getAllMountain() {
-
-        return null;
     }
 
     public int getId() {

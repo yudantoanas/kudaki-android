@@ -2,11 +2,15 @@ package com.example.kudaki.renting;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
-import com.example.kudaki.model.response.RentalResponse;
+import com.example.kudaki.model.response.AllItemData;
 
 public class RentalContract {
     interface View extends BaseView<Presenter> {
-        void displayItems(RentalResponse.RentalData data);
+        void showProgress();
+
+        void closeProgress();
+
+        void displayItems(AllItemData data);
     }
 
     interface Presenter extends BasePresenter {

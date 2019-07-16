@@ -1,8 +1,7 @@
 package com.example.kudaki.register;
 
-import com.example.kudaki.model.response.Data;
+import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.ErrorResponse;
-import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.model.user.User;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
@@ -18,16 +17,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterPresenter implements RegisterContract.Presenter {
-    private RegisterContract.View registerView;
+    private RegisterContract.View view;
 
     public RegisterPresenter(RegisterContract.View registerView) {
-        this.registerView = registerView;
-        this.registerView.setPresenter(this);
+        this.view = registerView;
+        this.view.setPresenter(this);
     }
 
     @Override
     public void doRegister(User user) {
-        registerView.showProgress();
+        view.showProgress();
 
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -37,39 +36,45 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                 .addFormDataPart("email", user.getEmail())
                 .addFormDataPart("password", user.getPassword())
                 .addFormDataPart("role", "User")
-                .addFormDataPart("photo", "")
+                //.addFormDataPart("photo", "")
                 .build();
-        Call<SuccessResponse> call = service.registerUser(requestBody);
+        Call<DefaultResponse> call = service.registerUser(requestBody);
 
         // validate password
         if (user.getPassword().length() < 8) {
-            registerView.showOnRegisterFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
+            view.showOnRegisterFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
+            view.closeProgress();
         } else if (!user.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
-            registerView.showOnRegisterFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
+            view.showOnRegisterFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
+            view.closeProgress();
         } else {
             // if pass, then create user
-            call.enqueue(new Callback<SuccessResponse>() {
+            call.enqueue(new Callback<DefaultResponse>() {
                 @Override
-                public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
-                    if (response.body() != null) {
-                        SuccessResponse resp = response.body();
-
-                        Data data = resp.getData(); // simpan data.getToken di cache
-                        registerView.showOnRegisterSuccess("Berhasil daftar! Silahkan cek email untuk verifikasi.");
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    if (response.code() == 200) {
+                        view.showOnRegisterSuccess("Berhasil daftar! Silahkan cek email untuk verifikasi.");
                     } else {
                         Gson gson = new GsonBuilder().create();
                         ErrorResponse errors;
                         try {
                             errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                            registerView.showOnRegisterFailed("Gagal daftar! " + errors.getErrors().get(0));
+                            if (errors.getErrors().contains("email already exists")) {
+                                view.showOnRegisterFailed("Email sudah terdaftar");
+                            } else if (errors.getErrors().contains("verification email")) {
+                                view.showOnRegisterFailed("Gagal mengirim email verifikasi");
+                            } else {
+                                view.showOnRegisterFailed("Gagal daftar!");
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
+                    view.closeProgress();
                 }
 
                 @Override
-                public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
                 }
             });
@@ -78,7 +83,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public void backToLogin() {
-        registerView.showLoginActivity();
+        view.showLoginActivity();
     }
 
     @Override

@@ -1,10 +1,6 @@
 package com.example.kudaki.profile;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.widget.EditText;
-
-import com.example.kudaki.model.response.SuccessResponse;
+import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
@@ -15,59 +11,54 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditPasswordPresenter implements EditPasswordContract.Presenter {
-    Context context;
+    String token;
+
     EditPasswordContract.View view;
 
-    public EditPasswordPresenter(Context context, EditPasswordContract.View view) {
-        this.context = context;
+    public EditPasswordPresenter(EditPasswordContract.View view, String token) {
+        this.token = token;
         this.view = view;
         this.view.setPresenter(this);
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void changePassword(EditText oldPwd, EditText newPwd) {
+    public void update(String oldPwd, String newPwd) {
         view.showProgress();
+        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("new_password", newPwd)
+                .addFormDataPart("old_password", oldPwd)
+                .build();
+        Call<DefaultResponse> call = service.changePwd(token, requestBody);
 
-        if (newPwd.getText().toString().length() < 8) {
+        // validate password
+        if (newPwd.length() < 8) {
+            view.showEditFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
             view.closeProgress();
-            view.showChangeFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
-        } else if (!newPwd.getText().toString().matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
+        } else if (!newPwd.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
+            view.showEditFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
             view.closeProgress();
-            view.showChangeFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
         } else {
-            PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-            SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
-            String token = sharedPreferences.getString("token", "");
-            RequestBody requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("old_password", oldPwd.getText().toString())
-                    .addFormDataPart("new_password", newPwd.getText().toString())
-                    .build();
-
-            Call<SuccessResponse> call = service.changePwd(token, requestBody);
-
-            call.enqueue(new Callback<SuccessResponse>() {
+            call.enqueue(new Callback<DefaultResponse>() {
                 @Override
-                public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
-                    if (response.body() != null) {
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    if (response.code() == 200) {
+                        view.showEditSuccess("Berhasil simpan");
                         view.closeProgress();
-                        view.showChangeSuccess("Berhasil Ubah Password");
-                    } else if (response.errorBody() != null) {
-                        view.closeProgress();
-                        view.showChangeFailed("Password lama salah");
                     }
                 }
 
                 @Override
-                public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
                 }
             });
         }
+    }
+
+    @Override
+    public void start() {
+
     }
 }

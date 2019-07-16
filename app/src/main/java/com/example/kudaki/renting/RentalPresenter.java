@@ -3,7 +3,8 @@ package com.example.kudaki.renting;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.kudaki.model.response.RentalResponse;
+import com.example.kudaki.model.response.AllItemData;
+import com.example.kudaki.model.response.AllItemResponse;
 import com.example.kudaki.retrofit.GetData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
@@ -23,22 +24,24 @@ public class RentalPresenter implements RentalContract.Presenter {
 
     @Override
     public void loadItems() {
+        view.showProgress();
         GetData service = RetrofitClient.getRetrofit().create(GetData.class);
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
-        Call<RentalResponse> call = service.getAllItems(token, 0, 10);
+        Call<AllItemResponse> call = service.getAllItems(token, 0, 10);
 
-        call.enqueue(new Callback<RentalResponse>() {
+        call.enqueue(new Callback<AllItemResponse>() {
             @Override
-            public void onResponse(Call<RentalResponse> call, Response<RentalResponse> response) {
-                RentalResponse resp = response.body();
+            public void onResponse(Call<AllItemResponse> call, Response<AllItemResponse> response) {
+                AllItemResponse resp = response.body();
 
-                RentalResponse.RentalData data = resp.getData();
+                AllItemData data = resp.getData();
                 view.displayItems(data);
+                view.closeProgress();
             }
 
             @Override
-            public void onFailure(Call<RentalResponse> call, Throwable t) {
+            public void onFailure(Call<AllItemResponse> call, Throwable t) {
 
             }
         });

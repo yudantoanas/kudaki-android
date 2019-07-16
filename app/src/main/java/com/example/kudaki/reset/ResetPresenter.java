@@ -2,9 +2,14 @@ package com.example.kudaki.reset;
 
 import android.content.Context;
 
-import com.example.kudaki.model.response.SuccessResponse;
+import com.example.kudaki.model.response.DefaultResponse;
+import com.example.kudaki.model.response.ErrorResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -32,32 +37,39 @@ public class ResetPresenter implements ResetContract.Presenter {
         view.showProgress();
 
         if (newPwd.length() < 8) {
-            view.closeProgress();
             view.showResetFailed("Gagal daftar! Password Anda kurang dari 8 karakter");
-        } else if (!newPwd.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
             view.closeProgress();
+        } else if (!newPwd.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$")) {
             view.showResetFailed("Gagal daftar! Password Anda minimal harus memilik 1 angka dan 1 huruf");
+            view.closeProgress();
         } else {
             PostData service = RetrofitClient.getRetrofit().create(PostData.class);
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("new_password", newPwd)
                     .build();
-            Call<SuccessResponse> call = service.resetPwd(token, requestBody);
+            Call<DefaultResponse> call = service.resetPwd(token, requestBody);
 
-            call.enqueue(new Callback<SuccessResponse>() {
+            call.enqueue(new Callback<DefaultResponse>() {
                 @Override
-                public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
-                    view.closeProgress();
-                    if (response.body() != null){
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    if (response.code() == 200){
                         view.showResetSuccess("Berhasil reset password");
-                    } else if (response.errorBody() != null) {
-                        view.showResetFailed("Gagal reset password");
+                    }else {
+                        Gson gson = new GsonBuilder().create();
+                        ErrorResponse errors;
+                        try {
+                            errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
+                            view.showResetFailed("Gagal reset password " + errors.getErrors().get(0));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    view.closeProgress();
                 }
 
                 @Override
-                public void onFailure(Call<SuccessResponse> call, Throwable t) {
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
                 }
             });

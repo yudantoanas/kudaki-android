@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     int backPressCount = 0;
     private List<Mountain> list;
     private PopularAdapter adapter;
-    //    GoogleSignInClient mGoogleSignInClient;
 
     int[] sampleImages = {R.drawable.event_dummy_1, R.drawable.event_dummy_2};
 
@@ -65,16 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerView.setAdapter(adapter);
 
         contractPresenter.loadMountain(list, adapter);
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .requestProfile()
-//                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     @Override

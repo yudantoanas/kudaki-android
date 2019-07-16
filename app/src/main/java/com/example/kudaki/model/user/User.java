@@ -1,6 +1,6 @@
 package com.example.kudaki.model.user;
 
-import com.example.kudaki.model.response.SuccessResponse;
+import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
@@ -40,7 +40,7 @@ public class User {
         this.loginMessage = loginMessage;
     }
 
-    public Call<SuccessResponse> createUser() {
+    public Call<DefaultResponse> createUser() {
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -51,7 +51,7 @@ public class User {
                 .addFormDataPart("role", role)
                 .addFormDataPart("photo", photoPath)
                 .build();
-        Call<SuccessResponse> call = service.registerUser(requestBody);
+        Call<DefaultResponse> call = service.registerUser(requestBody);
 
         return call;
     }

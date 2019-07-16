@@ -6,10 +6,11 @@ public class Equipment {
     String name;
     String desc;
     String photo;
-    String price;
-    String rating;
+    int price;
+    Double rating;
+    String duration;
 
-    public Equipment(String uuid, String storeUuid, String name, String desc, String photo, String price, String rating) {
+    public Equipment(String uuid, String storeUuid, String name, String desc, String photo, int price, Double rating, String duration) {
         this.uuid = uuid;
         this.storeUuid = storeUuid;
         this.name = name;
@@ -17,6 +18,19 @@ public class Equipment {
         this.photo = photo;
         this.price = price;
         this.rating = rating;
+        this.duration = duration;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getUuid() {
@@ -59,19 +73,19 @@ public class Equipment {
         this.photo = photo;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 }

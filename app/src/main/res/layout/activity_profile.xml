@@ -6,6 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".profile.ProfileActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileTransaction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/layout_border"
+        android:elevation="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/profileEdit"
+        app:layout_constraintStart_toStartOf="@+id/profileEdit"
+        app:layout_constraintTop_toBottomOf="@+id/profileEdit">
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Lihat Riwayat Transaksi"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView21"
+            app:srcCompat="@drawable/ic_transaction_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profileToolbar"
         android:layout_width="match_parent"
@@ -22,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/kudakiPrimary"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileToolbar">
@@ -42,57 +80,31 @@
 
         <TextView
             android:id="@+id/profileName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="Yudanto Anas"
             android:textColor="@color/kudakiAccentWhite"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/profilePhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/profilePhoto"
             app:layout_constraintTop_toTopOf="@+id/profilePhoto"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.49" />
 
         <TextView
-            android:id="@+id/profileLocation"
+            android:id="@+id/profilePhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Bandung"
+            android:text="TextView"
             android:textColor="@color/kudakiAccentWhite"
-            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintStart_toStartOf="@+id/profileName"
             app:layout_constraintTop_toBottomOf="@+id/profileName" />
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_location"
-            app:layout_constraintBottom_toBottomOf="@+id/profileLocation"
-            app:layout_constraintStart_toStartOf="@+id/profileName"
-            app:layout_constraintTop_toTopOf="@+id/profileLocation" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/profileTab"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:tabBackground="@color/kudakiPrimary"
-        app:tabTextColor="@color/kudakiAccentWhite" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/profileViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/profileNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileTab" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/profileNav"
@@ -104,4 +116,102 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/layout_border"
+        android:elevation="1dp"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Ubah Profil"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView20"
+            app:srcCompat="@drawable/ic_profile_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileEtalase"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/layout_border"
+        android:elevation="1dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/profileTransaction"
+        app:layout_constraintStart_toStartOf="@+id/profileTransaction"
+        app:layout_constraintTop_toBottomOf="@+id/profileTransaction">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Lihat Daftar Alat"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView11"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView18"
+            app:srcCompat="@drawable/ic_wait_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Punya alat yang ingin disewakan ?"
+        app:layout_constraintEnd_toEndOf="@+id/profileTransaction"
+        app:layout_constraintStart_toStartOf="@+id/profileTransaction"
+        app:layout_constraintTop_toBottomOf="@+id/profileTransaction" />
+
+    <TextView
+        android:id="@+id/profileBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Mulai Sekarang"
+        android:textColor="@color/kudakiPrimary"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintEnd_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toTopOf="@+id/textView22" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

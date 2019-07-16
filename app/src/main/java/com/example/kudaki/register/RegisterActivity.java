@@ -1,5 +1,6 @@
 package com.example.kudaki.register;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -17,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterContract.View {
-
     @BindView(R.id.registerName)
     EditText name;
     @BindView(R.id.registerEmail)
@@ -29,18 +29,22 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @BindView(R.id.registerConfirm)
     EditText confirm;
     @BindView(R.id.submitRegister)
-    Button button;
+    Button register;
     @BindView(R.id.registerToolbar)
     Toolbar toolbar;
 
     RegisterPresenter registerPresenter;
     RegisterContract.Presenter contractPresenter;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+
+        progressDialog = new ProgressDialog(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     protected void onResume() {
         super.onResume();
 
-        button.setOnClickListener(view -> {
+        register.setOnClickListener(view -> {
             if (!password.getText().toString().equals(confirm.getText().toString())) {
                 Toast.makeText(this, "Daftar gagal! Password Anda tidak sesuai!", Toast.LENGTH_SHORT).show();
             } else {
@@ -84,10 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @Override
     public void showOnRegisterSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-//        Intent home = new Intent(this, MainActivity.class);
-//        startActivity(home);
-//        setResult(RESULT_OK);
-//        finish();
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     @Override
@@ -102,12 +103,16 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     @Override
     public void showProgress() {
-
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle("Loading");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
     }
 
     @Override
     public void closeProgress() {
-
+        progressDialog.dismiss();
     }
 
     @Override
