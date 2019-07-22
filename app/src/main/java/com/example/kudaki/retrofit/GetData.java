@@ -3,6 +3,7 @@ package com.example.kudaki.retrofit;
 import com.example.kudaki.model.response.AddressResponse;
 import com.example.kudaki.model.response.AllItemResponse;
 import com.example.kudaki.model.response.CartResponse;
+import com.example.kudaki.model.response.MountainResponse;
 import com.example.kudaki.model.response.OrderHistoryResponse;
 import com.example.kudaki.model.response.OwnerHistoryData;
 import com.example.kudaki.model.response.ProfileResponse;
@@ -14,6 +15,11 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface GetData {
+    @GET("/mountain")
+    Call<MountainResponse> getAllMountain(@Header("Kudaki-Token") String token,
+                                          @Query("limit") int limit,
+                                          @Query("offset") int offset);
+
     @GET("/user-info/profile")
     Call<ProfileResponse> getProfile(@Header("Kudaki-Token") String token);
 

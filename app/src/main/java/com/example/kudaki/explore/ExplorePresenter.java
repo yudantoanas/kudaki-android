@@ -1,4 +1,4 @@
-package com.example.kudaki;
+package com.example.kudaki.explore;
 
 import com.example.kudaki.model.response.MountainData;
 import com.example.kudaki.model.response.MountainResponse;
@@ -9,25 +9,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainPresenter implements MainContract.Presenter {
+public class ExplorePresenter implements ExploreContract.Presenter {
+    ExploreContract.View view;
     String token;
-    MainContract.View view;
 
-    public MainPresenter(MainContract.View view, String token) {
-        this.token = token;
+    public ExplorePresenter(ExploreContract.View view, String token) {
         this.view = view;
-        this.view.setPresenter(this);
+        this.token = token;
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void loadPopular() {
+    public void loadMountain() {
+        view.showProgress();
         GetData service = RetrofitClient.getRetrofit().create(GetData.class);
-        Call<MountainResponse> call = service.getAllMountain(token, 5, 0);
+        Call<MountainResponse> call = service.getAllMountain(token, 15, 0);
 
         call.enqueue(new Callback<MountainResponse>() {
             @Override
@@ -36,8 +31,10 @@ public class MainPresenter implements MainContract.Presenter {
                     MountainResponse resp = response.body();
 
                     MountainData data = resp.getData();
-                    view.showPopularData(data);
+                    view.showMountainData(data);
                 }
+
+                view.closeProgress();
             }
 
             @Override
@@ -45,5 +42,10 @@ public class MainPresenter implements MainContract.Presenter {
 
             }
         });
+    }
+
+    @Override
+    public void start() {
+
     }
 }

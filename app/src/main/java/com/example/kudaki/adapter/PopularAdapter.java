@@ -15,20 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
 import com.example.kudaki.explore.MountainActivity;
-import com.example.kudaki.model.mountain.Mountain;
+import com.example.kudaki.model.response.Mountain;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder> {
     private Context context;
-    private List<Mountain> mountainList;
+    private ArrayList<Mountain> list;
 
-    public PopularAdapter(Context context, List<Mountain> mountainList) {
+    public PopularAdapter(Context context, ArrayList<Mountain> list) {
         this.context = context;
-        this.mountainList = mountainList;
+        this.list = list;
     }
 
     @NonNull
@@ -41,23 +41,29 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mountainList.get(position).getName());
+        holder.name.setText(list.get(position).getName());
+        holder.height.setText(list.get(position).getHeight());
 
-        // Glide
         Glide.with(context)
-                .load(mountainList.get(position).getPhotoPath())
+                .load(list.get(position).getPhotos().get(0).getFilePath())
                 .into(holder.image);
 
         holder.btnDetail.setOnClickListener(v -> {
-            Intent mountain = new Intent(context, MountainActivity.class);
-            mountain.putExtra("id", 1);
-            context.startActivity(mountain);
+            Intent intent = new Intent(v.getContext(), MountainActivity.class);
+            intent.putExtra("name", list.get(position).getName());
+            intent.putExtra("photo", list.get(position).getPhotos().get(0).getFilePath());
+            intent.putExtra("height", list.get(position).getHeight());
+            intent.putExtra("latitude", list.get(position).getLatitude());
+            intent.putExtra("longitude", list.get(position).getLongitude());
+            intent.putExtra("difficulty", list.get(position).getDifficulty());
+            intent.putExtra("description", list.get(position).getDescription());
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return mountainList.size();
+        return list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,6 +73,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         ImageView image;
         @BindView(R.id.popularName)
         TextView name;
+        @BindView(R.id.popularHeight)
+        TextView height;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

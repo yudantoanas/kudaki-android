@@ -36,7 +36,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                 .addFormDataPart("email", user.getEmail())
                 .addFormDataPart("password", user.getPassword())
                 .addFormDataPart("role", "USER")
-                //.addFormDataPart("photo", "")
                 .build();
         Call<DefaultResponse> call = service.registerUser(requestBody);
 

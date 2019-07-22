@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_marginRight="8dp"
@@ -35,23 +36,14 @@
             app:layout_constraintTop_toBottomOf="@+id/popularImage" />
 
         <TextView
-            android:id="@+id/popularLocation"
+            android:id="@+id/popularHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Lombok, Indonesia"
+            android:text="1200 Mdpl"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toBottomOf="@+id/popularName" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/popularLocation"
             app:layout_constraintStart_toStartOf="@+id/popularName"
-            app:layout_constraintTop_toTopOf="@+id/popularLocation"
-            app:srcCompat="@drawable/ic_location_black" />
+            app:layout_constraintTop_toBottomOf="@+id/popularName" />
 
         <Button
             android:id="@+id/popularDetail"
@@ -61,7 +53,7 @@
             android:layout_marginEnd="8dp"
             android:text="Lihat Detil"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/popularLocation"
+            app:layout_constraintBottom_toBottomOf="@+id/popularHeight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/popularName" />
     </androidx.constraintlayout.widget.ConstraintLayout>

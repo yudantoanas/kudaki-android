@@ -1,16 +1,13 @@
 package com.example.kudaki;
 
-import com.example.kudaki.adapter.PopularAdapter;
-import com.example.kudaki.model.mountain.Mountain;
-
-import java.util.List;
+import com.example.kudaki.model.response.MountainData;
 
 public interface MainContract {
     interface View extends BaseView<Presenter> {
-
+        void showPopularData(MountainData data);
     }
 
     interface Presenter extends BasePresenter {
-        void loadMountain(List<Mountain> mountainList, PopularAdapter popularAdapter);
+        void loadPopular();
     }
 }
