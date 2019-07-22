@@ -22,7 +22,9 @@ import com.example.kudaki.model.response.StoreItem;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,8 +53,10 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         holder.title.setText(list.get(position).getName());
-        holder.price.setText("Rp " + list.get(position).getPrice() + "/hari");
+        holder.price.setText(formatRupiah.format(list.get(position).getPrice()) + "/hari");
         holder.rating.setText(String.valueOf(list.get(position).getRating()));
 
         Glide.with(context)

@@ -2,17 +2,15 @@ package com.example.kudaki.profile;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
@@ -20,11 +18,13 @@ import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
 import com.example.kudaki.model.response.AddressData;
 import com.example.kudaki.model.response.ProfileData;
-import com.example.kudaki.profile.etalase.EtalaseActivity;
+import com.example.kudaki.profile.owner.OwnerFragment;
+import com.example.kudaki.profile.tenant.TenantFragment;
 import com.example.kudaki.renting.RentalActivity;
 import com.example.kudaki.setting.SettingActivity;
-import com.example.kudaki.transaction.TransactionActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,26 +34,22 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     Toolbar toolbar;
     @BindView(R.id.profileNav)
     BottomNavigationView bottomNav;
-    @BindView(R.id.profileEdit)
-    ConstraintLayout profileEdit;
     @BindView(R.id.profileName)
     TextView name;
     @BindView(R.id.profilePhone)
     TextView phone;
-    @BindView(R.id.profileTransaction)
-    ConstraintLayout profileTransaction;
-    @BindView(R.id.profileEtalase)
-    ConstraintLayout profileEtalase;
+    @BindView(R.id.profileTab)
+    TabLayout tabLayout;
+    @BindView(R.id.profileViewPager)
+    ViewPager viewPager;
 
-    String fullName, phoneNumber, token;
+    String token;
+    TabAdapter adapter;
 
     ProfileContract.Presenter contractPresenter;
     ProfilePresenter profilePresenter;
 
     ProgressDialog progressDialog;
-
-    SharedPreferences user;
-    SharedPreferences loginToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,28 +60,26 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
         setSupportActionBar(toolbar);
 
-        user = getSharedPreferences("User", MODE_PRIVATE);
-        loginToken = getSharedPreferences("LoginToken", MODE_PRIVATE);
+        Hawk.init(this).build();
 
-        // get token
-        token = loginToken.getString("token", "");
+        token = Hawk.get("token");
 
         profilePresenter = new ProfilePresenter(this, token);
 
         progressDialog = new ProgressDialog(this);
+
+        adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TenantFragment(), "Pengguna");
+        adapter.addFragment(new OwnerFragment(), "Pemilik");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        // load profile
-        if (user.getAll().isEmpty()) {
-            contractPresenter.loadProfile();
-        } else {
-            name.setText(user.getString("name", ""));
-            phone.setText(user.getString("phone", ""));
-        }
+        contractPresenter.loadProfile();
     }
 
     @Override
@@ -116,31 +110,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
             }
             return false;
         });
-
-        profileEdit.setOnClickListener(v -> {
-            Intent edit = new Intent(v.getContext(), EditProfileActivity.class);
-            edit.putExtra("name", user.getString("name", ""));
-            edit.putExtra("phone", user.getString("phone", ""));
-            startActivity(edit);
-        });
-
-        profileEtalase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent etalase = new Intent(v.getContext(), EtalaseActivity.class);
-                etalase.putExtra("token", token);
-                startActivity(etalase);
-            }
-        });
-
-        profileTransaction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent transaction = new Intent(v.getContext(), TransactionActivity.class);
-                transaction.putExtra("token", token);
-                startActivity(transaction);
-            }
-        });
     }
 
     @Override
@@ -168,19 +137,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     }
 
     @Override
-    public void display(ProfileData data) {
-        SharedPreferences sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("uuid", data.getProfile().getUuid());
-        editor.putString("name", data.getProfile().getFullName());
-        editor.putString("phone", data.getProfile().getPhoneNumber());
-        editor.apply();
-
-        fullName = data.getProfile().getFullName();
-        phoneNumber = data.getProfile().getPhoneNumber();
-
-        name.setText(fullName);
-        phone.setText(phoneNumber);
+    public void showProfileData(ProfileData data) {
+        name.setText(data.getProfile().getFullName());
+        phone.setText(data.getProfile().getPhoneNumber());
     }
 
     @Override

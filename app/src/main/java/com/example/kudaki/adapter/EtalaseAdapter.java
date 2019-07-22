@@ -2,7 +2,6 @@ package com.example.kudaki.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,13 @@ import com.example.kudaki.R;
 import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.StoreItem;
 import com.example.kudaki.profile.etalase.EditEtalaseActivity;
+import com.example.kudaki.profile.etalase.EtalaseActivity;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,10 +55,10 @@ public class EtalaseAdapter extends RecyclerView.Adapter<EtalaseAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("ADAPTER", "onBindViewHolder: " + list.size());
-        Log.d("ADAPTER", "onBindViewHolder: " + list.get(position).getName());
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         holder.name.setText(list.get(position).getName());
-        holder.priceDuration.setText("Rp " + String.valueOf(list.get(position).getPrice()) + "/" + list.get(position).getPriceDuration());
+        holder.priceDuration.setText(formatRupiah.format(list.get(position).getPrice()));
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +84,9 @@ public class EtalaseAdapter extends RecyclerView.Adapter<EtalaseAdapter.ViewHold
                     public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                         if (response.code() == 200) {
                             Toast.makeText(context, "Berhasil hapus", Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged();
+
+                            ((EtalaseActivity) context).finish();
+                            context.startActivity(new Intent(v.getContext(), EtalaseActivity.class));
                         } else {
                             Toast.makeText(context, "Gagal hapus", Toast.LENGTH_SHORT).show();
                         }

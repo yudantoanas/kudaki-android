@@ -7,7 +7,7 @@ import com.example.kudaki.model.response.ProfileData;
 
 public interface ProfileContract {
     interface View extends BaseView<Presenter> {
-        void display(ProfileData data);
+        void showProfileData(ProfileData data);
         void checkAddress(AddressData data);
         void showProgress();
         void closeProgress();

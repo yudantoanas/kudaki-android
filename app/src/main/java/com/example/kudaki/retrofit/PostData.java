@@ -18,6 +18,10 @@ public interface PostData {
     Call<DefaultResponse> checkout(@Header ("Kudaki-Token") String token,
                                    @Body RequestBody user);
 
+    @POST("/order/owner-order-review")
+    Call<DefaultResponse> addReview(@Header ("Kudaki-Token") String token,
+                                   @Body RequestBody user);
+
     @POST("/login")
     Call<LoginResponse> loginUser(@Body RequestBody user);
 
@@ -69,6 +73,10 @@ public interface PostData {
 
     @POST("/order/approve")
     Call<DefaultResponse> approveOrder(@Header ("Kudaki-Token") String token,
+                                       @Body RequestBody user);
+
+    @POST("/order/confirm-returnment/owner")
+    Call<DefaultResponse> confirmReturn(@Header ("Kudaki-Token") String token,
                                        @Body RequestBody user);
 
     @POST("/order/dissapprove")

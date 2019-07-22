@@ -68,22 +68,5 @@
             android:singleLine="true"
             android:theme="@style/FormEditText" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Durasi Sewa"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/etalaseAddDuration"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="Contoh: Harian/Mingguan/Bulanan/Tahunan"
-            android:inputType="textShortMessage"
-            android:singleLine="true"
-            android:theme="@style/FormEditText" />
-
     </LinearLayout>
 </ScrollView>

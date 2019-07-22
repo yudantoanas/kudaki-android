@@ -1,10 +1,8 @@
 package com.example.kudaki.profile;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.example.kudaki.R;
+import com.example.kudaki.model.response.ProfileData;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +27,8 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     EditText phone;
     @BindView(R.id.btnSaveProfile)
     Button btnSave;
+
+    String token;
 
     EditProfileContract.Presenter contractPresenter;
     EditProfilePresenter presenter;
@@ -42,9 +44,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // get token
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken", MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", "");
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
 
         presenter = new EditProfilePresenter(this, token);
 
@@ -55,20 +57,16 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     protected void onStart() {
         super.onStart();
 
-        name.setText(getIntent().getExtras().getString("name"));
-        phone.setText(getIntent().getExtras().getString("phone"));
+        contractPresenter.loadProfile();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contractPresenter.update(name.getText().toString(), phone.getText().toString());
-            }
-        });
+        btnSave.setOnClickListener(v -> contractPresenter.update(
+                name.getText().toString(),
+                phone.getText().toString()));
     }
 
     @Override
@@ -101,13 +99,13 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     }
 
     @Override
-    public void showEditSuccess(String message, String newName, String newPhone) {
-        SharedPreferences sharedPreferences = this.getSharedPreferences("User", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", newName);
-        editor.putString("phone", newPhone);
-        editor.apply();
+    public void showProfileData(ProfileData data) {
+        name.setText(data.getProfile().getFullName());
+        phone.setText(data.getProfile().getPhoneNumber());
+    }
 
+    @Override
+    public void showEditSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         NavUtils.navigateUpFromSameTask(this);
     }

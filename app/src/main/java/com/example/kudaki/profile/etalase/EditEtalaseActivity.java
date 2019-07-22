@@ -1,7 +1,6 @@
 package com.example.kudaki.profile.etalase;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.example.kudaki.R;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +27,6 @@ public class EditEtalaseActivity extends AppCompatActivity implements EditEtalas
     EditText desc;
     @BindView(R.id.editEtalasePrice)
     EditText price;
-    @BindView(R.id.editEtalaseDuration)
-    EditText duration;
     @BindView(R.id.editEtalaseSave)
     Button btnSave;
 
@@ -47,9 +45,9 @@ public class EditEtalaseActivity extends AppCompatActivity implements EditEtalas
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // get token
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginToken", MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
 
         presenter = new EditEtalasePresenter(this, token);
 
@@ -63,7 +61,6 @@ public class EditEtalaseActivity extends AppCompatActivity implements EditEtalas
         name.setText(getIntent().getExtras().getString("name"));
         desc.setText(getIntent().getExtras().getString("description"));
         price.setText(String.valueOf(getIntent().getExtras().getInt("price")));
-        duration.setText(getIntent().getExtras().getInt("duration"));
     }
 
     @Override
@@ -88,7 +85,7 @@ public class EditEtalaseActivity extends AppCompatActivity implements EditEtalas
                         name.getText().toString(),
                         desc.getText().toString(),
                         price.getText().toString(),
-                        duration.getText().toString()
+                        "DAY"
                 );
             }
         });

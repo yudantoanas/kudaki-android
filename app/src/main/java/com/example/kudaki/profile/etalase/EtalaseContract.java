@@ -7,6 +7,7 @@ import com.example.kudaki.model.response.StoreData;
 public interface EtalaseContract {
     interface View extends BaseView<Presenter> {
         void showEtalaseItem(StoreData data);
+        void showAddSuccess(String message);
         void showProgress();
         void closeProgress();
     }

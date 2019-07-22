@@ -3,7 +3,7 @@ package com.example.kudaki.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Owner {
     @SerializedName("full_name")
@@ -24,9 +24,12 @@ public class Owner {
     @SerializedName("owner_approval_status")
     @Expose
     private String ownerApprovalStatus;
+    @SerializedName("owner_order_uuid")
+    @Expose
+    private String ownerOrderUuid ;
     @SerializedName("cart_items")
     @Expose
-    private List<CartItem> cartItems = null;
+    private ArrayList<CartItem> cartItems = null;
 
     public String getFullName() {
         return fullName;
@@ -76,11 +79,19 @@ public class Owner {
         this.ownerApprovalStatus = ownerApprovalStatus;
     }
 
-    public List<CartItem> getCartItems() {
+    public String getOwnerOrderUuid() {
+        return ownerOrderUuid;
+    }
+
+    public void setOwnerOrderUuid(String ownerOrderUuid) {
+        this.ownerOrderUuid = ownerOrderUuid;
+    }
+
+    public ArrayList<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(List<CartItem> cartItems) {
+    public void setCartItems(ArrayList<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 }

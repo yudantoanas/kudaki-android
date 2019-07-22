@@ -1,4 +1,4 @@
-package com.example.kudaki.transaction;
+package com.example.kudaki.profile;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -30,38 +30,12 @@
         app:layout_constraintVertical_bias="0.25" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rp"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/cartName"
-        app:layout_constraintTop_toBottomOf="@+id/cartName" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="/"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/cartItemDuration"
-        app:layout_constraintTop_toBottomOf="@+id/cartName" />
-
-    <TextView
-        android:id="@+id/cartItemDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hari"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/cartName"
-        app:layout_constraintTop_toBottomOf="@+id/cartName" />
-
-    <TextView
         android:id="@+id/cartItemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="50000"
+        android:text="Rp50.000"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintStart_toStartOf="@+id/cartName"
         app:layout_constraintTop_toBottomOf="@+id/cartName" />
 
     <TextView

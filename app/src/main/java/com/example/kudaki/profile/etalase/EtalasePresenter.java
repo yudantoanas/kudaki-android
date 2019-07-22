@@ -57,10 +57,10 @@ public class EtalasePresenter implements EtalaseContract.Presenter {
                 .addFormDataPart("name", name)
                 .addFormDataPart("amount", "1")
                 .addFormDataPart("color", "black")
-                .addFormDataPart("descriptiom", desc)
+                .addFormDataPart("description", desc)
                 .addFormDataPart("price", price)
                 .addFormDataPart("unit", "pairs")
-                .addFormDataPart("unit_of_measurements", "CM")
+                .addFormDataPart("unit_of_measurement", "CM")
                 .addFormDataPart("photo", "http://google.co.id")
                 .addFormDataPart("price_duration", duration)
                 .addFormDataPart("height", "5")
@@ -72,7 +72,10 @@ public class EtalasePresenter implements EtalaseContract.Presenter {
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-
+                if (response.code() == 200) {
+                    view.showAddSuccess("Berhasil simpan");
+                }
+                view.closeProgress();
             }
 
             @Override

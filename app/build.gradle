@@ -50,4 +50,10 @@ dependencies {
 
     // Image Carousel
     implementation 'com.synnapps:carouselview:0.1.4'
+
+    // Hawk
+    implementation "com.orhanobut:hawk:2.0.1"
+
+    // Expandable Card
+    implementation 'com.alespero:expandable-cardview:0.8'
 }

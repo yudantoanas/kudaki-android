@@ -9,21 +9,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RentedPresenter implements TransactionContract.Presenter {
-    TransactionContract.View view;
+public class TenantTransactionPresenter implements TenantTransactionContract.Presenter {
     String token;
+    TenantTransactionContract.View view;
 
-    public RentedPresenter(TransactionContract.View view, String token) {
-        this.view = view;
+    public TenantTransactionPresenter(TenantTransactionContract.View view, String token) {
         this.token = token;
+        this.view = view;
         this.view.setPresenter(this);
     }
 
     @Override
-    public void loadTransaction() {
+    public void start() {
+
+    }
+
+    @Override
+    public void loadTransaction(String status) {
         view.showProgress();
         GetData service = RetrofitClient.getRetrofit().create(GetData.class);
-        Call<OrderHistoryResponse> call = service.getOrderHistory(token, 15, 0, "RENTED");
+        Call<OrderHistoryResponse> call = service.getOrderHistory(token, 15, 0, status);
 
         call.enqueue(new Callback<OrderHistoryResponse>() {
             @Override
@@ -32,7 +37,7 @@ public class RentedPresenter implements TransactionContract.Presenter {
                     OrderHistoryResponse resp = response.body();
 
                     OrderHistoryData data = resp.getData();
-                    view.display(data);
+                    view.showOrderHistoryData(data);
                 }
                 view.closeProgress();
             }
@@ -42,10 +47,5 @@ public class RentedPresenter implements TransactionContract.Presenter {
 
             }
         });
-    }
-
-    @Override
-    public void start() {
-
     }
 }

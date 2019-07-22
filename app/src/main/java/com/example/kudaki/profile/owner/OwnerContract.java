@@ -1,20 +1,16 @@
-package com.example.kudaki.transaction;
+package com.example.kudaki.profile.owner;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
-import com.example.kudaki.model.response.OrderHistoryData;
 
-public interface TransactionContract {
+public interface OwnerContract {
     interface View extends BaseView<Presenter> {
         void showProgress();
-
         void closeProgress();
-
-        void display(OrderHistoryData data);
-
+        void showAddSuccess(String message);
     }
 
     interface Presenter extends BasePresenter {
-        void loadTransaction();
+        void addItem(String name, String desc, String price, String duration);
     }
 }

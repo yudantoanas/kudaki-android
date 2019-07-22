@@ -33,7 +33,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     ProfileResponse resp = response.body();
 
                     ProfileData data = resp.getData(); // simpan data.getToken di cache
-                    view.display(data);
+                    view.showProfileData(data);
                     view.closeProgress();
                 }
             }

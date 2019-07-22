@@ -2,7 +2,6 @@ package com.example.kudaki.renting;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +23,7 @@ import com.example.kudaki.model.response.AllItemData;
 import com.example.kudaki.model.response.StoreItem;
 import com.example.kudaki.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 
@@ -38,6 +38,7 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
     @BindView(R.id.rvEquipment)
     RecyclerView recyclerView;
 
+    String token;
     ArrayList<StoreItem> list;
     RentalAdapter adapter;
 
@@ -45,8 +46,6 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
     RentalPresenter presenter;
 
     ProgressDialog progressDialog;
-
-    SharedPreferences loginToken;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,7 +58,6 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
         switch (item.getItemId()) {
             case R.id.shopping_cart:
                 Intent cart = new Intent(this, CartActivity.class);
-                cart.putExtra("token", loginToken.getString("token", ""));
                 startActivity(cart);
                 return true;
         }
@@ -76,11 +74,13 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
 
         setSupportActionBar(toolbar);
 
-        loginToken = getSharedPreferences("LoginToken", MODE_PRIVATE);
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
 
         progressDialog = new ProgressDialog(this);
 
-        presenter = new RentalPresenter(this, this);
+        presenter = new RentalPresenter(this, token);
 
         list = new ArrayList<>();
     }
@@ -161,7 +161,7 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
             }
         }
         adapter = new RentalAdapter(this, list);
-
+        adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
     }

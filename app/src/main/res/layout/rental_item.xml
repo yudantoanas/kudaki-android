@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="Equipment Title"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -45,19 +46,10 @@
             app:layout_constraintStart_toStartOf="@+id/rentalItemTitle"
             app:layout_constraintTop_toBottomOf="@+id/rentalItemTitle" />
 
-        <TextView
-            android:id="@+id/rentalItemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Rental ABC"
-            app:layout_constraintStart_toStartOf="@+id/rentalItemPrice"
-            app:layout_constraintTop_toBottomOf="@+id/rentalItemPrice" />
-
         <ImageView
             android:id="@+id/imageView10"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -79,14 +71,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rentalItemName" />
+            app:layout_constraintTop_toBottomOf="@+id/rentalItemPrice" />
 
         <TextView
             android:id="@+id/rentalItemRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5.0"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView10"
             app:layout_constraintStart_toEndOf="@+id/imageView10"
             app:layout_constraintTop_toTopOf="@+id/imageView10" />

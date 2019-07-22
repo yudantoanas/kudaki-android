@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".transaction.TransactionActivity">
+    tools:context=".transaction.TenantTransactionActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/transactionToolbar"
@@ -17,24 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/transactionTab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/kudakiPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/transactionToolbar"
-        app:layout_constraintStart_toStartOf="@+id/transactionToolbar"
-        app:layout_constraintTop_toBottomOf="@+id/transactionToolbar"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabTextColor="@color/kudakiAccentWhite" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/transactionViewPager"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTransaction"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/transactionTab" />
+        app:layout_constraintTop_toBottomOf="@+id/transactionToolbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

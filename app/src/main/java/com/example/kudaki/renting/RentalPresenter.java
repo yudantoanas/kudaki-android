@@ -1,8 +1,5 @@
 package com.example.kudaki.renting;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.example.kudaki.model.response.AllItemData;
 import com.example.kudaki.model.response.AllItemResponse;
 import com.example.kudaki.retrofit.GetData;
@@ -13,11 +10,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RentalPresenter implements RentalContract.Presenter {
+    String token;
     RentalContract.View view;
-    Context context;
 
-    public RentalPresenter(RentalContract.View view, Context context) {
-        this.context = context;
+    public RentalPresenter(RentalContract.View view, String token) {
+        this.token = token;
         this.view = view;
         this.view.setPresenter(this);
     }
@@ -26,17 +23,17 @@ public class RentalPresenter implements RentalContract.Presenter {
     public void loadItems() {
         view.showProgress();
         GetData service = RetrofitClient.getRetrofit().create(GetData.class);
-        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", "");
         Call<AllItemResponse> call = service.getAllItems(token, 0, 10);
 
         call.enqueue(new Callback<AllItemResponse>() {
             @Override
             public void onResponse(Call<AllItemResponse> call, Response<AllItemResponse> response) {
-                AllItemResponse resp = response.body();
+                if (response.code() == 200) {
+                    AllItemResponse resp = response.body();
 
-                AllItemData data = resp.getData();
-                view.displayItems(data);
+                    AllItemData data = resp.getData();
+                    view.displayItems(data);
+                }
                 view.closeProgress();
             }
 

@@ -86,21 +86,6 @@
             android:inputType="number"
             android:theme="@style/FormEditText" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Durasi Sewa" />
-
-        <EditText
-            android:id="@+id/editEtalaseDuration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="contoh : Harian/Mingguan/Bulanan/Tahunan"
-            android:inputType="number"
-            android:theme="@style/FormEditText" />
-
         <Button
             android:id="@+id/editEtalaseSave"
             style="@style/PrimaryButton"

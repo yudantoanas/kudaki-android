@@ -3,6 +3,8 @@ package com.example.kudaki.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Order {
     @SerializedName("order_num")
     @Expose
@@ -16,16 +18,20 @@ public class Order {
     @SerializedName("total_item")
     @Expose
     private Integer totalItem;
-    @SerializedName("tenant")
+    @SerializedName("total_price")
     @Expose
-    private Tenant tenant;
+    private Integer totalPrice;
+    @SerializedName("owners")
+    @Expose
+    private ArrayList<Owner> owners = null;
 
-    public Order(String orderNum, String status, Integer createdAt, Integer totalItem, Tenant tenant) {
+    public Order(String orderNum, String status, Integer createdAt, Integer totalItem, Integer totalPrice, ArrayList<Owner> owners) {
         this.orderNum = orderNum;
         this.status = status;
         this.createdAt = createdAt;
         this.totalItem = totalItem;
-        this.tenant = tenant;
+        this.totalPrice = totalPrice;
+        this.owners = owners;
     }
 
     public String getOrderNum() {
@@ -60,11 +66,19 @@ public class Order {
         this.totalItem = totalItem;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public ArrayList<Owner> getOwners() {
+        return owners;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setOwners(ArrayList<Owner> owners) {
+        this.owners = owners;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

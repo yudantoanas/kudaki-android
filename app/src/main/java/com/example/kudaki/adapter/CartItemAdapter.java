@@ -2,7 +2,7 @@ package com.example.kudaki.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.R;
+import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.model.response.CartItem;
 import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
+import com.orhanobut.hawk.Hawk;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,10 +52,11 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         holder.imageView.setImageResource(R.drawable.image_dummy);
         holder.name.setText(list.get(position).getItem().getName());
-        holder.price.setText(String.valueOf(list.get(position).getItem().getPrice()));
-        holder.duration.setText(list.get(position).getItem().getPriceDuration());
+        holder.price.setText(formatRupiah.format(list.get(position).getItem().getPrice()) + "/hari");
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,19 +68,22 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
                 PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-                SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
-                String token = sharedPreferences.getString("token", "");
-                Log.d("DELETE", "onClick: " + token);
-                Call<DefaultResponse> call = service.deleteCartItem(token, "");
+
+                Hawk.init(v.getContext()).build();
+
+                String token = Hawk.get("token");
+
+                Call<DefaultResponse> call = service.deleteCartItem(token, list.get(position).getUuid());
 
                 call.enqueue(new Callback<DefaultResponse>() {
                     @Override
                     public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                         if (response.code() == 200) {
                             Toast.makeText(context, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged();
-                            progressDialog.dismiss();
+                            ((CartActivity) context).finish();
+                            context.startActivity(new Intent(context, CartActivity.class));
                         }
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -98,8 +106,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         TextView name;
         @BindView(R.id.cartItemPrice)
         TextView price;
-        @BindView(R.id.cartItemDuration)
-        TextView duration;
         @BindView(R.id.cartItemImage)
         ImageView imageView;
         @BindView(R.id.cartItemDelete)

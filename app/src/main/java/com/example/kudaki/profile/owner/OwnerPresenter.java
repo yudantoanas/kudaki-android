@@ -1,4 +1,4 @@
-package com.example.kudaki.profile.etalase;
+package com.example.kudaki.profile.owner;
 
 import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.retrofit.PostData;
@@ -10,11 +10,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditEtalasePresenter implements EditEtalaseContract.Presenter {
+public class OwnerPresenter implements OwnerContract.Presenter {
     String token;
-    EditEtalaseContract.View view;
+    OwnerContract.View view;
 
-    public EditEtalasePresenter(EditEtalaseContract.View view, String token) {
+    public OwnerPresenter(OwnerContract.View view, String token) {
         this.token = token;
         this.view = view;
         this.view.setPresenter(this);
@@ -26,12 +26,11 @@ public class EditEtalasePresenter implements EditEtalaseContract.Presenter {
     }
 
     @Override
-    public void update(String uuid, String name, String desc, String price, String duration) {
+    public void addItem(String name, String desc, String price, String duration) {
         view.showProgress();
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("item_uuid", uuid)
                 .addFormDataPart("name", name)
                 .addFormDataPart("amount", "1")
                 .addFormDataPart("color", "black")
@@ -40,20 +39,18 @@ public class EditEtalasePresenter implements EditEtalaseContract.Presenter {
                 .addFormDataPart("unit", "pairs")
                 .addFormDataPart("unit_of_measurement", "CM")
                 .addFormDataPart("photo", "http://google.co.id")
-                .addFormDataPart("price_duration", "DAY")
+                .addFormDataPart("price_duration", duration)
                 .addFormDataPart("height", "5")
                 .addFormDataPart("length", "5")
                 .addFormDataPart("width", "5")
                 .build();
-        Call<DefaultResponse> call = service.updateStoreItem(token, requestBody);
+        Call<DefaultResponse> call = service.addStoreItem(token, requestBody);
 
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                 if (response.code() == 200) {
-                    view.showEditSuccess("Berhasil simpan");
-                } else {
-                    view.showEditFailed("Gagal simpan");
+                    view.showAddSuccess("Berhasil simpan");
                 }
                 view.closeProgress();
             }

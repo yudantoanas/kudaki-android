@@ -16,9 +16,12 @@ import com.example.kudaki.R;
 import com.example.kudaki.adapter.CartAdapter;
 import com.example.kudaki.model.response.CartData;
 import com.example.kudaki.model.response.Storefront;
-import com.example.kudaki.transaction.TransactionActivity;
+import com.example.kudaki.transaction.TenantTransactionActivity;
+import com.orhanobut.hawk.Hawk;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +37,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     TextView totalPrice;
 
     String cartUuid;
-
+    String token;
     ArrayList<Storefront> list;
     CartAdapter adapter;
 
@@ -50,7 +53,11 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        presenter = new CartPresenter(this, getIntent().getExtras().getString("token"));
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
+
+        presenter = new CartPresenter(this, token);
 
         list = new ArrayList<>();
     }
@@ -76,8 +83,10 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
 
     @Override
     public void showCartItems(CartData data) {
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         cartUuid = String.valueOf(data.getCart().getUuid());
-        totalPrice.setText(String.valueOf(data.getCart().getTotalPrice()));
+        totalPrice.setText(formatRupiah.format(data.getCart().getTotalPrice()));
 
         if (data.getStorefronts() == null) {
             Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show();
@@ -101,7 +110,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     @Override
     public void showCheckoutSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        Intent transaction = new Intent(this, TransactionActivity.class);
+        Intent transaction = new Intent(this, TenantTransactionActivity.class);
         startActivity(transaction);
     }
 

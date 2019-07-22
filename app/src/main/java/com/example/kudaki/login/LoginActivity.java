@@ -2,7 +2,6 @@ package com.example.kudaki.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ import com.example.kudaki.R;
 import com.example.kudaki.forgotpwd.ForgotPwdActivity;
 import com.example.kudaki.register.RegisterActivity;
 import com.facebook.login.widget.LoginButton;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @BindView(R.id.buttonLoginFacebook)
     LoginButton loginButton;
 
+    String token;
+
     ProgressDialog progressDialog;
     LoginPresenter loginPresenter;
     LoginContract.Presenter contractPresenter;
@@ -49,10 +51,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        progressDialog = new ProgressDialog(this);
+        Hawk.init(this).build();
 
-        // assign presenter to this activity
+        token = Hawk.get("token");
+
         loginPresenter = new LoginPresenter(this);
+
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -99,13 +104,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Intent home = new Intent(this, MainActivity.class);
 
-        // set shared preference isLogin = true
-        SharedPreferences sharedPreferences = this.getSharedPreferences("LoginToken", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token)
-                .apply(); // save preference asynchronously
+        Hawk.put("token", token);
 
-        // start home activity then destroy this activity
         startActivity(home);
         finish();
     }

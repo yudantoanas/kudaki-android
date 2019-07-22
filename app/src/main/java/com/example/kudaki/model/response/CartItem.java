@@ -4,12 +4,23 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CartItem {
+    @SerializedName("uuid")
+    @Expose
+    private String uuid;
     @SerializedName("total_items")
     @Expose
     private Integer totalItems;
     @SerializedName("item")
     @Expose
     private CartStoreItem item;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public Integer getTotalItems() {
         return totalItems;
