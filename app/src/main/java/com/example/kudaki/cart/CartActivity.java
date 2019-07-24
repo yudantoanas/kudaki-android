@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,8 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     Toolbar toolbar;
     @BindView(R.id.rvCart)
     RecyclerView recyclerView;
+    @BindView(R.id.cartEmpty)
+    ConstraintLayout cartEmpty;
     @BindView(R.id.cartCheckout)
     Button btnCheckout;
     @BindView(R.id.cartTotalPrice)
@@ -73,24 +76,21 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     protected void onResume() {
         super.onResume();
 
-        btnCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contractPresenter.checkout(cartUuid);
-            }
-        });
+        btnCheckout.setOnClickListener(v -> contractPresenter.checkout(cartUuid));
     }
 
     @Override
     public void showCartItems(CartData data) {
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        cartUuid = String.valueOf(data.getCart().getUuid());
-        totalPrice.setText(formatRupiah.format(data.getCart().getTotalPrice()));
-
         if (data.getStorefronts() == null) {
-            Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show();
+            recyclerView.setVisibility(View.GONE);
         } else {
+            cartEmpty.setVisibility(View.GONE);
+
+            Locale localeID = new Locale("in", "ID");
+            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+            cartUuid = data.getCart().getUuid();
+            totalPrice.setText(formatRupiah.format(data.getCart().getTotalPrice()));
+
             list.clear();
             for (int i = 0; i < data.getStorefronts().size(); i++) {
                 list.add(new Storefront(
@@ -111,6 +111,7 @@ public class CartActivity extends AppCompatActivity implements CartContract.View
     public void showCheckoutSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Intent transaction = new Intent(this, TenantTransactionActivity.class);
+        transaction.putExtra("status", "PENDING");
         startActivity(transaction);
     }
 

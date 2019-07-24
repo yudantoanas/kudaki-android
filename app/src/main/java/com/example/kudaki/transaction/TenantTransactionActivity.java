@@ -49,7 +49,11 @@ public class TenantTransactionActivity extends AppCompatActivity implements Tena
         Hawk.init(this).build();
 
         token = Hawk.get("token");
-        status = getIntent().getExtras().getString("status");
+
+        status = "PENDING";
+        if (getIntent() != null) {
+            status = getIntent().getExtras().getString("status");
+        }
 
         list = new ArrayList<>();
 
@@ -100,7 +104,7 @@ public class TenantTransactionActivity extends AppCompatActivity implements Tena
             Toast.makeText(this, "Transaksi Kosong", Toast.LENGTH_SHORT).show();
         } else {
             list.clear();
-            for (int i = 0; i <= data.getOrders().size(); i++) {
+            for (int i = 0; i < data.getOrders().size(); i++) {
                 list.add(new Order(
                         data.getOrders().get(i).getOrderNum(),
                         data.getOrders().get(i).getStatus(),
@@ -110,7 +114,7 @@ public class TenantTransactionActivity extends AppCompatActivity implements Tena
                         data.getOrders().get(i).getOwners()
                 ));
             }
-            adapter = new TenantTransactionAdapter(this, list);
+            adapter = new TenantTransactionAdapter(this, data.getOrders());
             adapter.notifyDataSetChanged();
             adapter.setToken(token);
             recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));

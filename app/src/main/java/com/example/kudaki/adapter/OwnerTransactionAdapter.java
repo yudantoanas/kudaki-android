@@ -21,6 +21,7 @@ import com.example.kudaki.retrofit.RetrofitClient;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -48,135 +49,133 @@ public class OwnerTransactionAdapter extends RecyclerView.Adapter<OwnerTransacti
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.number.setText(list.get(position).getOrderNum());
+        holder.number.setText(list.get(position).getTenant().getFullName());
         holder.status.setText(list.get(position).getStatus());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.CustomDialogTheme);
-                // Get the layout inflater
-                LayoutInflater inflater = LayoutInflater.from(v.getContext());
+        holder.cardView.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.CustomDialogTheme);
 
-                View view = inflater.inflate(R.layout.owner_dialog_transaction, null);
-                TextView name = view.findViewById(R.id.ownerTransactionTenant);
+            LayoutInflater inflater = LayoutInflater.from(v.getContext());
 
-                name.setText(list.get(position).getTenant().getFullName());
+            View view = inflater.inflate(R.layout.owner_dialog_transaction, null);
+            TextView name = view.findViewById(R.id.ownerTransactionTenant);
 
-                switch (list.get(position).getStatus()) {
-                    case "PENDING":
-                        builder.setPositiveButton("Terima", (dialog, which) -> {
-                            PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-                            RequestBody requestBody = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
-                                    .build();
-                            Call<DefaultResponse> call = service.approveOrder(token, requestBody);
+            name.setText(list.get(position).getTenant().getFullName());
 
-                            call.enqueue(new Callback<DefaultResponse>() {
-                                @Override
-                                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(context, "Status diubah", Toast.LENGTH_SHORT).show();
-                                    }
-                                    dialog.dismiss();
+            switch (list.get(position).getStatus()) {
+                case "PENDING":
+                    builder.setPositiveButton("Terima", (dialog, which) -> {
+                        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
+                                .build();
+                        Call<DefaultResponse> call = service.approveOrder(token, requestBody);
+
+                        call.enqueue(new Callback<DefaultResponse>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(context, "Status diubah", Toast.LENGTH_SHORT).show();
                                 }
+                                dialog.dismiss();
+                            }
 
-                                @Override
-                                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
-                                }
-                            });
+                            }
                         });
-                        builder.setNegativeButton("Tolak", (dialog, which) -> {
-                            PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-                            RequestBody requestBody = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
-                                    .build();
-                            Call<DefaultResponse> call = service.dissaproveOrder(token, requestBody);
+                    });
+                    builder.setNegativeButton("Tolak", (dialog, which) -> {
+                        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
+                                .build();
+                        Call<DefaultResponse> call = service.dissaproveOrder(token, requestBody);
 
-                            call.enqueue(new Callback<DefaultResponse>() {
-                                @Override
-                                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(context, "Berhasil tolak", Toast.LENGTH_SHORT).show();
-                                    }
-                                    dialog.dismiss();
+                        call.enqueue(new Callback<DefaultResponse>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(context, "Berhasil tolak", Toast.LENGTH_SHORT).show();
                                 }
+                                dialog.dismiss();
+                            }
 
-                                @Override
-                                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
-                                }
-                            });
+                            }
                         });
-                        builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
-                        break;
-                    case "APPROVED":
-                        builder.setPositiveButton("Konfirmasi Disewa", (dialog, which) -> {
-                            PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-                            RequestBody requestBody = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
-                                    .build();
-                            Call<DefaultResponse> call = service.approveOrder(token, requestBody);
+                    });
+                    builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
+                    break;
+                case "APPROVED":
+                    builder.setPositiveButton("Konfirmasi Disewa", (dialog, which) -> {
+                        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
+                                .build();
+                        Call<DefaultResponse> call = service.approveOrder(token, requestBody);
 
-                            call.enqueue(new Callback<DefaultResponse>() {
-                                @Override
-                                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(context, "Status diubah", Toast.LENGTH_SHORT).show();
-                                    }
-                                    dialog.dismiss();
+                        call.enqueue(new Callback<DefaultResponse>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(context, "Status diubah", Toast.LENGTH_SHORT).show();
                                 }
+                                dialog.dismiss();
+                            }
 
-                                @Override
-                                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
-                                }
-                            });
+                            }
                         });
-                        builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
-                        break;
-                    case "RENTED":
-                        builder.setPositiveButton("Sudah Dikembalikan", (dialog, which) -> {
-                            PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-                            RequestBody requestBody = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
-                                    .build();
-                            Call<DefaultResponse> call = service.confirmReturn(token, requestBody);
+                    });
+                    builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
+                    break;
+                case "RENTED":
+                    builder.setPositiveButton("Sudah Dikembalikan", (dialog, which) -> {
+                        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("owner_order_uuid", list.get(position).getUuid())
+                                .build();
+                        Call<DefaultResponse> call = service.confirmReturn(token, requestBody);
 
-                            call.enqueue(new Callback<DefaultResponse>() {
-                                @Override
-                                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(context, "Status diubah", Toast.LENGTH_SHORT).show();
-                                    }
-                                    dialog.dismiss();
+                        call.enqueue(new Callback<DefaultResponse>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(context, "Status diubah", Toast.LENGTH_SHORT).show();
                                 }
+                                dialog.dismiss();
+                            }
 
-                                @Override
-                                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
-                                }
-                            });
+                            }
                         });
-                        builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
-                        break;
-                    default:
-                        builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
-                }
-
-                builder.show();
+                    });
+                    builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
+                    break;
+                default:
+                    builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
             }
+
+            builder.setView(view);
+            builder.show();
         });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public void setToken(String token) {
@@ -192,6 +191,7 @@ public class OwnerTransactionAdapter extends RecyclerView.Adapter<OwnerTransacti
         CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -58,13 +58,12 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                         ErrorResponse errors;
                         try {
                             errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                            if (errors.getErrors().contains("email already exists")) {
+                            if (errors.getErrors().get(0).contains("email already exists")) {
                                 view.showOnRegisterFailed("Email sudah terdaftar");
-                            } else if (errors.getErrors().contains("verification email")) {
+                            } else if (errors.getErrors().get(0).contains("verification email")) {
                                 view.showOnRegisterFailed("Gagal mengirim email verifikasi");
                             } else {
-
-                                view.showOnRegisterFailed("Gagal daftar!");
+                                view.showOnRegisterFailed("Gagal daftar!" + errors.getErrors().get(0));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

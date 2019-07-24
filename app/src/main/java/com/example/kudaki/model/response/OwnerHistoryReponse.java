@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 public class OwnerHistoryReponse {
     @SerializedName("data")
     @Expose
-    private OrderHistoryData data;
+    private OwnerHistoryData data;
 
-    public OrderHistoryData getData() {
+    public OwnerHistoryData getData() {
         return data;
     }
 
-    public void setData(OrderHistoryData data) {
+    public void setData(OwnerHistoryData data) {
         this.data = data;
     }
 }

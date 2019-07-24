@@ -1,11 +1,15 @@
 package com.example.kudaki.explore;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
@@ -46,6 +50,7 @@ public class MountainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bundle = getIntent().getExtras();
+        toolbar.setTitle(bundle.getString("name"));
     }
 
     @Override
@@ -66,10 +71,29 @@ public class MountainActivity extends AppCompatActivity {
         super.onResume();
 
         floatingActionButton.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(),
-                    "Latitude: " + bundle.getDouble("latitude") + "," +
-                            "Longitude: " + bundle.getDouble("longitude"), Toast.LENGTH_SHORT).show();
+            Uri gmmIntentUri = Uri.parse(
+                    "geo:"+ bundle.getDouble("latitude") +"," + bundle.getDouble("latitude"));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
         });
+
+        description.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.CustomDialogTheme);
+
+            builder.setTitle("Deskripsi Gunung");
+            builder.setMessage(bundle.getString("description"));
+            builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
+            builder.show();
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        getMenuInflater().inflate(R.menu.mountain_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -77,6 +101,9 @@ public class MountainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.recommendation:
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -24,11 +24,11 @@ import butterknife.ButterKnife;
 
 public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Mountain> mountainList;
+    private ArrayList<Mountain> list;
 
-    public MountainAdapter(Context context, ArrayList<Mountain> mountainList) {
+    public MountainAdapter(Context context, ArrayList<Mountain> list) {
         this.context = context;
-        this.mountainList = mountainList;
+        this.list = list;
     }
 
     @NonNull
@@ -41,29 +41,29 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mountainList.get(position).getName());
-        holder.height.setText(String.valueOf(mountainList.get(position).getHeight()) + " Mdpl");
+        holder.name.setText("Gunung " + list.get(position).getName());
+        holder.height.setText(list.get(position).getHeight() + " Mdpl");
 
         Glide.with(context)
-                .load(mountainList.get(position).getPhotos().get(0).getFilePath())
+                .load(list.get(position).getPhotos().get(0).getFilePath())
                 .into(holder.image);
 
         holder.detail.setOnClickListener(v -> {
             Intent intent = new Intent(context, MountainActivity.class);
-            intent.putExtra("name", mountainList.get(position).getName());
-            intent.putExtra("photo", mountainList.get(position).getPhotos().get(0).getFilePath());
-            intent.putExtra("height", mountainList.get(position).getHeight());
-            intent.putExtra("latitude", mountainList.get(position).getLatitude());
-            intent.putExtra("longitude", mountainList.get(position).getLongitude());
-            intent.putExtra("difficulty", mountainList.get(position).getDifficulty());
-            intent.putExtra("description", mountainList.get(position).getDescription());
+            intent.putExtra("name", "Gunung " + list.get(position).getName());
+            intent.putExtra("photo", list.get(position).getPhotos().get(0).getFilePath());
+            intent.putExtra("height", list.get(position).getHeight());
+            intent.putExtra("latitude", list.get(position).getLatitude());
+            intent.putExtra("longitude", list.get(position).getLongitude());
+            intent.putExtra("difficulty", list.get(position).getDifficulty());
+            intent.putExtra("description", list.get(position).getDescription());
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return mountainList.size();
+        return list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

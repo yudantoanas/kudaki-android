@@ -16,6 +16,7 @@ public class ExplorePresenter implements ExploreContract.Presenter {
     public ExplorePresenter(ExploreContract.View view, String token) {
         this.view = view;
         this.token = token;
+        this.view.setPresenter(this);
     }
 
     @Override

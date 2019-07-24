@@ -1,6 +1,8 @@
 package com.example.kudaki.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,8 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
             builder.setTitle("Penyewaan selesai");
-            builder.setMessage("Silahkan berikan penilaianmu dengan menekan tombol Review di halaman ini!");
+            builder.setMessage("Silahkan berikan penilaianmu untuk " + list.get(position).getFullName() +
+                    " dengan menekan tombol Review di halaman ini!");
             builder.setCancelable(true);
             builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
             builder.show();
@@ -112,11 +115,22 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
                 }
             });
         }
+
         holder.name.setText(list.get(position).getFullName());
-        holder.phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Phone", "onClick: " + list.get(position).getPhoneNumber());
+        holder.phone.setOnClickListener(v -> {
+            try {
+                String text = list.get(position).getPhoneNumber();
+
+                String toNumber = text.replaceFirst("0", "62");
+
+                Log.d("Phone", "onClick: " + toNumber);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber));
+                context.startActivity(intent);
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         });
 
@@ -127,7 +141,7 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

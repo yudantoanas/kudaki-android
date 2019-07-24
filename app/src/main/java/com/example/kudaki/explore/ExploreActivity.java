@@ -1,15 +1,10 @@
 package com.example.kudaki.explore;
 
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,17 +100,17 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.explore_menu, menu);
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.optSearchMountain).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+//        getMenuInflater().inflate(R.menu.explore_menu, menu);
+//        // Get the SearchView and set the searchable configuration
+//        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.optSearchMountain).getActionView();
+//        // Assumes current activity is the searchable activity
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+//        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public void showProgress() {
@@ -144,12 +139,12 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
                         data.getMountains().get(i).getLatitude(),
                         data.getMountains().get(i).getLongitude(),
                         data.getMountains().get(i).getDifficulty(),
-                        data.getMountains().get(i).getDescription()
+                        data.getMountains().get(i).getDescription(),
+                        data.getMountains().get(i).getPhotos()
                 ));
             }
             adapter = new MountainAdapter(this, list);
             adapter.notifyDataSetChanged();
-
             recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
             recyclerView.setAdapter(adapter);
         }
@@ -157,6 +152,6 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
 
     @Override
     public void setPresenter(ExploreContract.Presenter presenter) {
-
+        this.contractPresenter = presenter;
     }
 }

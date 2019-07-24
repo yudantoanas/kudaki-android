@@ -2,8 +2,6 @@ package com.example.kudaki.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +33,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder> {
-    private Context context;
-    private List<StoreItem> list;
+    Context context;
+    List<StoreItem> list;
+
+    String token;
 
     public RentalAdapter(Context context, List<StoreItem> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @NonNull
@@ -82,19 +86,15 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                     .addFormDataPart("duration", "1")
                     .build();
 
-            SharedPreferences sharedPreferences = context.getSharedPreferences("LoginToken", Context.MODE_PRIVATE);
-            String token = sharedPreferences.getString("token", "");
-
             Call<DefaultResponse> call = service.addToCart(token, requestBody);
 
             call.enqueue(new Callback<DefaultResponse>() {
                 @Override
                 public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                    Log.d("RENTAL", "onResponse: " + response.code());
                     if (response.code() == 200) {
                         Toast.makeText(context, "Berhasil ditambahkan ke keranjang", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
                     }
+                    progressDialog.dismiss();
                 }
 
                 @Override
@@ -102,8 +102,6 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
 
                 }
             });
-
-            Toast.makeText(context, "Berhasil Ditambah ke Keranjang", Toast.LENGTH_SHORT).show();
         });
     }
 

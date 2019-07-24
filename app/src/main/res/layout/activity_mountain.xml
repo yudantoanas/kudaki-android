@@ -39,7 +39,6 @@
                 android:text="Tingkat Kesulitan"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/mountainDesc"
                 app:layout_constraintTop_toBottomOf="@+id/mountainDesc" />
 
@@ -68,7 +67,7 @@
             <TextView
                 android:id="@+id/mountainDesc"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="Hello World!"
@@ -91,24 +90,25 @@
                 android:id="@+id/mountainName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Rinjani"
                 android:textColor="@color/kudakiAccentWhite"
                 android:textSize="36sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/mountainImage"
-                tools:layout_editor_absoluteY="195dp" />
+                app:layout_constraintBottom_toTopOf="@+id/mountainHeight"
+                app:layout_constraintStart_toStartOf="@+id/mountainImage" />
 
             <TextView
                 android:id="@+id/mountainHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="1200 Mdpl"
                 android:textColor="@color/kudakiAccentWhite"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/mountainName"
-                app:layout_constraintTop_toBottomOf="@+id/mountainName" />
+                app:layout_constraintBottom_toBottomOf="@+id/mountainImage"
+                app:layout_constraintStart_toStartOf="@+id/mountainName" />
 
             <TextView
                 android:id="@+id/mountainDifficulty"

@@ -71,7 +71,7 @@ public interface PostData {
     Call<DefaultResponse> updateStoreItem(@Header ("Kudaki-Token") String token,
                                           @Body RequestBody user);
 
-    @POST("/order/approve")
+    @POST("/order/owner/approve")
     Call<DefaultResponse> approveOrder(@Header ("Kudaki-Token") String token,
                                        @Body RequestBody user);
 
@@ -79,7 +79,7 @@ public interface PostData {
     Call<DefaultResponse> confirmReturn(@Header ("Kudaki-Token") String token,
                                        @Body RequestBody user);
 
-    @POST("/order/dissapprove")
+    @POST("/order/owner/disapprove")
     Call<DefaultResponse> dissaproveOrder(@Header ("Kudaki-Token") String token,
                                           @Body RequestBody user);
 }

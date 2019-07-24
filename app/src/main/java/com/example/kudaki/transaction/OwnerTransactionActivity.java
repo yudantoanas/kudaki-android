@@ -2,10 +2,12 @@ package com.example.kudaki.transaction;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +40,6 @@ public class OwnerTransactionActivity extends AppCompatActivity implements Owner
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
-
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -54,6 +55,23 @@ public class OwnerTransactionActivity extends AppCompatActivity implements Owner
         presenter = new OwnerTransactionPresenter(this, token);
 
         progressDialog = new ProgressDialog(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        contractPresenter.loadTransaction(status);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -76,7 +94,7 @@ public class OwnerTransactionActivity extends AppCompatActivity implements Owner
             Toast.makeText(this, "Transaksi Kosong", Toast.LENGTH_SHORT).show();
         } else {
             list.clear();
-            for (int i = 0; i <= data.getOrders().size(); i++) {
+            for (int i = 0; i < data.getOrders().size(); i++) {
                 list.add(new OrderOwner(
                         data.getOrders().get(i).getUuid(),
                         data.getOrders().get(i).getOrderNum(),
@@ -87,7 +105,7 @@ public class OwnerTransactionActivity extends AppCompatActivity implements Owner
                         data.getOrders().get(i).getTenant()
                 ));
             }
-            adapter = new OwnerTransactionAdapter(this, list);
+            adapter = new OwnerTransactionAdapter(this, data.getOrders());
             adapter.notifyDataSetChanged();
             adapter.setToken(token);
             recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));

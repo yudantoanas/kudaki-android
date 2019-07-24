@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.example.kudaki.R;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ public class EditPasswordActivity extends AppCompatActivity implements EditPassw
     @BindView(R.id.btnSavePassword)
     Button btnSave;
 
+    String token;
+
     EditPasswordContract.Presenter contractPresenter;
     EditPasswordPresenter presenter;
 
@@ -41,7 +44,11 @@ public class EditPasswordActivity extends AppCompatActivity implements EditPassw
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        presenter = new EditPasswordPresenter(this, getIntent().getExtras().getString("token"));
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
+
+        presenter = new EditPasswordPresenter(this, token);
 
         progressDialog = new ProgressDialog(this);
     }

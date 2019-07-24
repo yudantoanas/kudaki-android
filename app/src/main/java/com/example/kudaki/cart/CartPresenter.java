@@ -58,7 +58,9 @@ public class CartPresenter implements CartContract.Presenter {
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                view.showCheckoutSuccess("Berhasil checkout");
+                if (response.code() == 200) {
+                    view.showCheckoutSuccess("Berhasil checkout");
+                }
             }
 
             @Override

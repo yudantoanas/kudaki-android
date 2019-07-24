@@ -5,7 +5,7 @@ import com.example.kudaki.model.response.AllItemResponse;
 import com.example.kudaki.model.response.CartResponse;
 import com.example.kudaki.model.response.MountainResponse;
 import com.example.kudaki.model.response.OrderHistoryResponse;
-import com.example.kudaki.model.response.OwnerHistoryData;
+import com.example.kudaki.model.response.OwnerHistoryReponse;
 import com.example.kudaki.model.response.ProfileResponse;
 import com.example.kudaki.model.response.StoreResponse;
 
@@ -48,10 +48,10 @@ public interface GetData {
                                      @Query("limit") int limit);
 
     @GET("/order/owner")
-    Call<OwnerHistoryData> ownerOrderHistory(@Header ("Kudaki-Token") String token,
-                                             @Query("limit") int limit,
-                                             @Query("offset") int offset,
-                                             @Query("order_status") String status);
+    Call<OwnerHistoryReponse> ownerOrderHistory(@Header ("Kudaki-Token") String token,
+                                                @Query("limit") int limit,
+                                                @Query("offset") int offset,
+                                                @Query("order_status") String status);
 
     @GET("/order/tenant")
     Call<OrderHistoryResponse> getOrderHistory(@Header ("Kudaki-Token") String token,

@@ -1,21 +1,24 @@
 package com.example.kudaki.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.R;
 import com.example.kudaki.model.response.Order;
+import com.example.kudaki.transaction.TenantDetailTransactionActivity;
+import com.orhanobut.hawk.Hawk;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,30 +51,18 @@ public class TenantTransactionAdapter extends RecyclerView.Adapter<TenantTransac
         holder.number.setText(list.get(position).getOrderNum());
         holder.status.setText(list.get(position).getStatus());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.CustomDialogTheme);
-                // Get the layout inflater
-                LayoutInflater inflater = LayoutInflater.from(v.getContext());
+        holder.cardView.setOnClickListener(v -> {
+            Hawk.init(context).build();
 
-                View view = inflater.inflate(R.layout.tenant_dialog_transaction, null);
-                TextView amount = view.findViewById(R.id.tenantTransactionAmount);
-                TextView price = view.findViewById(R.id.tenantTransactionPrice);
-                RecyclerView recyclerView = view.findViewById(R.id.rvTenantItem);
+            Hawk.put("owners", list.get(position).getOwners());
 
-                amount.setText(list.get(position).getTotalItem());
-                price.setText(list.get(position).getTotalPrice());
+            Locale localeID = new Locale("in", "ID");
+            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-                TransactionDetailAdapter adapter = new TransactionDetailAdapter(v.getContext(), list.get(position).getOwners());
-                adapter.setToken(token);
-                recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), RecyclerView.VERTICAL, false));
-                recyclerView.setAdapter(adapter);
-
-                builder.setNegativeButton("Tutup", (dialog, which) -> dialog.dismiss());
-
-                builder.show();
-            }
+            Intent intent = new Intent(context, TenantDetailTransactionActivity.class);
+            intent.putExtra("amount", String.valueOf(list.get(position).getTotalItem()));
+            intent.putExtra("price", formatRupiah.format(list.get(position).getTotalPrice()));
+            context.startActivity(intent);
         });
     }
 

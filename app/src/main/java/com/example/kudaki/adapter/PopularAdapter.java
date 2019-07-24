@@ -41,8 +41,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(list.get(position).getName());
-        holder.height.setText(list.get(position).getHeight());
+        holder.name.setText("Gunung " + list.get(position).getName());
+        holder.height.setText(list.get(position).getHeight() + " Mdpl");
 
         Glide.with(context)
                 .load(list.get(position).getPhotos().get(0).getFilePath())
@@ -50,7 +50,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
         holder.btnDetail.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), MountainActivity.class);
-            intent.putExtra("name", list.get(position).getName());
+            intent.putExtra("name", "Gunung " + list.get(position).getName());
             intent.putExtra("photo", list.get(position).getPhotos().get(0).getFilePath());
             intent.putExtra("height", list.get(position).getHeight());
             intent.putExtra("latitude", list.get(position).getLatitude());

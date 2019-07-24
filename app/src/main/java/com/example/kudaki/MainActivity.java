@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         data.getMountains().get(i).getLatitude(),
                         data.getMountains().get(i).getLongitude(),
                         data.getMountains().get(i).getDifficulty(),
-                        data.getMountains().get(i).getDescription()
+                        data.getMountains().get(i).getDescription(),
+                        data.getMountains().get(i).getPhotos()
                 ));
             }
             adapter = new PopularAdapter(this, list);
