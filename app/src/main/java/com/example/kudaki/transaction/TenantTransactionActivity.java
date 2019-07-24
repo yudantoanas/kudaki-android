@@ -2,6 +2,7 @@ package com.example.kudaki.transaction;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class TenantTransactionActivity extends AppCompatActivity implements Tena
 
         token = Hawk.get("token");
 
+        Log.d("status", "onCreate: " + getIntent());
         status = "PENDING";
         if (getIntent() != null) {
             status = getIntent().getExtras().getString("status");
