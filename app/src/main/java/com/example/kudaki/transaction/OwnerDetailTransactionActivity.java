@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OwnerDetailTransactionActivity extends AppCompatActivity implements OwnerDetailTransactionContract.View {
-    @BindView(R.id.tenantTransactionToolbar)
+    @BindView(R.id.ownerTransactionToolbar)
     Toolbar toolbar;
     @BindView(R.id.ownerDetailName)
     TextView name;
@@ -54,7 +54,7 @@ public class OwnerDetailTransactionActivity extends AppCompatActivity implements
         status = getIntent().getExtras().getString("status");
         uuid = getIntent().getExtras().getString("uuid");
 
-        presenter = new OwnerDetailTransactionPresenter(this, token, "uuid");
+        presenter = new OwnerDetailTransactionPresenter(this, token, uuid);
 
         progressDialog = new ProgressDialog(this);
 
@@ -123,6 +123,7 @@ public class OwnerDetailTransactionActivity extends AppCompatActivity implements
     @Override
     public void showActionSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     @Override

@@ -50,6 +50,7 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
 
         holder.detail.setOnClickListener(v -> {
             Intent intent = new Intent(context, MountainActivity.class);
+            intent.putExtra("uuid", list.get(position).getUuid());
             intent.putExtra("name", "Gunung " + list.get(position).getName());
             intent.putExtra("photo", list.get(position).getPhotos().get(0).getFilePath());
             intent.putExtra("height", list.get(position).getHeight());

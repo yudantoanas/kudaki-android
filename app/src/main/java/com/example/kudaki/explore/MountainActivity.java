@@ -37,7 +37,7 @@ public class MountainActivity extends AppCompatActivity {
     @BindView(R.id.fabGoogleMap)
     FloatingActionButton floatingActionButton;
 
-
+    String uuid;
     Bundle bundle;
 
     @Override
@@ -51,6 +51,8 @@ public class MountainActivity extends AppCompatActivity {
 
         bundle = getIntent().getExtras();
         toolbar.setTitle(bundle.getString("name"));
+
+        uuid = bundle.getString("uuid");
     }
 
     @Override
@@ -92,7 +94,7 @@ public class MountainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.mountain_menu, menu);
+        getMenuInflater().inflate(R.menu.explore_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -103,7 +105,9 @@ public class MountainActivity extends AppCompatActivity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.recommendation:
-
+                Intent intent = new Intent(this, RecommendationActivity.class);
+                intent.putExtra("uuid", uuid);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

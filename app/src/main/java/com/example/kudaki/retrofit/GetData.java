@@ -2,6 +2,7 @@ package com.example.kudaki.retrofit;
 
 import com.example.kudaki.model.response.AddressResponse;
 import com.example.kudaki.model.response.AllItemResponse;
+import com.example.kudaki.model.response.RecommendationResponse;
 import com.example.kudaki.model.response.CartResponse;
 import com.example.kudaki.model.response.MountainResponse;
 import com.example.kudaki.model.response.OrderHistoryResponse;
@@ -19,6 +20,18 @@ public interface GetData {
     Call<MountainResponse> getAllMountain(@Header("Kudaki-Token") String token,
                                           @Query("limit") int limit,
                                           @Query("offset") int offset);
+
+    @GET("/recommendations")
+    Call<RecommendationResponse> getAllRecommendation(@Header("Kudaki-Token") String token,
+                                                      @Query("mountain_uuid") String uuid,
+                                                      @Query("limit") int limit,
+                                                      @Query("offset") int offset);
+
+    @GET("/recommendation/items")
+    Call<RecommendationResponse> getRecommendationItems(@Header("Kudaki-Token") String token,
+                                                      @Query("recommended_gear_uuid") String uuid,
+                                                      @Query("limit") int limit,
+                                                      @Query("offset") int offset);
 
     @GET("/user-info/profile")
     Call<ProfileResponse> getProfile(@Header("Kudaki-Token") String token);

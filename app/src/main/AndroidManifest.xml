@@ -28,10 +28,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".transaction.TenantTransactionActivity" />
         </activity>
-        <activity android:name=".explore.RecommendationActivity" />
+        <activity android:name=".explore.RecommendationActivity"
+            android:label="Lihat Rekomendasi Alat"
+            android:parentActivityName=".explore.MountainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".explore.MountainActivity" />
+        </activity>
         <activity
             android:name=".transaction.OwnerTransactionActivity"
             android:label="Lihat Transaksi"
+            android:launchMode="singleTop"
             android:parentActivityName=".profile.ProfileActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -72,6 +81,7 @@
         <activity
             android:name=".transaction.TenantTransactionActivity"
             android:label="Lihat Transaksi"
+            android:launchMode="singleTop"
             android:parentActivityName=".profile.ProfileActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -107,6 +117,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".explore.MountainActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".explore.ExploreActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

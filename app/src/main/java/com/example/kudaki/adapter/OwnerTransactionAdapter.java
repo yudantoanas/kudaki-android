@@ -16,8 +16,11 @@ import com.example.kudaki.model.response.OrderOwner;
 import com.example.kudaki.transaction.OwnerDetailTransactionActivity;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +46,11 @@ public class OwnerTransactionAdapter extends RecyclerView.Adapter<OwnerTransacti
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.number.setText(list.get(position).getTenant().getFullName());
+        long epoch = list.get(position).getCreatedAt();
+        Date date = new Date(epoch*1000L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        holder.date.setText(dateFormat.format(date));
         holder.status.setText(list.get(position).getStatus());
 
         holder.cardView.setOnClickListener(v -> {
@@ -70,8 +77,8 @@ public class OwnerTransactionAdapter extends RecyclerView.Adapter<OwnerTransacti
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.transItemNumber)
-        TextView number;
+        @BindView(R.id.transItemDate)
+        TextView date;
         @BindView(R.id.transItemStatus)
         TextView status;
         @BindView(R.id.transactionItem)

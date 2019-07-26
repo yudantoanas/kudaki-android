@@ -17,8 +17,11 @@ import com.example.kudaki.transaction.TenantDetailTransactionActivity;
 import com.orhanobut.hawk.Hawk;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +51,11 @@ public class TenantTransactionAdapter extends RecyclerView.Adapter<TenantTransac
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.number.setText(list.get(position).getOrderNum());
+        long epoch = list.get(position).getCreatedAt();
+        Date date = new Date(epoch*1000L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        holder.date.setText(dateFormat.format(date));
         holder.status.setText(list.get(position).getStatus());
 
         holder.cardView.setOnClickListener(v -> {
@@ -74,8 +81,8 @@ public class TenantTransactionAdapter extends RecyclerView.Adapter<TenantTransac
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.transactionItem)
         CardView cardView;
-        @BindView(R.id.transItemNumber)
-        TextView number;
+        @BindView(R.id.transItemDate)
+        TextView date;
         @BindView(R.id.transItemStatus)
         TextView status;
 

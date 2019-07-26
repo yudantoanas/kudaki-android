@@ -71,6 +71,10 @@ public interface PostData {
     Call<DefaultResponse> updateStoreItem(@Header ("Kudaki-Token") String token,
                                           @Body RequestBody user);
 
+    @POST("/order/owner/rented")
+    Call<DefaultResponse> confirmRented(@Header ("Kudaki-Token") String token,
+                                       @Body RequestBody user);
+
     @POST("/order/owner/approve")
     Call<DefaultResponse> approveOrder(@Header ("Kudaki-Token") String token,
                                        @Body RequestBody user);

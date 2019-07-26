@@ -32,6 +32,12 @@ public class RecommendedGear {
     @Expose
     private String mountainPhoto;
 
+    public RecommendedGear(String uuid, Integer seen, String creatorFullName) {
+        this.uuid = uuid;
+        this.seen = seen;
+        this.creatorFullName = creatorFullName;
+    }
+
     public String getUuid() {
         return uuid;
     }

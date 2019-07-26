@@ -53,7 +53,7 @@ public class TenantTransactionActivity extends AppCompatActivity implements Tena
 
         Log.d("status", "onCreate: " + getIntent());
         status = "PENDING";
-        if (getIntent() != null) {
+        if (!getIntent().getStringExtra("status").isEmpty()) {
             status = getIntent().getExtras().getString("status");
         }
 

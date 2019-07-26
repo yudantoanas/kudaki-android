@@ -86,7 +86,7 @@ public class OwnerDetailTransactionPresenter implements OwnerDetailTransactionCo
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("owner_order_uuid", uuid)
                 .build();
-        Call<DefaultResponse> call = service.dissaproveOrder(token, requestBody);
+        Call<DefaultResponse> call = service.confirmRented(token, requestBody);
 
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
