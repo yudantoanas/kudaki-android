@@ -58,8 +58,10 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (list.get(position).getOwnerApprovalStatus() == "DONE") {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if (list.get(position).getOwnerApprovalStatus().equalsIgnoreCase("DONE")) {
+            Log.d("DETAIL", "onBindViewHolder: " + true);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
 
             builder.setTitle("Penyewaan selesai");
             builder.setMessage("Silahkan berikan penilaianmu untuk " + list.get(position).getFullName() +
@@ -69,50 +71,49 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
             builder.show();
 
             holder.review.setVisibility(View.VISIBLE);
-            holder.review.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.CustomDialogTheme);
+            holder.review.setOnClickListener(v -> {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context, R.style.CustomDialogTheme);
 
-                    LayoutInflater inflater = LayoutInflater.from(v.getContext());
+                LayoutInflater inflater = LayoutInflater.from(context);
 
-                    View view = inflater.inflate(R.layout.dialog_review, null);
-                    EditText review = view.findViewById(R.id.orderReview);
-                    EditText rating = view.findViewById(R.id.orderRating);
+                View view = inflater.inflate(R.layout.dialog_review, null);
+                EditText review = view.findViewById(R.id.orderReview);
+                EditText rating = view.findViewById(R.id.orderRating);
 
-                    builder.setPositiveButton("Kirim", (dialog, which) -> {
-                        if (review.getText().toString().isEmpty() && rating.getText().toString().isEmpty()) {
-                            Toast.makeText(v.getContext(), "Mohon berikan penilaianmu terlebih dahulu", Toast.LENGTH_SHORT).show();
-                        } else {
-                            PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-                            RequestBody requestBody = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("rating", rating.getText().toString())
-                                    .addFormDataPart("owner_order_uuid", list.get(position).getOwnerOrderUuid())
-                                    .addFormDataPart("review", review.getText().toString())
-                                    .build();
-                            Call<DefaultResponse> call = service.addReview(token, requestBody);
+                builder1.setTitle("Berikan Penilaianmu");
+                builder1.setView(view);
+                builder1.setPositiveButton("Kirim", (dialog, which) -> {
+                    if (review.getText().toString().isEmpty() && rating.getText().toString().isEmpty()) {
+                        Toast.makeText(v.getContext(), "Mohon berikan penilaianmu terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    } else {
+                        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("rating", rating.getText().toString())
+                                .addFormDataPart("owner_order_uuid", list.get(position).getOwnerOrderUuid())
+                                .addFormDataPart("review", review.getText().toString())
+                                .build();
+                        Call<DefaultResponse> call = service.addReview(token, requestBody);
 
-                            call.enqueue(new Callback<DefaultResponse>() {
-                                @Override
-                                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(v.getContext(), "Terima kasih atas penilaianmu", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    dialog.dismiss();
+                        call.enqueue(new Callback<DefaultResponse>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(v.getContext(), "Terima kasih atas penilaianmu", Toast.LENGTH_SHORT).show();
                                 }
 
-                                @Override
-                                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                                dialog.dismiss();
+                            }
 
-                                }
-                            });
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
-                    builder.show();
-                }
+                            }
+                        });
+                    }
+                });
+
+                builder1.show();
             });
         }
 

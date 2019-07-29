@@ -3,13 +3,24 @@
     package="com.example.kudaki">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".transaction.OwnerDetailTransactionActivity"
+        <activity android:name=".profile.etalase.AddEtalaseActivity"
+            android:label="Tambah Alat"
+            android:parentActivityName=".profile.etalase.EtalaseActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profile.etalase.EtalaseActivity" />
+        </activity>
+        <activity
+            android:name=".transaction.OwnerDetailTransactionActivity"
             android:label="Detil Transaksi"
             android:parentActivityName=".transaction.OwnerTransactionActivity">
 
@@ -28,7 +39,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".transaction.TenantTransactionActivity" />
         </activity>
-        <activity android:name=".explore.RecommendationActivity"
+        <activity
+            android:name=".explore.RecommendationActivity"
             android:label="Lihat Rekomendasi Alat"
             android:parentActivityName=".explore.MountainActivity">
 

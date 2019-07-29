@@ -1,6 +1,7 @@
 package com.example.kudaki.retrofit;
 
 import com.example.kudaki.model.response.DefaultResponse;
+import com.example.kudaki.model.response.FileResponse;
 import com.example.kudaki.model.response.LoginResponse;
 
 import okhttp3.RequestBody;
@@ -17,6 +18,9 @@ public interface PostData {
     @POST("/order/checkout")
     Call<DefaultResponse> checkout(@Header ("Kudaki-Token") String token,
                                    @Body RequestBody user);
+
+    @POST("/file")
+    Call<FileResponse> uploadFile(@Body RequestBody user);
 
     @POST("/order/owner-order-review")
     Call<DefaultResponse> addReview(@Header ("Kudaki-Token") String token,

@@ -1,16 +1,11 @@
 package com.example.kudaki.profile.etalase;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
@@ -79,43 +74,8 @@ public class EtalaseActivity extends AppCompatActivity implements EtalaseContrac
         super.onResume();
 
         fabAdd.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.CustomDialogTheme);
-
-            LayoutInflater inflater = getLayoutInflater();
-
-            View view = inflater.inflate(R.layout.dialog_etalase_add, null);
-            EditText name = view.findViewById(R.id.etalaseAddName);
-            EditText desc = view.findViewById(R.id.etalaseAddDesc);
-            EditText price = view.findViewById(R.id.etalaseAddPrice);
-
-            builder.setView(view)
-                    .setPositiveButton("Tambah", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-//                            String durr = "";
-//                            if (duration.getText().toString().equalsIgnoreCase("harian")){
-//                                durr = "DAY";
-//                            } else if (duration.getText().toString().equalsIgnoreCase("mingguan")) {
-//                                durr = "WEEK";
-//                            } else if (duration.getText().toString().equalsIgnoreCase("bulanan")) {
-//                                durr = "MONTH";
-//                            } else {
-//                                durr = "YEAR";
-//                            }
-
-                            contractPresenter.addItem(
-                                    name.getText().toString(),
-                                    desc.getText().toString(),
-                                    price.getText().toString(),
-                                    "DAY");
-                        }
-                    })
-                    .setNegativeButton("Tutup", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
-            builder.show();
+            Intent add = new Intent(this, AddEtalaseActivity.class);
+            startActivity(add);
         });
     }
 
@@ -158,13 +118,6 @@ public class EtalaseActivity extends AppCompatActivity implements EtalaseContrac
             rvEtalase.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
             rvEtalase.setAdapter(adapter);
         }
-    }
-
-    @Override
-    public void showAddSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        finish();
-        startActivity(new Intent(this, EtalaseActivity.class));
     }
 
     @Override

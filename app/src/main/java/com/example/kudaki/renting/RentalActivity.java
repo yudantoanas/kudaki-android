@@ -160,7 +160,7 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
                 ));
             }
         }
-        adapter = new RentalAdapter(this, list);
+        adapter = new RentalAdapter(this, data.getItems());
         adapter.notifyDataSetChanged();
         adapter.setToken(token);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

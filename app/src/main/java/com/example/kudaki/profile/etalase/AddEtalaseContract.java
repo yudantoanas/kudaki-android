@@ -2,16 +2,16 @@ package com.example.kudaki.profile.etalase;
 
 import com.example.kudaki.BasePresenter;
 import com.example.kudaki.BaseView;
-import com.example.kudaki.model.response.StoreData;
 
-public interface EtalaseContract {
+public interface AddEtalaseContract {
     interface View extends BaseView<Presenter> {
-        void showEtalaseItem(StoreData data);
         void showProgress();
         void closeProgress();
+        void showAddSuccess(String message);
+        void showAddFailed(String message);
     }
 
     interface Presenter extends BasePresenter {
-        void loadItems();
+        void addItem(String photo, String name, String desc, String price, String amount);
     }
 }

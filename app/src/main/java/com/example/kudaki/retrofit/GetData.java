@@ -2,6 +2,7 @@ package com.example.kudaki.retrofit;
 
 import com.example.kudaki.model.response.AddressResponse;
 import com.example.kudaki.model.response.AllItemResponse;
+import com.example.kudaki.model.response.FileResponse;
 import com.example.kudaki.model.response.RecommendationResponse;
 import com.example.kudaki.model.response.CartResponse;
 import com.example.kudaki.model.response.MountainResponse;
@@ -16,6 +17,9 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface GetData {
+    @GET("/file")
+    Call<FileResponse> getFile();
+
     @GET("/mountain")
     Call<MountainResponse> getAllMountain(@Header("Kudaki-Token") String token,
                                           @Query("limit") int limit,

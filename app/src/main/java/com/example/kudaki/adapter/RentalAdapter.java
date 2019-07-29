@@ -21,7 +21,7 @@ import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
 import java.text.NumberFormat;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -34,11 +34,11 @@ import retrofit2.Response;
 
 public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder> {
     Context context;
-    List<StoreItem> list;
+    ArrayList<StoreItem> list;
 
     String token;
 
-    public RentalAdapter(Context context, List<StoreItem> list) {
+    public RentalAdapter(Context context, ArrayList<StoreItem> list) {
         this.context = context;
         this.list = list;
     }

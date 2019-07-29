@@ -3,18 +3,18 @@ package com.example.kudaki.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class AllItemData {
     @SerializedName("items")
     @Expose
-    private List<StoreItem> items = null;
+    private ArrayList<StoreItem> items = null;
 
-    public List<StoreItem> getItems() {
+    public ArrayList<StoreItem> getItems() {
         return items;
     }
 
-    public void setItems(List<StoreItem> items) {
+    public void setItems(ArrayList<StoreItem> items) {
         this.items = items;
     }
 }

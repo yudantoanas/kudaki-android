@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
 import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.model.response.CartItem;
@@ -54,7 +55,11 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        holder.imageView.setImageResource(R.drawable.image_dummy);
+
+        Glide.with(context)
+                .load(list.get(position).getItem().getPhoto())
+                .into(holder.imageView);
+
         holder.name.setText(list.get(position).getItem().getName());
         holder.price.setText(formatRupiah.format(list.get(position).getItem().getPrice()) + "/hari");
 
