@@ -14,6 +14,7 @@ import com.example.kudaki.R;
 import com.example.kudaki.login.LoginActivity;
 import com.example.kudaki.profile.EditPasswordActivity;
 import com.example.kudaki.profile.EditProfileActivity;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,10 +22,10 @@ import butterknife.ButterKnife;
 public class SettingActivity extends AppCompatActivity implements SettingContract.View {
     @BindView(R.id.settingToolbar)
     Toolbar toolbar;
-    @BindView(R.id.cardEditProfile)
-    CardView editProfile;
     @BindView(R.id.cardEditPassword)
     CardView editPassword;
+    @BindView(R.id.cardEditProfile)
+    CardView editProfile;
     @BindView(R.id.cardLogout)
     CardView logout;
 
@@ -48,11 +49,15 @@ public class SettingActivity extends AppCompatActivity implements SettingContrac
     protected void onResume() {
         super.onResume();
 
-        editProfile.setOnClickListener(view ->
-                startActivity(new Intent(SettingActivity.this, EditProfileActivity.class)));
+        editPassword.setOnClickListener(view -> {
+            Intent password = new Intent(SettingActivity.this, EditPasswordActivity.class);
+            startActivity(password);
+        });
 
-        editPassword.setOnClickListener(view ->
-                startActivity(new Intent(SettingActivity.this, EditPasswordActivity.class)));
+        editProfile.setOnClickListener(view -> {
+            Intent password = new Intent(SettingActivity.this, EditProfileActivity.class);
+            startActivity(password);
+        });
 
         logout.setOnClickListener(view -> {
             contractPresenter.doLogout(this);
@@ -67,7 +72,12 @@ public class SettingActivity extends AppCompatActivity implements SettingContrac
     @Override
     public void showLogoutSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginActivity.class));
+        Intent login = new Intent(this, LoginActivity.class);
+        login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        Hawk.deleteAll();
+
+        startActivity(login);
         finish();
     }
 

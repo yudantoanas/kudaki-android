@@ -5,30 +5,30 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
 import com.example.kudaki.explore.MountainActivity;
-import com.example.kudaki.model.mountain.Mountain;
+import com.example.kudaki.model.response.Mountain;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHolder> {
     private Context context;
-    private List<Mountain> mountainList;
+    private ArrayList<Mountain> list;
 
-    public MountainAdapter(Context context, List<Mountain> mountainList) {
+    public MountainAdapter(Context context, ArrayList<Mountain> list) {
         this.context = context;
-        this.mountainList = mountainList;
+        this.list = list;
     }
 
     @NonNull
@@ -41,28 +41,41 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mountainName.setText(mountainList.get(position).getName());
+        holder.name.setText("Gunung " + list.get(position).getName());
+        holder.height.setText(list.get(position).getHeight() + " Mdpl");
 
-        // Glide
         Glide.with(context)
-                .load(mountainList.get(position).getPhotoPath())
-                .into(holder.mountainImage);
+                .load(list.get(position).getPhotos().get(0).getFilePath())
+                .into(holder.image);
 
-        holder.cardMountain.setOnClickListener(v -> context.startActivity(new Intent(context, MountainActivity.class)));
+        holder.detail.setOnClickListener(v -> {
+            Intent intent = new Intent(context, MountainActivity.class);
+            intent.putExtra("uuid", list.get(position).getUuid());
+            intent.putExtra("name", "Gunung " + list.get(position).getName());
+            intent.putExtra("photo", list.get(position).getPhotos().get(0).getFilePath());
+            intent.putExtra("height", list.get(position).getHeight());
+            intent.putExtra("latitude", list.get(position).getLatitude());
+            intent.putExtra("longitude", list.get(position).getLongitude());
+            intent.putExtra("difficulty", list.get(position).getDifficulty());
+            intent.putExtra("description", list.get(position).getDescription());
+            context.startActivity(intent);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mountainList.size();
+        return list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.cardMountain)
-        CardView cardMountain;
+        @BindView(R.id.itemMountDetail)
+        Button detail;
         @BindView(R.id.itemMountName)
-        TextView mountainName;
+        TextView name;
+        @BindView(R.id.itemMountHeight)
+        TextView height;
         @BindView(R.id.itemMountImage)
-        ImageView mountainImage;
+        ImageView image;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

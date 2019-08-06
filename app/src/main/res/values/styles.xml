@@ -48,4 +48,9 @@
         <item name="colorPrimary">@color/kudakiPrimaryDark</item>
     </style>
 
+    <!-- Radio Button Theme -->
+    <style name="RadioButtonTheme" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/ic_star</item>
+    </style>
+
 </resources>

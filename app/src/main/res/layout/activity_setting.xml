@@ -18,64 +18,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardEditProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settingToolbar">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/editProfileIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_profile_black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Pengaturan Profil"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/settingItemIcon"
-                app:layout_constraintStart_toEndOf="@+id/editProfileIcon"
-                app:layout_constraintTop_toTopOf="@+id/editProfileIcon" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/cardEditPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="1dp"
-        app:layout_constraintEnd_toEndOf="@+id/cardEditProfile"
-        app:layout_constraintStart_toStartOf="@+id/cardEditProfile"
-        app:layout_constraintTop_toBottomOf="@+id/cardEditProfile">
+        app:layout_constraintEnd_toEndOf="@+id/settingToolbar"
+        app:layout_constraintStart_toStartOf="@+id/settingToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/settingToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/editPasswordIcon"
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -92,9 +52,9 @@
                 android:layout_marginStart="16dp"
                 android:text="Ubah Kata Sandi"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/editPasswordIcon"
-                app:layout_constraintStart_toEndOf="@+id/editPasswordIcon"
-                app:layout_constraintTop_toTopOf="@+id/editPasswordIcon" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -106,16 +66,16 @@
         android:layout_marginTop="8dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="1dp"
-        app:layout_constraintEnd_toEndOf="@+id/cardEditProfile"
-        app:layout_constraintStart_toStartOf="@+id/cardEditProfile"
-        app:layout_constraintTop_toBottomOf="@+id/cardEditPassword">
+        app:layout_constraintEnd_toEndOf="@+id/cardEditPassword"
+        app:layout_constraintStart_toStartOf="@+id/cardEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/cardEditProfile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/logoutIcon"
+                android:id="@+id/imageView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -132,10 +92,48 @@
                 android:layout_marginStart="16dp"
                 android:text="Keluar"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/logoutIcon"
-                app:layout_constraintStart_toEndOf="@+id/logoutIcon"
-                app:layout_constraintTop_toTopOf="@+id/logoutIcon" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="@+id/imageView8" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardEditPassword"
+        app:layout_constraintStart_toStartOf="@+id/cardEditPassword"
+        app:layout_constraintTop_toBottomOf="@+id/cardEditPassword">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_profile_black" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Ubah Profil"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,27 +1,13 @@
 package com.example.kudaki.model.user;
 
-import com.example.kudaki.model.response.SuccessResponse;
-import com.example.kudaki.retrofit.PostData;
-import com.example.kudaki.retrofit.RetrofitClient;
-
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-
 public class User {
-    private String fullname, email, password, phone, photoPath, role, loginToken, loginMessage;
+    String fullname, email, password, phone, photoPath, role, loginToken, loginMessage;
 
-    public User() {
-    }
-
-    // constructor for creating user
     public User(String fullname, String email, String password, String phone) {
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;
         this.password = password;
-        this.role = "USER";
-        this.photoPath = "imgur.com/betul";
     }
 
     public String getLoginToken() {
@@ -38,22 +24,6 @@ public class User {
 
     public void setLoginMessage(String loginMessage) {
         this.loginMessage = loginMessage;
-    }
-
-    public Call<SuccessResponse> createUser() {
-        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("full_name", fullname)
-                .addFormDataPart("phone_number", phone)
-                .addFormDataPart("email", email)
-                .addFormDataPart("password", password)
-                .addFormDataPart("role", role)
-                .addFormDataPart("photo", photoPath)
-                .build();
-        Call<SuccessResponse> call = service.registerUser(requestBody);
-
-        return call;
     }
 
     public String getFullname() {

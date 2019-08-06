@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/kudakiPrimary"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileToolbar">
@@ -42,57 +43,31 @@
 
         <TextView
             android:id="@+id/profileName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="Yudanto Anas"
             android:textColor="@color/kudakiAccentWhite"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/profilePhoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/profilePhoto"
             app:layout_constraintTop_toTopOf="@+id/profilePhoto"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.49" />
 
         <TextView
-            android:id="@+id/profileLocation"
+            android:id="@+id/profilePhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Bandung"
+            android:text="TextView"
             android:textColor="@color/kudakiAccentWhite"
-            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintStart_toStartOf="@+id/profileName"
             app:layout_constraintTop_toBottomOf="@+id/profileName" />
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_location"
-            app:layout_constraintBottom_toBottomOf="@+id/profileLocation"
-            app:layout_constraintStart_toStartOf="@+id/profileName"
-            app:layout_constraintTop_toTopOf="@+id/profileLocation" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/profileTab"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:tabBackground="@color/kudakiPrimary"
-        app:tabTextColor="@color/kudakiAccentWhite" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/profileViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/profileNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileTab" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/profileNav"
@@ -104,4 +79,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/profileTab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/kudakiPrimary"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:tabRippleColor="@color/kudakiPrimaryDark"
+        app:tabTextColor="@color/kudakiAccentWhite" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/profileViewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/profileNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileTab" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

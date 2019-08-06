@@ -1,9 +1,11 @@
 package com.example.kudaki.profile;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,28 +14,42 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
-import com.example.kudaki.adapter.TabAdapter;
 import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
+import com.example.kudaki.model.response.AddressData;
+import com.example.kudaki.model.response.ProfileData;
+import com.example.kudaki.profile.owner.OwnerFragment;
+import com.example.kudaki.profile.tenant.TenantFragment;
 import com.example.kudaki.renting.RentalActivity;
 import com.example.kudaki.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements ProfileContract.View {
     @BindView(R.id.profileToolbar)
     Toolbar toolbar;
     @BindView(R.id.profileNav)
     BottomNavigationView bottomNav;
+    @BindView(R.id.profileName)
+    TextView name;
+    @BindView(R.id.profilePhone)
+    TextView phone;
     @BindView(R.id.profileTab)
-    TabLayout profileTab;
+    TabLayout tabLayout;
     @BindView(R.id.profileViewPager)
-    ViewPager profileViewPager;
+    ViewPager viewPager;
 
+    String token;
     TabAdapter adapter;
+
+    ProfileContract.Presenter contractPresenter;
+    ProfilePresenter profilePresenter;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +60,26 @@ public class ProfileActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserFragment(), "Pengguna");
-        adapter.addFragment(new OwnerFragment(), "Pemilik");
-        adapter.addFragment(new RecommendFragment(), "Rekomendasi");
+        Hawk.init(this).build();
 
-        profileViewPager.setAdapter(adapter);
-        profileTab.setupWithViewPager(profileViewPager);
+        token = Hawk.get("token");
+
+        profilePresenter = new ProfilePresenter(this, token);
+
+        progressDialog = new ProgressDialog(this);
+
+        adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TenantFragment(), "Pengguna");
+        adapter.addFragment(new OwnerFragment(), "Pemilik");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        contractPresenter.loadProfile();
     }
 
     @Override
@@ -93,10 +122,42 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.setting:
-                startActivity(new Intent(this, SettingActivity.class));
+                Intent setting = new Intent(this, SettingActivity.class);
+                setting.putExtra("token", token);
+                startActivity(setting);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setPresenter(ProfileContract.Presenter presenter) {
+        this.contractPresenter = presenter;
+    }
+
+    @Override
+    public void showProfileData(ProfileData data) {
+        name.setText(data.getProfile().getFullName());
+        phone.setText(data.getProfile().getPhoneNumber());
+    }
+
+    @Override
+    public void checkAddress(AddressData data) {
+
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle("Loading");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+    }
+
+    @Override
+    public void closeProgress() {
+        progressDialog.dismiss();
     }
 }

@@ -1,7 +1,9 @@
 package com.example.kudaki.forgotpwd;
 
+import android.util.Log;
+
+import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.ErrorResponse;
-import com.example.kudaki.model.response.SuccessResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 import com.google.gson.Gson;
@@ -26,19 +28,17 @@ public class ForgotPwdPresenter implements ForgotPwdContract.Presenter {
     @Override
     public void doSendEmail(String email) {
         view.showProgress();
-
-        // retrofit add to cart
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("email", email)
                 .build();
-        Call<SuccessResponse> call = service.sendForgotPwdEmail(requestBody);
-        call.enqueue(new Callback<SuccessResponse>() {
+        Call<DefaultResponse> call = service.sendForgotPwdEmail(requestBody);
+        call.enqueue(new Callback<DefaultResponse>() {
             @Override
-            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
-                view.closeProgress();
-                if (response.body() != null) {
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                Log.d("reset", "onResponse: " + response.code());
+                if (response.code() == 200) {
                     view.showSendSuccess("Berhasil terkirim! Silahkan cek email Anda.");
                 } else {
                     Gson gson = new GsonBuilder().create();
@@ -50,10 +50,11 @@ public class ForgotPwdPresenter implements ForgotPwdContract.Presenter {
                         e.printStackTrace();
                     }
                 }
+                view.closeProgress();
             }
 
             @Override
-            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
 
             }
         });

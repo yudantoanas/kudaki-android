@@ -28,6 +28,7 @@ public class ResetActivity extends AppCompatActivity implements ResetContract.Vi
     EditText confrimPwd;
     @BindView(R.id.resetToolbar)
     Toolbar toolbar;
+
     Intent intent;
     Uri data;
     String token;

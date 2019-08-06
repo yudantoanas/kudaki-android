@@ -40,23 +40,14 @@
             app:layout_constraintTop_toBottomOf="@+id/itemMountImage" />
 
         <TextView
-            android:id="@+id/itemMountLocation"
+            android:id="@+id/itemMountHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Lombok, Indonesia"
+            android:text="1200 Mdpl"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/itemMountName" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/itemMountLocation"
             app:layout_constraintStart_toStartOf="@+id/itemMountName"
-            app:layout_constraintTop_toTopOf="@+id/itemMountLocation"
-            app:srcCompat="@drawable/ic_location_black" />
+            app:layout_constraintTop_toBottomOf="@+id/itemMountName" />
 
         <Button
             android:id="@+id/itemMountDetail"
@@ -66,7 +57,7 @@
             android:layout_marginEnd="8dp"
             android:text="Lihat Detil"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/itemMountLocation"
+            app:layout_constraintBottom_toBottomOf="@+id/itemMountHeight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/itemMountName" />
     </androidx.constraintlayout.widget.ConstraintLayout>

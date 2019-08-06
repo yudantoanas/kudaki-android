@@ -1,5 +1,6 @@
 package com.example.kudaki.renting;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,17 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
-import com.example.kudaki.adapter.EquipmentAdapter;
+import com.example.kudaki.adapter.RentalAdapter;
 import com.example.kudaki.cart.CartActivity;
 import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
-import com.example.kudaki.model.equipment.Equipment;
-import com.example.kudaki.model.response.RentalResponse;
+import com.example.kudaki.model.response.AllItemData;
+import com.example.kudaki.model.response.StoreItem;
 import com.example.kudaki.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,15 +38,14 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
     @BindView(R.id.rvEquipment)
     RecyclerView recyclerView;
 
-    private List<Equipment> list;
-    private EquipmentAdapter adapter;
+    String token;
+    ArrayList<StoreItem> list;
+    RentalAdapter adapter;
 
     RentalContract.Presenter contractPresenter;
     RentalPresenter presenter;
 
-    private void loadEquipment() {
-
-    }
+    ProgressDialog progressDialog;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,23 +72,29 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         ButterKnife.bind(this);
 
-        presenter = new RentalPresenter(this, this);
-
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
+
+        progressDialog = new ProgressDialog(this);
+
+        presenter = new RentalPresenter(this, token);
 
         list = new ArrayList<>();
-        adapter = new EquipmentAdapter(this, list);
+    }
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setAdapter(adapter);
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        contractPresenter.loadItems();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        contractPresenter.loadItems();
 
         bottomNav.getMenu().getItem(3).setChecked(true);
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
@@ -122,24 +128,42 @@ public class RentalActivity extends AppCompatActivity implements RentalContract.
     }
 
     @Override
-    public void displayItems(RentalResponse.RentalData data) {
-        if (data.getTotal() == 0) {
+    public void showProgress() {
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle("Loading");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+    }
+
+    @Override
+    public void closeProgress() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void displayItems(AllItemData data) {
+        if (data.getItems() == null) {
             Toast.makeText(this, "List Alat Kosong", Toast.LENGTH_SHORT).show();
         } else {
             list.clear();
-            for (int x = 0; x < data.getItems().size(); x++) {
-                list.add(new Equipment(
-                        data.getItems().get(x).getProperties().getItemUuid(),
-                        data.getItems().get(x).getProperties().getStorefrontUuid(),
-                        data.getItems().get(x).getProperties().getItemName(),
-                        data.getItems().get(x).getProperties().getItemDescription(),
-                        data.getItems().get(x).getProperties().getItemPhoto(),
-                        data.getItems().get(x).getProperties().getItemPrice(),
-                        data.getItems().get(x).getProperties().getItemRating()
+            for (int i = 0; i < data.getItems().size(); i++) {
+                list.add(new StoreItem(
+                        data.getItems().get(i).getUuid(),
+                        data.getItems().get(i).getStorefrontUuid(),
+                        data.getItems().get(i).getName(),
+                        data.getItems().get(i).getPrice(),
+                        data.getItems().get(i).getPhoto(),
+                        data.getItems().get(i).getDescription(),
+                        data.getItems().get(i).getRating(),
+                        data.getItems().get(i).getPriceDuration()
                 ));
             }
-
-            adapter.notifyDataSetChanged();
         }
+        adapter = new RentalAdapter(this, data.getItems());
+        adapter.notifyDataSetChanged();
+        adapter.setToken(token);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(adapter);
     }
 }

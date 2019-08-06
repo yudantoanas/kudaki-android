@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kudaki.login.LoginActivity;
+import com.orhanobut.hawk.Hawk;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -13,22 +14,23 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*// check if already activity_login
-        SharedPreferences loginStatus = getSharedPreferences("loginStatus", MODE_PRIVATE);
-        boolean isLogin = loginStatus.getBoolean("isLogin", false);
-        // islogin = true, go to base activity
-        if (isLogin) {
+        Hawk.init(this).build();
+
+        Boolean isIntroOpened = Hawk.get("isIntroOpened");
+        String token = Hawk.get("token");
+
+        if (isIntroOpened == null) {
+            Intent tutorial = new Intent(this, TutorialActivity.class);
+            startActivity(tutorial);
+            finish();
+        } else if (token == null) {
+            Intent login = new Intent(this, LoginActivity.class);
+            startActivityForResult(login, 1);
+            finish();
+        } else {
             Intent home = new Intent(this, MainActivity.class);
             startActivity(home);
             finish();
-        } else {
-            Intent activity_login = new Intent(this, LoginActivity.class);
-            startActivityForResult(activity_login, 1);
-            finish();
-        }*/
-
-        Intent login = new Intent(this, LoginActivity.class);
-        startActivityForResult(login, 1);
-        finish();
+        }
     }
 }

@@ -1,16 +1,12 @@
 package com.example.kudaki.login;
 
-import android.content.Intent;
+import android.util.Log;
 
-import com.example.kudaki.model.response.Data;
 import com.example.kudaki.model.response.ErrorResponse;
-import com.example.kudaki.model.response.SuccessResponse;
+import com.example.kudaki.model.response.LoginData;
+import com.example.kudaki.model.response.LoginResponse;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,16 +19,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginPresenter implements LoginContract.Presenter {
-    private LoginContract.View loginView;
+    private LoginContract.View view;
 
     public LoginPresenter(LoginContract.View loginView) {
-        this.loginView = loginView;
-        this.loginView.setPresenter(this);
+        this.view = loginView;
+        this.view.setPresenter(this);
     }
 
     @Override
     public void doLogin(String email, String password) {
-        loginView.showProgress();
+        view.showProgress();
 
         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -40,63 +36,46 @@ public class LoginPresenter implements LoginContract.Presenter {
                 .addFormDataPart("email", email)
                 .addFormDataPart("password", password)
                 .build();
-        Call<SuccessResponse> call = service.loginUser(requestBody);
+        Call<LoginResponse> call = service.loginUser(requestBody);
 
-        call.enqueue(new Callback<SuccessResponse>() {
+        call.enqueue(new Callback<LoginResponse>() {
+
             @Override
-            public void onResponse(Call<SuccessResponse> call, Response<SuccessResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body() != null) {
-                    SuccessResponse resp = response.body();
+                    LoginResponse resp = response.body();
 
-                    Data data = resp.getData(); // simpan data.getToken di cache
-                    loginView.showOnLoginSuccess("Berhasil Login!", data.getToken());
+                    LoginData data = resp.getData(); // simpan data.getToken di cache
+                    Log.d("LoginPresenter", "onResponse: Token = "+ data.getToken());
+                    view.showOnLoginSuccess("Berhasil Login!", data.getToken());
+                } else if (response.code() >= 500) {
+                    view.showOnLoginFailed("Terjadi kesalahan pada server. Silahkan coba kembali.");
                 } else {
                     Gson gson = new GsonBuilder().create();
                     ErrorResponse errors;
                     try {
                         errors = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-                        loginView.showOnLoginFailed("Gagal Login! " + errors.getErrors().get(0));
+                        if (errors.getErrors().get(0).contains("email doesn't exists")) {
+                            view.showOnLoginFailed("Email tidak terdaftar");
+                        } else if (errors.getErrors().get(0).contains("wrong password")) {
+                            view.showOnLoginFailed("Password salah");
+                        } else if (errors.getErrors().get(0).contains("user wasn't verified")) {
+                            view.showOnLoginFailed("Akun belum diverifikasi");
+                        } else {
+                            view.showOnLoginFailed("Gagal masuk!");
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
-                        loginView.showOnLoginFailed("Terjadi Kesalahan!");
                     }
-
                 }
-                loginView.closeProgress();
+                view.closeProgress();
             }
 
             @Override
-            public void onFailure(Call<SuccessResponse> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
 
             }
         });
-    }
-
-    @Override
-    public void doGoogleLogin(Intent data) {
-        // The Task returned from this call is always completed, no need to attach
-        // a listener.
-        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-        try {
-            GoogleSignInAccount account = task.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            loginView.updateUI(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            loginView.updateUI(null);
-        }
-    }
-
-    @Override
-    public void linkSignupClicked() {
-        loginView.showSignupActivity(1);
-    }
-
-    @Override
-    public void linkForgotPwdClicked() {
-        loginView.showForgotPwdActivity();
     }
 
     @Override

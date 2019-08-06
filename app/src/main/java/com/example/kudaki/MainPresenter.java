@@ -1,47 +1,49 @@
 package com.example.kudaki;
 
-import com.example.kudaki.adapter.PopularAdapter;
-import com.example.kudaki.model.mountain.Mountain;
+import com.example.kudaki.model.response.MountainData;
+import com.example.kudaki.model.response.MountainResponse;
+import com.example.kudaki.retrofit.GetData;
+import com.example.kudaki.retrofit.RetrofitClient;
 
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainPresenter implements MainContract.Presenter {
-    private MainContract.View mainView;
+    String token;
+    MainContract.View view;
 
-    public MainPresenter(MainContract.View loginView) {
-        this.mainView = loginView;
-        this.mainView.setPresenter(this);
-    }
-
-    @Override
-    public void loadMountain(List<Mountain> mountainList, PopularAdapter popularAdapter) {
-        mountainList.clear();
-        mountainList.add(new Mountain(
-                1,
-                "Gunung Rinjani",
-                "https://cdn2.tstatic.net/kaltim/foto/bank/images/gunung-rinjani_20180908_102029.jpg",
-                "Mount Rinjani, Indonesia",
-                3.726,
-                -8.411295,
-                116.4485726
-        ));
-        mountainList.add(new Mountain(
-                2,
-                "Gunung Merbabu",
-                "http://cdn2.tstatic.net/bangka/foto/bank/images/gunung-merbabu.jpg",
-                "Mount Merbabu, Indonesia",
-                3.726,
-                -8.411295,
-                116.4485726
-        ));
-        popularAdapter.notifyDataSetChanged();
-
-        /*Mountain mountain = new Mountain();
-        mountain.getPopular();*/
+    public MainPresenter(MainContract.View view, String token) {
+        this.token = token;
+        this.view = view;
+        this.view.setPresenter(this);
     }
 
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void loadPopular() {
+        GetData service = RetrofitClient.getRetrofit().create(GetData.class);
+        Call<MountainResponse> call = service.getAllMountain(token, 5, 0);
+
+        call.enqueue(new Callback<MountainResponse>() {
+            @Override
+            public void onResponse(Call<MountainResponse> call, Response<MountainResponse> response) {
+                if (response.code() == 200) {
+                    MountainResponse resp = response.body();
+
+                    MountainData data = resp.getData();
+                    view.showPopularData(data);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MountainResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

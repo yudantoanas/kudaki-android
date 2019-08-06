@@ -2,8 +2,6 @@ package com.example.kudaki;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,14 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kudaki.adapter.PopularAdapter;
 import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
-import com.example.kudaki.model.mountain.Mountain;
+import com.example.kudaki.model.response.MountainData;
 import com.example.kudaki.profile.ProfileActivity;
 import com.example.kudaki.renting.RentalActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.orhanobut.hawk.Hawk;
 import com.synnapps.carouselview.CarouselView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,12 +31,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.carousel)
     CarouselView carouselView;
 
+    String token;
+
     MainPresenter mainPresenter;
     MainContract.Presenter contractPresenter;
-    int backPressCount = 0;
-    private List<Mountain> list;
-    private PopularAdapter adapter;
-    //    GoogleSignInClient mGoogleSignInClient;
+
+    PopularAdapter adapter;
 
     int[] sampleImages = {R.drawable.event_dummy_1, R.drawable.event_dummy_2};
 
@@ -53,34 +49,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         setSupportActionBar(toolbar);
 
-        mainPresenter = new MainPresenter(this);
+        Hawk.init(this).build();
+
+        token = Hawk.get("token");
+
+        mainPresenter = new MainPresenter(this, token);
 
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener((position, imageView) -> imageView.setImageResource(sampleImages[position]));
-
-        list = new ArrayList<>();
-        adapter = new PopularAdapter(this, list);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
-
-        contractPresenter.loadMountain(list, adapter);
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .requestProfile()
-//                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        // e.g. check if user logged in or not
+
+        contractPresenter.loadPopular();
     }
 
     @Override
@@ -119,44 +102,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+    public void showPopularData(MountainData data) {
+        if (data.getMountains() == null) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.optNotification:
-                // intent notification
-                return true;
+        } else {
+            adapter = new PopularAdapter(this, data.getMountains());
+            adapter.notifyDataSetChanged();
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+            recyclerView.setAdapter(adapter);
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        backPressCount++;
-//        if (backPressCount < 2) {
-//            Toast.makeText(this, "Press back button two times", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Exiting app", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        // destroy loginStatus preference
-//        SharedPreferences loginStatus = getSharedPreferences("loginStatus", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = loginStatus.edit();
-//        editor.remove("isLogin");
-//        editor.apply();
     }
 }

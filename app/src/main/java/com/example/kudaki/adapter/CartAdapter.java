@@ -1,33 +1,30 @@
 package com.example.kudaki.adapter;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.R;
-import com.example.kudaki.model.cart.Cart;
+import com.example.kudaki.model.response.Storefront;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
-    private Context context;
-    private List<Cart> list;
+    Context context;
+    ArrayList<Storefront> list;
 
-    boolean btnState = false;
+    CartItemAdapter adapter;
 
-    public CartAdapter(Context context, List<Cart> list) {
+    public CartAdapter(Context context, ArrayList<Storefront> list) {
         this.context = context;
         this.list = list;
     }
@@ -42,30 +39,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.btnCheckout.setOnClickListener(v -> {
-            // send request then
-            // change button text to "Hubungi Pemilik"
-            if (btnState) {
-                try {
-                    String number = "628112326009"; // get owner number
+        holder.name.setText(list.get(position).getOwnerName());
 
-                    Intent whatsApp = new Intent();
-                    whatsApp.setAction(Intent.ACTION_SEND);
-                    whatsApp.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
-                    whatsApp.putExtra("jid", number + "@s.whatsapp.net");
-
-                    context.startActivity(whatsApp);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(context, "Harap install WhatsApp terlebih dahulu", Toast.LENGTH_LONG).show();
-                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")));
-                }
-            } else {
-                holder.btnCheckout.setText("Hubungi Pemilik Alat");
-                holder.btnCheckout.setBackgroundColor(context.getResources().getColor(R.color.kudakiPrimary));
-                btnState = true;
-            }
-        });
+        adapter = new CartItemAdapter(context, list.get(position).getCartItems());
+        holder.recyclerView.setAdapter(adapter);
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
     }
 
     @Override
@@ -74,9 +52,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.cartCheckout)
-        Button btnCheckout;
-        @BindView(R.id.cartEquipmentList)
+        @BindView(R.id.cartName)
+        TextView name;
+        @BindView(R.id.cartList)
         RecyclerView recyclerView;
 
         public ViewHolder(@NonNull View itemView) {
