@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kudaki.adapter.PopularAdapter;
 import com.example.kudaki.event.EventActivity;
 import com.example.kudaki.explore.ExploreActivity;
-import com.example.kudaki.model.response.Mountain;
 import com.example.kudaki.model.response.MountainData;
 import com.example.kudaki.profile.ProfileActivity;
 import com.example.kudaki.renting.RentalActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.orhanobut.hawk.Hawk;
 import com.synnapps.carouselview.CarouselView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     MainPresenter mainPresenter;
     MainContract.Presenter contractPresenter;
 
-    ArrayList<Mountain> list;
     PopularAdapter adapter;
 
     int[] sampleImages = {R.drawable.event_dummy_1, R.drawable.event_dummy_2};
@@ -61,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener((position, imageView) -> imageView.setImageResource(sampleImages[position]));
-
-        list = new ArrayList<>();
     }
 
     @Override
@@ -112,19 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (data.getMountains() == null) {
 
         } else {
-            list.clear();
-            for (int i = 0; i < data.getMountains().size(); i++) {
-                list.add(new Mountain(
-                        data.getMountains().get(i).getName(),
-                        data.getMountains().get(i).getHeight(),
-                        data.getMountains().get(i).getLatitude(),
-                        data.getMountains().get(i).getLongitude(),
-                        data.getMountains().get(i).getDifficulty(),
-                        data.getMountains().get(i).getDescription(),
-                        data.getMountains().get(i).getPhotos()
-                ));
-            }
-            adapter = new PopularAdapter(this, list);
+            adapter = new PopularAdapter(this, data.getMountains());
             adapter.notifyDataSetChanged();
             recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
             recyclerView.setAdapter(adapter);

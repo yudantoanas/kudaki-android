@@ -1,8 +1,11 @@
 package com.example.kudaki.explore;
 
+import com.example.kudaki.model.request.RecommendationRequest;
+import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.RecommendationData;
 import com.example.kudaki.model.response.RecommendationResponse;
 import com.example.kudaki.retrofit.GetData;
+import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
 import retrofit2.Call;
@@ -44,6 +47,31 @@ public class RecommendationPresenter implements RecommendationContract.Presenter
             }
         });
     }
+
+    @Override
+    public void add(RecommendationRequest request) {
+        view.showProgress();
+        PostData service = RetrofitClient.getRetrofit().create(PostData.class);
+        Call<DefaultResponse> call = service.addRecommendation(token, "application/json", request);
+
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                if (response.code() == 200) {
+                    view.showAddSuccess("Berhasil Tambah");
+                } else {
+                    view.showAddFailed("Gagal Tambah");
+                }
+                view.closeProgress();
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     @Override
     public void start() {

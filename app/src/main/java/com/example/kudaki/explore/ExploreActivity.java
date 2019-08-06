@@ -13,14 +13,11 @@ import com.example.kudaki.MainActivity;
 import com.example.kudaki.R;
 import com.example.kudaki.adapter.MountainAdapter;
 import com.example.kudaki.event.EventActivity;
-import com.example.kudaki.model.response.Mountain;
 import com.example.kudaki.model.response.MountainData;
 import com.example.kudaki.profile.ProfileActivity;
 import com.example.kudaki.renting.RentalActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +35,6 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
     ExploreContract.Presenter contractPresenter;
     ExplorePresenter presenter;
 
-    ArrayList<Mountain> list;
     MountainAdapter adapter;
 
     ProgressDialog progressDialog;
@@ -55,8 +51,6 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
         Hawk.init(this).build();
 
         token = Hawk.get("token");
-
-        list = new ArrayList<>();
 
         progressDialog = new ProgressDialog(this);
 
@@ -100,18 +94,6 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
         });
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-//        getMenuInflater().inflate(R.menu.explore_menu, menu);
-//        // Get the SearchView and set the searchable configuration
-//        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.optSearchMountain).getActionView();
-//        // Assumes current activity is the searchable activity
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-//        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
     @Override
     public void showProgress() {
         progressDialog.setMax(100);
@@ -131,19 +113,7 @@ public class ExploreActivity extends AppCompatActivity implements ExploreContrac
         if (data.getMountains() == null) {
 
         } else {
-            list.clear();
-            for (int i = 0; i < data.getMountains().size(); i++) {
-                list.add(new Mountain(
-                        data.getMountains().get(i).getName(),
-                        data.getMountains().get(i).getHeight(),
-                        data.getMountains().get(i).getLatitude(),
-                        data.getMountains().get(i).getLongitude(),
-                        data.getMountains().get(i).getDifficulty(),
-                        data.getMountains().get(i).getDescription(),
-                        data.getMountains().get(i).getPhotos()
-                ));
-            }
-            adapter = new MountainAdapter(this, list);
+            adapter = new MountainAdapter(this, data.getMountains());
             adapter.notifyDataSetChanged();
             recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
             recyclerView.setAdapter(adapter);

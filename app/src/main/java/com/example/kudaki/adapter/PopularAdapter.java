@@ -50,6 +50,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
         holder.btnDetail.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), MountainActivity.class);
+            intent.putExtra("uuid", list.get(position).getUuid());
             intent.putExtra("name", "Gunung " + list.get(position).getName());
             intent.putExtra("photo", list.get(position).getPhotos().get(0).getFilePath());
             intent.putExtra("height", list.get(position).getHeight());

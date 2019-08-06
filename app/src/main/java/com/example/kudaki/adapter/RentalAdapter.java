@@ -2,6 +2,7 @@ package com.example.kudaki.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
 import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.StoreItem;
+import com.example.kudaki.renting.DetailEquipmentActivity;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
@@ -103,6 +106,18 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                 }
             });
         });
+
+        holder.card.setOnClickListener(v -> {
+            Intent detail = new Intent(context, DetailEquipmentActivity.class);
+            detail.putExtra("uuid", list.get(position).getUuid());
+            detail.putExtra("name", list.get(position).getName());
+            detail.putExtra("amount", list.get(position).getAmount());
+            detail.putExtra("price", list.get(position).getPrice());
+            detail.putExtra("desc", list.get(position).getDescription());
+            detail.putExtra("photo", list.get(position).getPhoto());
+            detail.putExtra("rating", list.get(position).getRating());
+            context.startActivity(detail);
+        });
     }
 
     @Override
@@ -111,6 +126,8 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.rentalItemCard)
+        CardView card;
         @BindView(R.id.rentalItemRating)
         TextView rating;
         @BindView(R.id.rentalItemTitle)

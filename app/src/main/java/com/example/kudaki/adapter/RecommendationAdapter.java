@@ -1,6 +1,8 @@
 package com.example.kudaki.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kudaki.R;
+import com.example.kudaki.explore.AddRecommendationItemActivity;
 import com.example.kudaki.model.response.RecommendationData;
 import com.example.kudaki.model.response.RecommendationResponse;
 import com.example.kudaki.model.response.RecommendedGear;
@@ -52,6 +55,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("NAME", "onBindViewHolder: " + list.get(position).getCreatorFullName());
         holder.name.setText(list.get(position).getCreatorFullName());
         holder.seen.setText(String.valueOf(list.get(position).getSeen()));
         holder.detail.setOnClickListener(v -> {
@@ -66,6 +70,11 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
             builder.setTitle("Rekomendasi Alat");
             builder.setNeutralButton("Tutup", (dialog, which) -> dialog.dismiss());
+            builder.setPositiveButton("Tambah Alat Lain", (dialog, which) -> {
+                Intent intent = new Intent(context, AddRecommendationItemActivity.class);
+                intent.putExtra("uuid", list.get(position).getUuid());
+                context.startActivity(intent);
+            });
             builder.setView(view);
 
             GetData service = RetrofitClient.getRetrofit().create(GetData.class);
@@ -82,8 +91,6 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
                         RecommendDetailAdapter adapter = new RecommendDetailAdapter(context, data.getRecommendedGearItems());
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-                        builder.show();
                     }
                 }
 
@@ -92,6 +99,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
                 }
             });
+            builder.show();
         });
     }
 

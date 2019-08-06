@@ -1,5 +1,6 @@
 package com.example.kudaki.retrofit;
 
+import com.example.kudaki.model.request.RecommendationRequest;
 import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.FileResponse;
 import com.example.kudaki.model.response.LoginResponse;
@@ -18,6 +19,15 @@ public interface PostData {
     @POST("/order/checkout")
     Call<DefaultResponse> checkout(@Header ("Kudaki-Token") String token,
                                    @Body RequestBody user);
+
+    @POST("/recommendation")
+    Call<DefaultResponse> addRecommendation(@Header ("Kudaki-Token") String token,
+                                            @Header ("Content-Type") String contentType,
+                                            @Body RecommendationRequest body);
+
+    @POST("/recommendation/item")
+    Call<DefaultResponse> addRecommendationItem(@Header ("Kudaki-Token") String token,
+                                            @Body RequestBody body);
 
     @POST("/file")
     Call<FileResponse> uploadFile(@Body RequestBody user);

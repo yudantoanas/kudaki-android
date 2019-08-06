@@ -16,9 +16,14 @@ public class SplashActivity extends AppCompatActivity {
 
         Hawk.init(this).build();
 
+        Boolean isIntroOpened = Hawk.get("isIntroOpened");
         String token = Hawk.get("token");
 
-        if (token == null) {
+        if (isIntroOpened == null) {
+            Intent tutorial = new Intent(this, TutorialActivity.class);
+            startActivity(tutorial);
+            finish();
+        } else if (token == null) {
             Intent login = new Intent(this, LoginActivity.class);
             startActivityForResult(login, 1);
             finish();

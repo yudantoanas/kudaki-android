@@ -9,7 +9,7 @@
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carousel"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         app:fillColor="@color/kudakiAccentWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

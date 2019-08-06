@@ -34,16 +34,6 @@ public class Mountain {
     @Expose
     private ArrayList<Photo> photos = null;
 
-    public Mountain(String name, Integer height, Double latitude, Double longitude, Double difficulty, String description, ArrayList<Photo> photos) {
-        this.name = name;
-        this.height = height;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.difficulty = difficulty;
-        this.description = description;
-        this.photos = photos;
-    }
-
     public String getUuid() {
         return uuid;
     }

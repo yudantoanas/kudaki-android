@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,18 +79,25 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
 
                 View view = inflater.inflate(R.layout.dialog_review, null);
                 EditText review = view.findViewById(R.id.orderReview);
-                EditText rating = view.findViewById(R.id.orderRating);
+                RadioGroup rating = view.findViewById(R.id.orderRating);
+
+                rating.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    }
+                });
 
                 builder1.setTitle("Berikan Penilaianmu");
                 builder1.setView(view);
                 builder1.setPositiveButton("Kirim", (dialog, which) -> {
-                    if (review.getText().toString().isEmpty() && rating.getText().toString().isEmpty()) {
+                    if (review.getText().toString().isEmpty()) {
                         Toast.makeText(v.getContext(), "Mohon berikan penilaianmu terlebih dahulu", Toast.LENGTH_SHORT).show();
                     } else {
                         PostData service = RetrofitClient.getRetrofit().create(PostData.class);
                         RequestBody requestBody = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM)
-                                .addFormDataPart("rating", rating.getText().toString())
+                                .addFormDataPart("rating", "")
                                 .addFormDataPart("owner_order_uuid", list.get(position).getOwnerOrderUuid())
                                 .addFormDataPart("review", review.getText().toString())
                                 .build();
@@ -116,7 +124,6 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
                 builder1.show();
             });
         }
-
         holder.name.setText(list.get(position).getFullName());
         holder.phone.setOnClickListener(v -> {
             try {
