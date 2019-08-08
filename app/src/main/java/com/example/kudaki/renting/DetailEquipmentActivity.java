@@ -84,7 +84,7 @@ public class DetailEquipmentActivity extends AppCompatActivity implements Detail
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
         Glide.with(this)
-                .load(getIntent().getStringExtra("photo"))
+                .load("https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium//760/eiger_eiger-tas-daypack-base-camp---hitam_full04.jpg")
                 .into(image);
 
         Log.d("PHOTO", "onStart: " + getIntent().getStringExtra("photo"));

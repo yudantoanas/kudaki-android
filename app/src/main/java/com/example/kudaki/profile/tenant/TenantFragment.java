@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TenantFragment extends Fragment {
+public class TenantFragment extends Fragment implements TenantContract.View {
     @BindView(R.id.tenantPending)
     ConstraintLayout pending;
     @BindView(R.id.tenantApproved)
@@ -29,8 +30,27 @@ public class TenantFragment extends Fragment {
     ConstraintLayout rented;
     @BindView(R.id.tenantDone)
     ConstraintLayout done;
+    @BindView(R.id.tenantPendingBadge)
+    ConstraintLayout pendingBadge;
+    @BindView(R.id.tenantApprovedBadge)
+    ConstraintLayout approvedBadge;
+    @BindView(R.id.tenantRentedBadge)
+    ConstraintLayout rentedBadge;
+    @BindView(R.id.tenantDoneBadge)
+    ConstraintLayout doneBadge;
+    @BindView(R.id.tenantPendingNumber)
+    TextView pendingNumber;
+    @BindView(R.id.tenantApprovedNumber)
+    TextView approvedNumber;
+    @BindView(R.id.tenantRentedNumber)
+    TextView rentedNumber;
+    @BindView(R.id.tenantDoneNumber)
+    TextView doneNumber;
 
     String token;
+
+    TenantContract.Presenter contractPresenter;
+    TenantPresenter presenter;
 
     public TenantFragment() {
         // Required empty public constructor
@@ -46,7 +66,24 @@ public class TenantFragment extends Fragment {
 
         token = Hawk.get("token");
 
+        presenter = new TenantPresenter(this, token);
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        pendingBadge.setVisibility(View.INVISIBLE);
+        approvedBadge.setVisibility(View.INVISIBLE);
+        rentedBadge.setVisibility(View.INVISIBLE);
+        doneBadge.setVisibility(View.INVISIBLE);
+
+        contractPresenter.loadPendingNumber();
+        contractPresenter.loadApprovedNumber();
+        contractPresenter.loadRentedNumber();
+        contractPresenter.loadDoneNumber();
     }
 
     @Override
@@ -88,5 +125,42 @@ public class TenantFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void setPresenter(TenantContract.Presenter presenter) {
+        this.contractPresenter = presenter;
+    }
+
+    @Override
+    public void showPending(int number) {
+        if (number != 0) {
+            pendingBadge.setVisibility(View.VISIBLE);
+            pendingNumber.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void showApproved(int number) {
+        if (number != 0) {
+            approvedBadge.setVisibility(View.VISIBLE);
+            approvedNumber.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void showRented(int number) {
+        if (number != 0) {
+            rentedBadge.setVisibility(View.VISIBLE);
+            rentedNumber.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void showDone(int number) {
+        if (number != 0) {
+            doneBadge.setVisibility(View.VISIBLE);
+            doneNumber.setText(String.valueOf(number));
+        }
     }
 }

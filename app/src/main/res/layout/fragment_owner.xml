@@ -200,4 +200,124 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ownerPendingBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ownerPending"
+        app:layout_constraintTop_toTopOf="@+id/ownerPending">
+
+        <ImageView
+            android:id="@+id/ownerPendingCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/ownerPendingNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/kudakiAccentWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/ownerPendingCircle"
+            app:layout_constraintEnd_toEndOf="@+id/ownerPendingCircle"
+            app:layout_constraintStart_toStartOf="@+id/ownerPendingCircle"
+            app:layout_constraintTop_toTopOf="@+id/ownerPendingCircle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ownerAcceptedBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ownerAccepted"
+        app:layout_constraintTop_toTopOf="@+id/ownerAccepted">
+
+        <ImageView
+            android:id="@+id/ownerAcceptedCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/ownerAcceptedNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/kudakiAccentWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/ownerAcceptedCircle"
+            app:layout_constraintEnd_toEndOf="@+id/ownerAcceptedCircle"
+            app:layout_constraintStart_toStartOf="@+id/ownerAcceptedCircle"
+            app:layout_constraintTop_toTopOf="@+id/ownerAcceptedCircle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ownerRentedBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ownerRented"
+        app:layout_constraintTop_toTopOf="@+id/ownerRented">
+
+        <ImageView
+            android:id="@+id/ownerRentedCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/ownerRentedNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/kudakiAccentWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/ownerRentedCircle"
+            app:layout_constraintEnd_toEndOf="@+id/ownerRentedCircle"
+            app:layout_constraintStart_toStartOf="@+id/ownerRentedCircle"
+            app:layout_constraintTop_toTopOf="@+id/ownerRentedCircle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ownerDoneBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ownerDone"
+        app:layout_constraintTop_toTopOf="@+id/ownerDone">
+
+        <ImageView
+            android:id="@+id/ownerDoneCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/ownerDoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/kudakiAccentWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/ownerDoneCircle"
+            app:layout_constraintEnd_toEndOf="@+id/ownerDoneCircle"
+            app:layout_constraintStart_toStartOf="@+id/ownerDoneCircle"
+            app:layout_constraintTop_toTopOf="@+id/ownerDoneCircle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

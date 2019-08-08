@@ -1,6 +1,9 @@
 package com.example.kudaki.profile.owner;
 
 import com.example.kudaki.model.response.DefaultResponse;
+import com.example.kudaki.model.response.OwnerHistoryData;
+import com.example.kudaki.model.response.OwnerHistoryReponse;
+import com.example.kudaki.retrofit.GetData;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
 
@@ -57,6 +60,106 @@ public class OwnerPresenter implements OwnerContract.Presenter {
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadPendingNumber() {
+        GetData service = RetrofitClient.getRetrofit().create(GetData.class);
+        Call<OwnerHistoryReponse> call = service.ownerOrderHistory(token, 50, 0, "PENDING");
+
+        call.enqueue(new Callback<OwnerHistoryReponse>() {
+            @Override
+            public void onResponse(Call<OwnerHistoryReponse> call, Response<OwnerHistoryReponse> response) {
+                if (response.code() == 200) {
+                    OwnerHistoryReponse resp = response.body();
+
+                    OwnerHistoryData data = resp.getData();
+                    if (data.getOrders() != null) {
+                        view.showPending(data.getOrders().size());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OwnerHistoryReponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadApprovedNumber() {
+        GetData service = RetrofitClient.getRetrofit().create(GetData.class);
+        Call<OwnerHistoryReponse> call = service.ownerOrderHistory(token, 50, 0, "APPROVED");
+
+        call.enqueue(new Callback<OwnerHistoryReponse>() {
+            @Override
+            public void onResponse(Call<OwnerHistoryReponse> call, Response<OwnerHistoryReponse> response) {
+                if (response.code() == 200) {
+                    OwnerHistoryReponse resp = response.body();
+
+                    OwnerHistoryData data = resp.getData();
+                    if (data.getOrders() != null) {
+                        view.showApproved(data.getOrders().size());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OwnerHistoryReponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadRentedNumber() {
+        GetData service = RetrofitClient.getRetrofit().create(GetData.class);
+        Call<OwnerHistoryReponse> call = service.ownerOrderHistory(token, 50, 0, "RENTED");
+
+        call.enqueue(new Callback<OwnerHistoryReponse>() {
+            @Override
+            public void onResponse(Call<OwnerHistoryReponse> call, Response<OwnerHistoryReponse> response) {
+                if (response.code() == 200) {
+                    OwnerHistoryReponse resp = response.body();
+
+                    OwnerHistoryData data = resp.getData();
+                    if (data.getOrders() != null) {
+                        view.showRented(data.getOrders().size());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OwnerHistoryReponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadDoneNumber() {
+        GetData service = RetrofitClient.getRetrofit().create(GetData.class);
+        Call<OwnerHistoryReponse> call = service.ownerOrderHistory(token, 50, 0, "DONE");
+
+        call.enqueue(new Callback<OwnerHistoryReponse>() {
+            @Override
+            public void onResponse(Call<OwnerHistoryReponse> call, Response<OwnerHistoryReponse> response) {
+                if (response.code() == 200) {
+                    OwnerHistoryReponse resp = response.body();
+
+                    OwnerHistoryData data = resp.getData();
+                    if (data.getOrders() != null) {
+                        view.showDone(data.getOrders().size());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OwnerHistoryReponse> call, Throwable t) {
 
             }
         });

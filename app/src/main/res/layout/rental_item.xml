@@ -18,11 +18,11 @@
             android:id="@+id/rentalItemImage"
             android:layout_width="0dp"
             android:layout_height="150dp"
+            android:src="@drawable/image_splash"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/image_3" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/rentalItemTitle"

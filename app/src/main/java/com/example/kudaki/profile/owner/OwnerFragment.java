@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
@@ -39,6 +40,22 @@ public class OwnerFragment extends Fragment implements OwnerContract.View{
     CardView etalase;
     @BindView(R.id.ownerAddItem)
     Button btnAdd;
+    @BindView(R.id.ownerPendingBadge)
+    ConstraintLayout pendingBadge;
+    @BindView(R.id.ownerAcceptedBadge)
+    ConstraintLayout approvedBadge;
+    @BindView(R.id.ownerRentedBadge)
+    ConstraintLayout rentedBadge;
+    @BindView(R.id.ownerDoneBadge)
+    ConstraintLayout doneBadge;
+    @BindView(R.id.ownerPendingNumber)
+    TextView pendingNumber;
+    @BindView(R.id.ownerAcceptedNumber)
+    TextView approvedNumber;
+    @BindView(R.id.ownerRentedNumber)
+    TextView rentedNumber;
+    @BindView(R.id.ownerDoneNumber)
+    TextView doneNumber;
 
     String token;
 
@@ -66,6 +83,21 @@ public class OwnerFragment extends Fragment implements OwnerContract.View{
         progressDialog = new ProgressDialog(view.getContext());
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        pendingBadge.setVisibility(View.INVISIBLE);
+        approvedBadge.setVisibility(View.INVISIBLE);
+        rentedBadge.setVisibility(View.INVISIBLE);
+        doneBadge.setVisibility(View.INVISIBLE);
+
+        contractPresenter.loadPendingNumber();
+        contractPresenter.loadApprovedNumber();
+        contractPresenter.loadRentedNumber();
+        contractPresenter.loadDoneNumber();
     }
 
     @Override
@@ -141,6 +173,38 @@ public class OwnerFragment extends Fragment implements OwnerContract.View{
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), EtalaseActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void showPending(int number) {
+        if (number != 0) {
+            pendingBadge.setVisibility(View.VISIBLE);
+            pendingNumber.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void showApproved(int number) {
+        if (number != 0) {
+            approvedBadge.setVisibility(View.VISIBLE);
+            approvedNumber.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void showRented(int number) {
+        if (number != 0) {
+            rentedBadge.setVisibility(View.VISIBLE);
+            rentedNumber.setText(String.valueOf(number));
+        }
+    }
+
+    @Override
+    public void showDone(int number) {
+        if (number != 0) {
+            doneBadge.setVisibility(View.VISIBLE);
+            doneNumber.setText(String.valueOf(number));
+        }
     }
 
     @Override

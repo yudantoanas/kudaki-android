@@ -57,7 +57,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
         Glide.with(context)
-                .load(list.get(position).getItem().getPhoto())
+                .load("https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium//760/eiger_eiger-tas-daypack-base-camp---hitam_full04.jpg")
                 .into(holder.imageView);
 
         holder.name.setText(list.get(position).getItem().getName());

@@ -15,13 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.kudaki.R;
 import com.example.kudaki.model.response.DefaultResponse;
 import com.example.kudaki.model.response.StoreItem;
 import com.example.kudaki.renting.DetailEquipmentActivity;
 import com.example.kudaki.retrofit.PostData;
 import com.example.kudaki.retrofit.RetrofitClient;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -66,8 +66,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
         holder.price.setText(formatRupiah.format(list.get(position).getPrice()) + "/hari");
         holder.rating.setText(String.valueOf(list.get(position).getRating()));
 
-        Glide.with(context)
-                .load(list.get(position).getPhoto())
+        Picasso.get().load("https://www.static-src.com/wcsstore/Indraprastha/images/catalog/medium//760/eiger_eiger-tas-daypack-base-camp---hitam_full04.jpg")
                 .into(holder.image);
 
         holder.btnAdd.setOnClickListener(v -> {
